@@ -32,7 +32,7 @@ public class Exam {
 
 	private LocalTime startTime;
 	
-	private LocalTime lastTime;
+	private LocalTime endTime;
 	
 	private String courseName;
 	
