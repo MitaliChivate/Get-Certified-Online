@@ -8,7 +8,7 @@ public interface TrainingProgramInterface {
 
 	public TrainingProgram addTrainingProgram(TrainingProgram trainingProgram);
 
-	public void deleteTrainingProgram(Integer trainingProgramId);
+	public Integer deleteTrainingProgram(Long trainingProgramId);
 
 	public TrainingProgramInterface searchTrainingProgram(Integer trainingProgramId);
 

@@ -1,9 +1,12 @@
 package com.cg.beans;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,8 +22,13 @@ import lombok.Setter;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int userId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sequence")
+	@SequenceGenerator(name = "user_id_sequence", initialValue = 100000, allocationSize = 1)
+	private long userId;
+
+	private String firstName;
+
+	private String lastName;
 
 	private String userName;
 
@@ -34,6 +42,6 @@ public class User {
 
 	private String role;
 
-	private int age;
+	private LocalDate dateOfBirth;
 
 }

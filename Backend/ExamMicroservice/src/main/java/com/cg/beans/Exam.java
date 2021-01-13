@@ -7,8 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -25,8 +24,9 @@ import lombok.Setter;
 public class Exam {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer examId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "exam_id_sequence")
+	@SequenceGenerator(name = "exam_id_sequence", initialValue = 300000, allocationSize = 1)
+	private long examId;
 
 	private LocalDate examDate;
 
@@ -34,8 +34,9 @@ public class Exam {
 	
 	private LocalTime endTime;
 	
-	private String courseName;
+	private String examName;
 	
 	private Integer examCost;
 
+	private String description;
 }

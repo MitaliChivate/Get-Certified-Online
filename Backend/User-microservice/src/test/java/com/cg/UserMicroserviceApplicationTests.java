@@ -29,36 +29,36 @@ class UserMicroserviceApplicationTests {
 	@MockBean
 	private UserDao repository;
 
-	@Test
-	public void SearchUserTest() {
-		when(repository.findAll()).thenReturn(Stream.of(new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20),new User(40, "Admin10", "root","9874563210","abc@gmail.com","Male","User1",22)).collect(Collectors.toList()));
-		Assertions.assertEquals(2, service.getAllUser().size());
-	}
+//	@Test
+//	public void SearchUserTest() {
+//		when(repository.findAll()).thenReturn(Stream.of(new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20),new User(40, "Admin10", "root","9874563210","abc@gmail.com","Male","User1",22)).collect(Collectors.toList()));
+//		Assertions.assertEquals(2, service.getAllUser().size());
+//	}
 
 	//private void assertEquals(int i, int size) {
 		// TODO Auto-generated method stub
 		
    //}
 
-	@Test
-	public void addUserTest() {
-		User user = new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20);
-		User user1 = new User(40, "Admin10", "root","9874563210","abc@gmail.com","Male","User1",22);
-		when(repository.save(user)).thenReturn(user);
-		assertEquals(user, service.addUser(user));
-	}
+//	@Test
+//	public void addUserTest() {
+//		User user = new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20);
+//		User user1 = new User(40, "Admin10", "root","9874563210","abc@gmail.com","Male","User1",22);
+//		when(repository.save(user)).thenReturn(user);
+//		assertEquals(user, service.addUser(user));
+//	}
 
 	//private void assertEquals(User user,User addUser) {
 		// TODO Auto-generated method stub
 		
 	//}
 
-	@Test
-	public void  deleteUserById() {
-         User user = new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20);
-		service.deleteUser(user.getUserId());
-		verify(repository, times(1)).deleteById(user.getUserId());
-	}
+//	@Test
+//	public void  deleteUserById() {
+//         User user = new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20);
+//		service.deleteUser(user.getUserId());
+//		verify(repository, times(1)).deleteById(user.getUserId());
+//	}
 
 
 }

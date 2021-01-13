@@ -6,8 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,8 +23,9 @@ import lombok.Setter;
 public class Payment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer paymentId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_id_sequence")
+	@SequenceGenerator(name = "payment_id_sequence", initialValue = 400000, allocationSize = 1)
+	private long paymentId;
 
 	private String paymentMode;
 
@@ -33,12 +33,18 @@ public class Payment {
 
 	private Integer amount;
 	
-	@ManyToOne
-	@JoinColumn(name = "USER_ID")
-	private User user;
+	private int userId;
 	
-	@ManyToOne
-	@JoinColumn(name = "COURSE_ID")
-	private TrainingProgram course;
+//	@ManyToOne
+//	@JoinColumn(name = "COURSE_ID")
+//	private TrainingProgram course;
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "EXAM_ID")
+//	private TrainingProgram examId;
+	
+	private int enrollmentId;
+	
+	private int trainingOrExam; //0 for exam, -1 for training  
 
 }

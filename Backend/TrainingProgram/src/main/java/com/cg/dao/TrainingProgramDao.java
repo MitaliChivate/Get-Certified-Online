@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cg.beans.TrainingProgram;
 
 @Repository
-public interface TrainingProgramDao  extends JpaRepository<TrainingProgram, Integer>  {
+public interface TrainingProgramDao  extends JpaRepository<TrainingProgram, Long>  {
 
 }
