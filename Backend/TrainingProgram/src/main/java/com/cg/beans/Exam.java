@@ -1,6 +1,7 @@
 package com.cg.beans;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,9 +30,9 @@ public class Exam {
 
 	private LocalDate examDate;
 
-//	@OneToOne
-//	@JoinColumn(name = "COURSE_ID")
-//	private TrainingProgram course;
+	private LocalTime startTime;
+	
+	private LocalTime lastTime;
 	
 	private String courseName;
 	
