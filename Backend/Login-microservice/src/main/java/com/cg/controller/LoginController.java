@@ -3,6 +3,8 @@ package com.cg.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,24 +25,35 @@ import com.cg.service.LoginService;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping("/healthcaresystem")
+@RequestMapping("/authentication")
 public class LoginController {
 
 	@Autowired
 	private LoginService service;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	
+	//{ "firstName": "Ajinkya","lastName": "Hase","userName" :"ajinkyahase007","password" :"password", "mobileNo" : 9867543665, "email" : "ajinkyahase007@gmail.com", "gender": "Male",  "dateOfBirth": "1998-10-25"}
+	@GetMapping("/login")
 	public User loginUser(@RequestBody Login user) {
-		String tempUsername = user.getUserName();
-		String tempPassword = user.getPassword();
-		User userObj ;
-		if (tempUsername != null && tempPassword != null) {
-			userObj = service.getUserByUserNameAndPassword(tempUsername, tempPassword);
-			return userObj ;
-		}
-			
-	   return null ;
+//		String tempUsername = user.getUserName();
+//		String tempPassword = user.getPassword();
+//		User userObj ;
+//		if (tempUsername != null && tempPassword != null) {
+//			userObj = service.getUserByUserNameAndPassword(tempUsername, tempPassword);
+//			return userObj ;
+//		}
+//			
+//	   return null ;
+	   return service.loginUser(user);
+	   
 
+	}
+	
+	@PostMapping("/register")
+	public User registerUser(@RequestBody User user) {
+		
+		return service.addUser(user);
+		
 	}
 
 }

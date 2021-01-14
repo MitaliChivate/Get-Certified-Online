@@ -1,5 +1,6 @@
 package com.cg.service;
 
+import com.cg.bean.Login;
 import com.cg.bean.User;
 
 public interface LoginService {
@@ -9,5 +10,7 @@ public interface LoginService {
 	public User addUser(User user);
 
 	public User getUserByUserNameAndPassword(String tempUsername, String tempPassword);
+
+	public User loginUser(Login user);
 
 }
