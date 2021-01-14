@@ -57,7 +57,7 @@ public class TrainingProgramController {
 	public List<TrainingProgram> searchTrainingProgram(@PathVariable long trainingProgramId) {//method to fetch training program details trainingProgram Id
 		
 		List<TrainingProgram> tp = this.service.searchTrainingProgramById(trainingProgramId);
-		if (tp == null)
+		if (tp.isEmpty())
 			throw new NoValueFoundException("TrainingProgram with trainingProgram Id:" + trainingProgramId + "does not exist");
 		else
 			return tp;
@@ -67,7 +67,7 @@ public class TrainingProgramController {
 	public List<TrainingProgram> searchTrainingProgramByCourse(@PathVariable String trainingCourse) {//method to fetch training program details trainingProgram Id
 		
 		List<TrainingProgram> tp1 = this.service.searchTrainingProgramByCourse(trainingCourse);
-		if (tp1 == null)
+		if (tp1.isEmpty())
 			throw new NoValueFoundException("TrainingProgram with trainingProgram Id:" + trainingCourse + "does not exist");
 		else
 			return tp1;
