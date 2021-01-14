@@ -10,8 +10,15 @@ public interface TrainingProgramInterface {
 
 	public Integer deleteTrainingProgram(Long trainingProgramId);
 
-	public TrainingProgramInterface searchTrainingProgram(Integer trainingProgramId);
+	//public TrainingProgram searchTrainingProgram(Long trainingProgramId);
+	public List<TrainingProgram> searchTrainingProgramById(Long trainingProgramId);
+	
+	public List<TrainingProgram> searchTrainingProgramByCourse(String trainingCourse);
+	
+	public TrainingProgram updatetrainingProgram(TrainingProgram trainingProgram);
 
-	public List<TrainingProgramInterface> searchAllTrainingProgram();
+	//public List<TrainingProgram> searchAllTrainingProgram();
+
+	List<TrainingProgram> GetAllTrainingProgram();
 
 }

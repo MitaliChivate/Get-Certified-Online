@@ -1,6 +1,7 @@
 package com.cg.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,16 +38,39 @@ public class TrainingProgramImpl implements TrainingProgramInterface {
 
 	}
 
-	@Override
-	public TrainingProgramInterface searchTrainingProgram(Integer trainingProgramId) {
+	/*
+	 * @Override public TrainingProgram searchTrainingProgram(Long
+	 * trainingProgramId) {
+	 * 
+	 * return this.trainingDao.findAll().stream().filter(x->x.getTrainingProgramId()
+	 * == trainingProgramId).findAny().get();
+	 * 
+	 * }
+	 */
 
-		return null;
+
+	@Override
+	public List<TrainingProgram> GetAllTrainingProgram() {
+
+		return this.trainingDao.findAll();
 	}
 
 	@Override
-	public List<TrainingProgramInterface> searchAllTrainingProgram() {
+	public TrainingProgram updatetrainingProgram(TrainingProgram trainingProgram) {
+		// TODO Auto-generated method stub
+		return this.trainingDao.save(trainingProgram);
+	}
 
-		return null;
+	@Override
+	public List<TrainingProgram> searchTrainingProgramById(Long trainingProgramId) {
+		
+			return this.trainingDao.findAll().stream().filter(x->x.getTrainingProgramId().equals(trainingProgramId)).collect(Collectors.toList());
+		}
+
+	@Override
+	public List<TrainingProgram> searchTrainingProgramByCourse(String trainingCourse) {
+		// TODO Auto-generated method stub
+	 return this.trainingDao.findAll().stream().filter(x->x.getTrainingCourse().equals(trainingCourse)).collect(Collectors.toList());
 	}
 
 }
