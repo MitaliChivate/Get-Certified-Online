@@ -49,7 +49,7 @@ public class TrainingTests {
 	
 	
 	@Test
-	void findAllItems()
+	void findAllTrainingPrograms()
 	{
 		
 
