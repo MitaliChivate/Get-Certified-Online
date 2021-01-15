@@ -58,23 +58,23 @@ public class TrainingProgramController {
 		
 		List<TrainingProgram> tp = this.service.searchTrainingProgramById(trainingProgramId);
 		if (tp.isEmpty())
-			throw new NoValueFoundException("TrainingProgram with trainingProgram Id:" + trainingProgramId + "does not exist");
+			throw new NoValueFoundException("TrainingProgram with trainingProgram Id:" + trainingProgramId + " does not exist");
 		else
 			return tp;
 	}
 	
 	@GetMapping(value ="/search1/{trainingCourse}")
-	public List<TrainingProgram> searchTrainingProgramByCourse(@PathVariable String trainingCourse) {//method to fetch training program details trainingProgram Id
+	public List<TrainingProgram> searchTrainingProgramByCourse(@PathVariable String trainingCourse) {//method to fetch training program details trainingCourse
 		
 		List<TrainingProgram> tp1 = this.service.searchTrainingProgramByCourse(trainingCourse);
 		if (tp1.isEmpty())
-			throw new NoValueFoundException("TrainingProgram with trainingProgram Id:" + trainingCourse + "does not exist");
+			throw new NoValueFoundException("TrainingProgram with trainingProgram Id:" + trainingCourse + " does not exist");
 		else
 			return tp1;
 	}
 
 	@PutMapping("/updateTrainingProgram")
-	public TrainingProgram updatetrainingProgram(@RequestBody TrainingProgram trainingProgram) {//method to update the customer details
+	public TrainingProgram updatetrainingProgram(@RequestBody TrainingProgram trainingProgram) {//method to update the training details
 		
 		return this.service.updatetrainingProgram(trainingProgram);
 	}
