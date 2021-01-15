@@ -50,25 +50,16 @@ public class TrainingProgramController {
 	
 	@GetMapping("/all")
 	public List<TrainingProgram> getAllTrainingProgram() {//method to fetch all training program details
-		
-		List<TrainingProgram> trainings = this.service.GetAllTrainingProgram();
-		if (trainings.isEmpty())
-			throw new NotPossibleException("List of trainings not found");
-		else
-			return trainings;
+		return service.GetAllTrainingProgram();
 	}
 	
 	/**
 	 * http://localhost:9300/TrainingProgram/search/200001
 	 */
 	@GetMapping(value ="/search/{trainingProgramId}")
-	public List<TrainingProgram> searchTrainingProgram(@PathVariable long trainingProgramId) {//method to fetch training program details trainingProgram Id
+	public TrainingProgram searchTrainingProgram(@PathVariable long trainingProgramId) {//method to fetch training program details trainingProgram Id
 		
-		List<TrainingProgram> tp = this.service.searchTrainingProgramById(trainingProgramId);
-		if (tp.isEmpty())
-			throw new NoValueFoundException("TrainingProgram with trainingProgram Id:" + trainingProgramId + " does not exist");
-		else
-			return tp;
+		return service.searchTrainingProgramById(trainingProgramId);
 	}
 	
 
@@ -78,11 +69,7 @@ public class TrainingProgramController {
 	@GetMapping(value ="/search1/{trainingCourse}")
 	public List<TrainingProgram> searchTrainingProgramByCourse(@PathVariable String trainingCourse) {//method to fetch training program details trainingCourse
 		
-		List<TrainingProgram> tp1 = this.service.searchTrainingProgramByCourse(trainingCourse);
-		if (tp1.isEmpty())
-			throw new NoValueFoundException("TrainingProgram with trainingProgram Id:" + trainingCourse + " does not exist");
-		else
-			return tp1;
+		return service.searchTrainingProgramByCourse(trainingCourse);
 	}
 
 	/**
