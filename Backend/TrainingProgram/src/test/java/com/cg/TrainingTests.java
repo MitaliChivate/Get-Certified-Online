@@ -1,13 +1,18 @@
 package com.cg;
+
 import org.junit.jupiter.api.Test;
 
+
 import com.cg.beans.TrainingProgram;
+import com.cg.dao.TrainingProgramDao;
 import com.cg.service.TrainingProgramImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -70,25 +75,18 @@ public class TrainingTests {
 		assertFalse(tp2.isEmpty());
 	}
 	
-	
-	
-	/*
-	 * @Test public void removeById() {
-	 * 
-	 * ////TrainingProgram trainingProgram1 = new TrainingProgram(200001L, "Java",
-	 * "Programming Language", 2000, 60);
-	 * 
-	 * TrainingProgramImpl trainingService = mock(TrainingProgramImpl.class);
-	 * 
-	 * // when(trainingService.addTrainingProgram(trainingProgram1)).thenReturn(
-	 * trainingProgram1);
-	 * 
-	 * TrainingProgram trainingProgram2 =
-	 * trainingService.deleteTrainingProgram(200001L);
-	 * 
-	 * assertEquals(trainingProgram1, trainingProgram2);
-	 * 
-	 * //assertEquals(true, trainingService.deleteTrainingProgram(200001L)); }
-	 */
 
+	@Test
+	public void deleteTrainingTest() {
+
+		TrainingProgram trainingProgram1 = new TrainingProgram(200001L, "Java", "Programming Language", 2000, 60);
+		TrainingProgramImpl trainingService = mock(TrainingProgramImpl.class);
+		trainingService.addTrainingProgram(trainingProgram1);
+		 
+		 when(trainingService.deleteTrainingProgram(200001L)).thenReturn((int) 200001L);
+		 Integer trainingProgram2 = trainingService.deleteTrainingProgram(200001L);
+			assertEquals((int) 200001L, trainingProgram2);
+	}
+
+	
 }
