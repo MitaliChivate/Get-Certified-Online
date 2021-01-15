@@ -4,15 +4,12 @@ import org.junit.jupiter.api.Test;
 
 
 import com.cg.beans.TrainingProgram;
-import com.cg.dao.TrainingProgramDao;
 import com.cg.service.TrainingProgramImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;

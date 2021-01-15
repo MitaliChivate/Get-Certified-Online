@@ -30,6 +30,7 @@ public class TrainingProgramController {
 
 	/* 
 	 * http://localhost:9300/TrainingProgram/addTrainingProgram
+	 * "trainingCourse" :"Java","description" : "Programming Language","trainingCost" : 2000,"noOfDays" : 60	
 	 * */
 	@PostMapping(value = "/addTrainingProgram")
 	public TrainingProgram addTrainingProgram(@RequestBody TrainingProgram trainingProgram) {
@@ -43,6 +44,10 @@ public class TrainingProgramController {
 		return service.deleteTrainingProgram(trainingId);
 		
 	}
+	/**
+	 * http://localhost:9300/TrainingProgram/all
+	 */
+	
 	@GetMapping("/all")
 	public List<TrainingProgram> getAllTrainingProgram() {//method to fetch all training program details
 		
@@ -53,6 +58,9 @@ public class TrainingProgramController {
 			return trainings;
 	}
 	
+	/**
+	 * http://localhost:9300/TrainingProgram/search/200001
+	 */
 	@GetMapping(value ="/search/{trainingProgramId}")
 	public List<TrainingProgram> searchTrainingProgram(@PathVariable long trainingProgramId) {//method to fetch training program details trainingProgram Id
 		
@@ -63,6 +71,10 @@ public class TrainingProgramController {
 			return tp;
 	}
 	
+
+	/**
+	 * http://localhost:9300/TrainingProgram/search1/Java
+	 */
 	@GetMapping(value ="/search1/{trainingCourse}")
 	public List<TrainingProgram> searchTrainingProgramByCourse(@PathVariable String trainingCourse) {//method to fetch training program details trainingCourse
 		
@@ -73,6 +85,11 @@ public class TrainingProgramController {
 			return tp1;
 	}
 
+	/**
+	 * http://localhost:9300/TrainingProgram/updateTrainingProgram
+	 * "trainingProgramId": 200001,"trainingCourse" :"Python",description" : "Programming Language", "trainingCost" : 2000,"noOfDays" : 60
+	 */
+	
 	@PutMapping("/updateTrainingProgram")
 	public TrainingProgram updatetrainingProgram(@RequestBody TrainingProgram trainingProgram) {//method to update the training details
 		
