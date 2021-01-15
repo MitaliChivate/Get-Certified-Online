@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.naming.NameNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import com.cg.dao.TrainingProgramDao;
 import com.cg.exception.NoValueFoundException;
 import com.cg.exception.NotPossibleException;
 
-import javassist.NotFoundException;
 
 @Service
 public class TrainingProgramImpl implements TrainingProgramInterface {
@@ -59,7 +57,7 @@ public class TrainingProgramImpl implements TrainingProgramInterface {
 
 	@Override
 	public TrainingProgram updatetrainingProgram(TrainingProgram trainingProgram) {
-		// TODO Auto-generated method stub
+		TrainingProgram  TrainingProgram = searchTrainingProgramById(trainingProgram.getTrainingProgramId());
 		return this.trainingDao.save(trainingProgram);
 	}
 
