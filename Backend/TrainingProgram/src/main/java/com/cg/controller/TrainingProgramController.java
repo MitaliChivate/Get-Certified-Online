@@ -57,7 +57,7 @@ public class TrainingProgramController {
 	 * http://localhost:9300/TrainingProgram/search/200001
 	 */
 	@GetMapping(value ="/search/{trainingProgramId}")
-	public List<TrainingProgram> searchTrainingProgram(@PathVariable long trainingProgramId) {//method to fetch training program details trainingProgram Id
+	public TrainingProgram searchTrainingProgram(@PathVariable long trainingProgramId) {//method to fetch training program details trainingProgram Id
 		
 		return service.searchTrainingProgramById(trainingProgramId);
 	}

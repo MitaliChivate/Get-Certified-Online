@@ -15,6 +15,8 @@ import com.cg.dao.TrainingProgramDao;
 import com.cg.exception.NoValueFoundException;
 import com.cg.exception.NotPossibleException;
 
+import javassist.NotFoundException;
+
 @Service
 public class TrainingProgramImpl implements TrainingProgramInterface {
 
@@ -62,15 +64,10 @@ public class TrainingProgramImpl implements TrainingProgramInterface {
 	}
 
 	@Override
-	public List<TrainingProgram> searchTrainingProgramById(Long trainingProgramId) {
+	public TrainingProgram searchTrainingProgramById(Long trainingProgramId) {
 		
-			
-			 List<TrainingProgram> trainingList=new ArrayList<>();
-			 trainingList = trainingDao.findAll().stream().filter(x->x.getTrainingProgramId().equals(trainingProgramId)).collect(Collectors.toList());
-		      if(trainingList.isEmpty())
-		  			throw new NoValueFoundException("TrainingProgram with trainingProgram Id:" + trainingProgramId + " does not exist");
-		  		else
-		  			return trainingList;
+		return trainingDao.findById(trainingProgramId).orElseThrow(()-> new NoValueFoundException("Training ID Not Found"));
+
 		}
 
 	@Override

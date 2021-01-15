@@ -11,7 +11,7 @@ public interface TrainingProgramInterface {
 	public Integer deleteTrainingProgram(Long trainingProgramId);
 
 	//public TrainingProgram searchTrainingProgram(Long trainingProgramId);
-	public List<TrainingProgram> searchTrainingProgramById(Long trainingProgramId);
+	public TrainingProgram searchTrainingProgramById(Long trainingProgramId);
 	
 	public List<TrainingProgram> searchTrainingProgramByCourse(String trainingCourse);
 	
