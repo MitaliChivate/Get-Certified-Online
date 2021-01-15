@@ -1,5 +1,9 @@
 package com.cg.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +30,30 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public User addUser(User user) {
-		user.setRole("user");
+		user.setRole("user");	
 		String tempUsername;
 		tempUsername=user.getUserName();
-		if(tempUsername!=null && !"".equals(tempUsername))
+		User user1=this.getUserByUserName(tempUsername);
+		if(tempUsername!=null) {
+			if(user1 != null)
 			throw new NotFoundException("Username", "already exist !");
-		return userDao.save(user);
+			return userDao.save(user);
+		}	
+		else 
+			return null;
+			
+//		if(user.getUserName()!=null)
+//		{
+//			userList=userDao.findAll().stream().filter(x->x.getUserName().equals(user.getUserName())).collect(Collectors.toList());
+//			if(userList.isEmpty())
+//				return userDao.save(user);
+//			else
+//				throw new NotFoundException("Username", "already exist !");
+//
+//		}
+//		return null;
+		
+		
 	}
 
 	@Override

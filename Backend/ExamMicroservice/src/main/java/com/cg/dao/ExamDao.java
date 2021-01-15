@@ -10,4 +10,5 @@ import com.cg.beans.Exam;
 @Repository
 public interface ExamDao extends JpaRepository<Exam, Long> {
 
+	
 }
