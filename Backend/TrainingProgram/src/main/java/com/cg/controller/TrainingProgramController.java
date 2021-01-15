@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.beans.TrainingProgram;
-import com.cg.exception.NoValueFoundException;
-import com.cg.exception.NotPossibleException;
 import com.cg.service.TrainingProgramInterface;
 
 
@@ -36,6 +34,8 @@ public class TrainingProgramController {
 	public TrainingProgram addTrainingProgram(@RequestBody TrainingProgram trainingProgram) {
 		return this.service.addTrainingProgram(trainingProgram);
 	}
+	
+	
 	/**
 	 * http://localhost:9300/TrainingProgram/deleteTrainingProgram/1
 	 */
@@ -45,18 +45,18 @@ public class TrainingProgramController {
 		
 	}
 	/**
-	 * http://localhost:9300/TrainingProgram/all
+	 * http://localhost:9300/TrainingProgram/searchAllTrainingProgram
 	 */
 	
-	@GetMapping("/all")
+	@GetMapping("/searchAllTrainingProgram")
 	public List<TrainingProgram> getAllTrainingProgram() {//method to fetch all training program details
 		return service.GetAllTrainingProgram();
 	}
 	
 	/**
-	 * http://localhost:9300/TrainingProgram/search/200001
+	 * http://localhost:9300/TrainingProgram/searchTrainingProgramById/200001
 	 */
-	@GetMapping(value ="/search/{trainingProgramId}")
+	@GetMapping(value ="/searchTrainingProgramById/{trainingProgramId}")
 	public TrainingProgram searchTrainingProgram(@PathVariable long trainingProgramId) {//method to fetch training program details trainingProgram Id
 		
 		return service.searchTrainingProgramById(trainingProgramId);
@@ -64,9 +64,8 @@ public class TrainingProgramController {
 	
 
 	/**
-	 * http://localhost:9300/TrainingProgram/search1/Java
 	 */
-	@GetMapping(value ="/search1/{trainingCourse}")
+	@GetMapping(value ="/searchTrainingProgramByCourse/{trainingCourse}")
 	public List<TrainingProgram> searchTrainingProgramByCourse(@PathVariable String trainingCourse) {//method to fetch training program details trainingCourse
 		
 		return service.searchTrainingProgramByCourse(trainingCourse);
@@ -74,7 +73,7 @@ public class TrainingProgramController {
 
 	/**
 	 * http://localhost:9300/TrainingProgram/updateTrainingProgram
-	 * "trainingProgramId": 200001,"trainingCourse" :"Python",description" : "Programming Language", "trainingCost" : 2000,"noOfDays" : 60
+	 * "trainingProgramId": 200001,"trainingCourse" :"Python", "description" : "Programming Language", "trainingCost" : 2000,"noOfDays" : 60
 	 */
 	
 	@PutMapping("/updateTrainingProgram")

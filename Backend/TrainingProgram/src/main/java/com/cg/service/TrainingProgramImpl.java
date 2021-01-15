@@ -70,7 +70,6 @@ public class TrainingProgramImpl implements TrainingProgramInterface {
 
 	@Override
 	public List<TrainingProgram> searchTrainingProgramByCourse(String trainingCourse) {
-		// TODO Auto-generated method stub
 		 List<TrainingProgram> trainingList=new ArrayList<>();
 		 trainingList = trainingDao.findAll().stream().filter(x->x.getTrainingCourse().equals(trainingCourse)).collect(Collectors.toList());
 	      if(trainingList.isEmpty())
