@@ -33,7 +33,7 @@ public class Payment {
 
 	private Integer amount;
 
-	private int userId;
+	private Long userId;
 
 //	@ManyToOne
 //	@JoinColumn(name = "COURSE_ID")

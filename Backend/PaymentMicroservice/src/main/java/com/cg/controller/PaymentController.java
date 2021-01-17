@@ -16,8 +16,16 @@ import com.cg.beans.Exam;
 import com.cg.beans.Payment;
 import com.cg.beans.PaymentDummy;
 import com.cg.beans.TrainingProgram;
+import com.cg.exception.NotPossibleException;
 import com.cg.service.PaymentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+//Run Swagger http://localhost:9500/swagger-ui.html
+@Api(value = "PaymentController", description = "REST Apis related to Payment Entity!!!!")
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/Payment")
@@ -30,11 +38,13 @@ public class PaymentController {
 
 	final String TrainingURL = "http://localhost:9300/TrainingProgram/search/";
 	final String ExamURL= "http://localhost:9400/exam/findbyid/";
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 	
 	// "http://localhost:9500/Payment/makePayment
 	@PostMapping(value = "/makePayment")
 	public Payment makePayment(@RequestBody PaymentDummy payDummy) {
+		logger.info("Inside makePayment() method of PaymentController");
 		Payment payment=new Payment();
 
 		int check=payDummy.getTrainingOrExam();
@@ -59,12 +69,21 @@ public class PaymentController {
 
 			
 	}
-
+	
+	// http://localhost:9500/Payment/search/1000
 	@GetMapping(value = "/search/{paymentId}")
-	public List<Payment> showPaymentHistory(@PathVariable long paymentId) {// method to fetch
-
-		List<Payment> pay = this.service.showPaymentHistory(paymentId);
-		return pay;
+	public Payment showPaymentHistory(@PathVariable long paymentId) {// method to fetch
+		logger.info("Inside showPaymentHistory() method of PaymentController");
+		/*List<Payment> pay = this.service.showPaymentHistory(paymentId);
+		return pay;*/
+		return service.showPaymentHistory(paymentId);
+	}
+	
+	// http://localhost:9500/Payment/searchByUserId/11
+	@GetMapping(value = "/searchByUserId/{userId}")
+	public List<Payment> showPaymentHistoryByUserId(@PathVariable long userId){
+		logger.info("Inside showPaymentHistoryByUserId() method of PaymentController");
+		return service.showPaymentHistoryByUserId(userId);
 	}
 
 }

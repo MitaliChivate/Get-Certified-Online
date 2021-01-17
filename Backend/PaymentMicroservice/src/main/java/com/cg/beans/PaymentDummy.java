@@ -27,7 +27,7 @@ public class PaymentDummy {
 
 	private Integer amount;
 
-	private int userId;
+	private Long userId;
 
 	private Long enrollmentId; // exam id or course id
 

@@ -8,7 +8,7 @@ public interface PaymentService {
 	
 	public Payment makePayment(Payment payment);
 	
-	public List<Payment> showPaymentHistory(Long paymentId);
+	public Payment showPaymentHistory(Long paymentId);
 
-
+	public List<Payment> showPaymentHistoryByUserId(Long userId);
 }
