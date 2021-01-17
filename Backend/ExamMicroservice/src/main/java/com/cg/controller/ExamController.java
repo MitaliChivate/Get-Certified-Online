@@ -20,8 +20,12 @@ import com.cg.beans.Exam;
 import com.cg.service.ExamService;
 import com.cg.service.ExamServiceImpl;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
 import javassist.NotFoundException;
 
+@Api(value = "ExamController", description = "REST Apis related to Exam Entity!!!!")
 //@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/exam")
@@ -33,6 +37,7 @@ public class ExamController {
 
     //"examDate": "2021-02-07", "startTime": "13:00:00",  "endTime": "15:00:00",  "examName": "C++ Exam","examCost": 300,  "description":"C++ Certifcation Exam"
 	//http://localhost:9400/exam
+	
 	@PostMapping
 	public Exam addExam(@RequestBody Exam exam) {
 		
