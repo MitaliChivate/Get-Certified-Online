@@ -36,52 +36,53 @@ public class PaymentController {
 	@Autowired
 	RestTemplate restTemplate;
 
-	final String TrainingURL = "http://localhost:9300/TrainingProgram/search/";
-	final String ExamURL= "http://localhost:9400/exam/findbyid/";
-	
+	final String TrainingURL = "http://localhost:9300/TrainingProgram/searchTrainingProgramById/";
+	final String ExamURL = "http://localhost:9400/exam/findbyid/";
+
 	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 	
+	/* "paymentMode" : "Debit","paymentDate" : "2021-02-07","amount" : 5000,"userId" : 11,"enrollmentId" : 300000,"trainingOrExam" : 1
+*/
 	// "http://localhost:9500/Payment/makePayment
 	@PostMapping(value = "/makePayment")
 	public Payment makePayment(@RequestBody PaymentDummy payDummy) {
 		logger.info("Inside makePayment() method of PaymentController");
-		Payment payment=new Payment();
+		Payment payment = new Payment();
 
-		int check=payDummy.getTrainingOrExam();
+		int check = payDummy.getTrainingOrExam();
 		Long id = payDummy.getEnrollmentId();
-		if(check==0) {
-		TrainingProgram tp =restTemplate.getForObject(TrainingURL+id , TrainingProgram.class);
-		payment.setModeName(tp.getTrainingCourse());
-		}
-		else {
-			Exam ex=restTemplate.getForObject(ExamURL+id, Exam.class);
+		if (check == 0) {
+			TrainingProgram tp = restTemplate.getForObject(TrainingURL + id, TrainingProgram.class);
+			payment.setModeName(tp.getTrainingCourse());
+		} else {
+			Exam ex = restTemplate.getForObject(ExamURL + id, Exam.class);
 			payment.setModeName(ex.getExamName());
-			
+			System.out.println(ex);
+
 		}
 		payment.setPaymentMode(payDummy.getPaymentMode());
 		payment.setAmount(payDummy.getAmount());
 		payment.setUserId(payDummy.getUserId());
 		payment.setEnrollmentId(payDummy.getEnrollmentId());
 		payment.setPaymentDate(payDummy.getPaymentDate());
-		
-		return this.service.makePayment(payment);
-		
 
-			
+		return this.service.makePayment(payment);
+
 	}
-	
+
 	// http://localhost:9500/Payment/search/1000
 	@GetMapping(value = "/search/{paymentId}")
 	public Payment showPaymentHistory(@PathVariable long paymentId) {// method to fetch
 		logger.info("Inside showPaymentHistory() method of PaymentController");
-		/*List<Payment> pay = this.service.showPaymentHistory(paymentId);
-		return pay;*/
+		/*
+		 * List<Payment> pay = this.service.showPaymentHistory(paymentId); return pay;
+		 */
 		return service.showPaymentHistory(paymentId);
 	}
-	
+
 	// http://localhost:9500/Payment/searchByUserId/11
 	@GetMapping(value = "/searchByUserId/{userId}")
-	public List<Payment> showPaymentHistoryByUserId(@PathVariable long userId){
+	public List<Payment> showPaymentHistoryByUserId(@PathVariable long userId) {
 		logger.info("Inside showPaymentHistoryByUserId() method of PaymentController");
 		return service.showPaymentHistoryByUserId(userId);
 	}

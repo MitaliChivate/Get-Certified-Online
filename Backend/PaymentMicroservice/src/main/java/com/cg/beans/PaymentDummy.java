@@ -33,11 +33,5 @@ public class PaymentDummy {
 
 	private int trainingOrExam; // 0 for course else for exam(1)
 	
-	/* "paymentMode" : "Debit",
-	   "paymentDate" : "2021-02-07",
-	   "amount" : 5000,
-	   "userId" : 11,
-	   "enrollmentId" : 300000,
-	   "trainingOrExam" : 1
-*/
+	
 }
