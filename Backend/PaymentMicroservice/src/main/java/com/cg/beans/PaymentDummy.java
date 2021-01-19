@@ -18,7 +18,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PaymentDummy {
 
-	
 	private long paymentId;
 
 	private String paymentMode;
@@ -32,6 +31,10 @@ public class PaymentDummy {
 	private Long enrollmentId; // exam id or course id
 
 	private int trainingOrExam; // 0 for course else for exam(1)
-	
-	
+
+	private Integer cardNumber;
+
+	private String cardExpDate;
+
+	private Integer cvv;
 }

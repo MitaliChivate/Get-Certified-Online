@@ -8,9 +8,9 @@ public interface UserServiceInterface {
 
 	public User addUser(User user);
 
-	public void deleteUser(Integer userId);
+	public void deleteUser(Long userId);
 
-	public User searchUser(Integer userId);
+	public User searchUser(Long userId);
 
 	public List<User> getAllUser();
 

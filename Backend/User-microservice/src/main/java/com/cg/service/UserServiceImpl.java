@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	 * This function is used to delete user
 	 */
 	@Override
-	public void deleteUser(Integer userId) {
+	public void deleteUser(Long userId) {
 		User user=this.userDao.findAll().stream().filter(x -> userId.equals(x.getUserId())).findAny().orElse(null);
 		if(user==null) {
 			logger.warn("check the userId is correct or not");
@@ -48,14 +48,14 @@ public class UserServiceImpl implements UserServiceInterface {
 	 * This Function is used to search the user
 	 */
 	@Override
-	public User searchUser(Integer userId) {
-		User user = this.userDao.findAll().stream().filter(x -> userId.equals(x.getUserId())).findAny().orElse(null);
-		if(user==null) {
-			logger.warn("check the userId is correct or not");
-			throw new NoValueFoundException("No such User is available...");
-		}
-		else
-		return user;
+	public User searchUser(Long userId) {
+		/*
+		 * User user = this.userDao.findAll().stream().filter(x ->
+		 * userId.equals(x.getUserId())).findAny().orElse(null); if(user==null) {
+		 * logger.warn("check the userId is correct or not"); throw new
+		 * NoValueFoundException("No such User is available..."); } else return user;
+		 */
+		return userDao.findById(userId).orElseThrow(() -> new NoValueFoundException("User ID Not Found"));
 	}
 
 	/***

@@ -46,6 +46,11 @@ public class Payment {
 	private String modeName;
 
 	private Long enrollmentId; // exam id or course id
-
+	
+	private Integer cardNumber;
+	
+	private String cardExpDate;
+	
+	private Integer cvv;
 
 }
