@@ -22,9 +22,8 @@ import com.cg.service.LoginService;
  *                all headers, and the HTTP methods specified in the @RequestMapping annotation
  * @ResponseBody - annotation maps the HttpRequest body to a transfer or domain object
  */
-
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
-@CrossOrigin("http://localhost:4200")
 @RequestMapping("/authentication")
 public class LoginController {
 
@@ -33,9 +32,11 @@ public class LoginController {
 
 	
 	//{ "firstName": "Ajinkya","lastName": "Hase","userName" :"ajinkyahase007","password" :"password", "mobileNo" : 9867543665, "email" : "ajinkyahase007@gmail.com", "gender": "Male",  "dateOfBirth": "1998-10-25"}
-	@GetMapping("/login")
+
+	@PostMapping("/login")
 	public User loginUser(@RequestBody Login user) {
 //		String tempUsername = user.getUserName();
+		
 //		String tempPassword = user.getPassword();
 //		User userObj ;
 //		if (tempUsername != null && tempPassword != null) {
