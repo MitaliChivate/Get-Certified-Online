@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,15 +33,27 @@ public class Exam {
 	@SequenceGenerator(name = "exam_id_sequence", initialValue = 300000, allocationSize = 1)
 	private long examId;
 
+	@NotNull(message="Exam Date cannot be null")
+	@Future(message="Past or Current Dates are not acceptable.Please Enter a Future Exam Date ")
 	private LocalDate examDate;
 
+	
 	private LocalTime startTime;
+	
 	
 	private LocalTime endTime;
 	
+	
+	@NotBlank
+	@Size(min = 2, max = 200, message = "Enter a valid Exam name")
 	private String examName;
 	
+	
+	@NotNull(message = "Cost cannot be null")
+	@Min(value = 99, message = "Exam Cost can't be less than 99")
 	private Integer examCost;
 
+	@NotBlank
+	@Size(min = 2, max = 200, message = "Enter a valid Description")
 	private String description;
 }
