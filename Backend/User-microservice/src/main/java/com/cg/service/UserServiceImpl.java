@@ -63,9 +63,13 @@ public class UserServiceImpl implements UserServiceInterface {
 	 */
 	@Override
 	public User updateUser(User user) {
-        if(this.userDao.save(user) == null)
-			throw new NotPossibleException("Cannot update this user...");
+		
+		User userr=this.searchUser(user.getUserId());
 		return this.userDao.save(user);
+		
+//        if(this.userDao.save(user) == null)
+//			throw new NotPossibleException("Cannot update this user...");
+//		return this.userDao.save(user);
 	}
 
 	/***

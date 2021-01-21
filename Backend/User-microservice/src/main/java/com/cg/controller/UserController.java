@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +33,7 @@ public class UserController {
 	 * "role":"User","dateOfBirth":"1998-11-27"
 	 */
 	//http://localhost:9200/user/addUser
-	@RequestMapping(value = "/addUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping("/addUser")
 	public User addUser(@Valid @RequestBody User user) {
 		user.setRole("user");
 		return this.userService.addUser(user);
@@ -56,20 +58,11 @@ public class UserController {
 		return this.userService.searchUser(userId);
 	}
 	
-	//http://localhost:9200/user/updateUser/1
-	@RequestMapping(value = "/updateUser/{userId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public User updateUser(@RequestBody User user,@PathVariable Long userId) {
-		User newUser = this.userService.searchUser(userId);
-		newUser.setUserName(user.getUserName());
-		newUser.setPassword(user.getPassword());
-		newUser.setMobileNo(user.getMobileNo());
-		user.setFirstName(user.getFirstName());
-		user.setLastName(user.getLastName());
-		newUser.setEmail(user.getEmail());
-		newUser.setGender(user.getGender());
-		newUser.setRole("user");
-		newUser.setDateOfBirth(user.getDateOfBirth());
-		return this.userService.updateUser(newUser);
+	
+	@PutMapping("/updateUser")
+	public User updateUser(@RequestBody User user) {
+		
+		return this.userService.updateUser(user);
 		
 	}
 	
