@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiResponses;
 import javassist.NotFoundException;
 //Run Swagger http://localhost:9400/swagger-ui.html
 @Api(value = "ExamController", description = "REST Apis related to Exam Entity!!!!")
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/exam")
 public class ExamController {
@@ -75,7 +75,7 @@ public class ExamController {
 	}
 	
 	//http://localhost:9400/exam/300004
-	@DeleteMapping("/{examId}")
+	@DeleteMapping("/delete/{examId}")
 	public List<Exam> deleteExamById(@PathVariable long examId){
 		logger.info("Inside deleteExamById() method of ExamController");
 		return service.deleteById(examId);
