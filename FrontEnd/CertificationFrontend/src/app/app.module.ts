@@ -21,6 +21,7 @@ import { UserListExamsComponent } from './user-list-exams/user-list-exams.compon
 import { UserListTrainingComponent } from './user-list-training/user-list-training.component';
 import { PaymentComponent } from './payment/payment.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
