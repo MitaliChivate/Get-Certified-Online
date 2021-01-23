@@ -1,0 +1,154 @@
+<div class="container">
+  <div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="card bg-transparent">
+          <div class="card-header">
+            <p class="h1" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"><i class="fas fa-user
+              "></i> Your Details</p>
+          </div>
+          <pre style="font-family: 'Times New Roman', Times, serif;">
+             <h4>    <b>First Name    :</b> {{user.firstName}} </h4>
+             <h4>    <b>Last Name     :</b> {{user.lastName}} </h4>
+             <h4>    <b>User Name     :</b> {{user.userName}} </h4>
+             <h4>    <b>Email Id      :</b> {{user.email}} </h4> 
+             <h4>    <b>Date Of Birth :</b> {{user.dateOfBirth}} </h4> 
+             <h4>    <b>Gender        :</b> {{user.gender}} </h4> 
+             <h4>    <b>Mobile No     :</b> {{user.mobileNo}} </h4>
+             
+            <button data-toggle="modal" data-target="#updateModal" (click)='
+            firstName = user.firstName;
+            lastName = user.lastName;
+            userName = user.userName;
+            email = user.email;
+            dateOfBirth = user.dateOfBirth;
+            gender = user.gender;
+            mobile = user.mobileNo;
+            password = user.password;
+            '  type="button" class="btn btn-success"><i class="far fa-edit"></i> Update Details</button> 
+          </pre>
+
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="updateModalLabel"><i class="fa fa-edit"></i> Edit User
+          </h1>
+
+          <button (click)="reload()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div class="alert alert-success" *ngIf='isUpdated'>
+          <button href="#" class="close" (click)='isUpdated = false'>&times;</button>
+          <small><strong>SUCCESS !</strong> Your Details Have Been Updated... !!</small>
+        </div>
+
+
+        <div class="modal-body">
+          <form #updateForm='ngForm' (submit)='onUpdate(updateForm)'>
+            <div class="card-body">
+
+              <div class="form-group">
+                <label for="input"><b>First Name: </b>&nbsp;&nbsp;</label>
+                <input type="text" placeholder="User First Name" name="firstName" class="form-control"
+                  [(ngModel)]='firstName' #fname="ngModel" pattern="^[A-Z][A-Za-z0-9_-]{3,19}$" required>
+                <span *ngIf='!fname.valid && fname.touched'>
+                  <p class="errorText">Enter User First Name.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label for="input"><b>Last Name:</b>&nbsp;&nbsp;</label>
+                <input type="text" placeholder="User Last Name" name="lastName" class="form-control"
+                  [(ngModel)]='lastName' #lname="ngModel" pattern="^[A-Z][A-Za-z0-9_-]{3,19}$" required>
+                <span *ngIf='!lname.valid && lname.touched'>
+                  <p class="errorText">Enter User Last Name.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label for="input"><b>User Name: </b>&nbsp;&nbsp;</label>
+                <input type="text" placeholder="User Name" name="userNAme" class="form-control" [(ngModel)]='userName'
+                  #name="ngModel" pattern="^[A-Z][A-Za-z0-9_-]{3,19}$" required>
+                <span *ngIf='!name.valid && name.touched'>
+                  <p class="errorText">Enter User Name.</p>
+                </span>
+              </div>
+
+
+              <div class="form-group">
+                <label for="input"><b>Email ID: </b>&nbsp;&nbsp;</label>
+                <input type="text" placeholder="Email ID" name="email" class="form-control" [(ngModel)]='email'
+                  #emailId="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
+                <span *ngIf='!emailId.valid && emailId.touched'>
+                  <p class="errorText">Enter correct email Id.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label for="radio"><b>Gender :</b> &nbsp;&nbsp;</label>
+                <input type="radio" name="gender" value="Male" #Gender="ngModel" [(ngModel)]="gender" required>
+                Male
+                &nbsp;&nbsp;
+                <input type="radio" name="gender" value="Female" #Gender="ngModel" [(ngModel)]="gender" required>
+                Female
+              </div>
+
+              <div class="form-group">
+                <label for="input"><b>Date Of Birth:</b>&nbsp;&nbsp;</label>
+                <input type="date" placeholder="Date Of Birth" name="dateOfBirth" class="form-control"
+                  [(ngModel)]='dateOfBirth' #dob="ngModel" required>
+                <span *ngIf='!dob.valid && dob.touched'>
+                  <p class="errorText">Enter Date Of Birth.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label for="input"><b>Mobile No: </b>&nbsp;&nbsp;</label>
+                <input type="text" placeholder="Mobile No." name="mobile" class="form-control" [(ngModel)]='mobile'
+                  #Mobile="ngModel" required>
+                <span *ngIf='!Mobile.valid && Mobile.touched'>
+                  <p class="errorText">Enter Mobile.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label for="input"><b>Password :</b>&nbsp;&nbsp;</label>
+                <div class="input-group">
+                  <input type={{inputType}} placeholder="Password " name="password" class="form-control" [(ngModel)]='password'
+                    #passWord="ngModel" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text"><a class="fa fa-eye clickable" (click)='toggle()'></a></span>
+                  </div>
+                </div>
+                <span *ngIf='!passWord.valid && passWord.touched'>
+                  <p class="errorText">Enter Password</p>
+                </span>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <button type="submit" [disabled]='!updateForm.valid' class="btn btn-primary"><i class="fa fa-sync"
+                  aria-hidden="true"></i>
+                Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

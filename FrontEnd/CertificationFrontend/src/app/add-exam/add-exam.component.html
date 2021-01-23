@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="alert alert-success" *ngIf='isadded'>
+    <button href="#" class="close" (click)='isadded = false'>&times;</button>
+    <strong>SUCCESS !</strong> Exam is added.
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-11">
+        <div class="card bg-transparent">
+          <div class="card-header">
+            <p class="h1 text-center" style="font-family: 'Times New Roman', Times, serif;"><i class="fas fa-notes-medical
+              "></i> Add Exam</p>
+          </div>
+          <form (ngSubmit)="saveExam(); addExamForm.reset()" #addExamForm=ngForm>
+            <div class="card-body">
+
+              <div class="form-group">
+                <input name="examName" class="form-control" [(ngModel)]=exam.examName placeholder="Enter Course Name"
+                  required pattern="([A-zÀ-ž\s]){2,}" #cName=ngModel>
+                <span *ngIf='!cName.valid && cName.touched'>
+                  <p class="errorText">Enter Valid Course name.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <textarea name="description" rows="5" cols="80" placeholder="Enter Description of Training Program"
+                  class="form-control" [(ngModel)]=exam.description required pattern="([A-zÀ-ž\s]){2,}"
+                  #des=ngModel></textarea>
+                <span *ngIf='!des.valid && des.touched'>
+                  <p class="errorText">Enter Description.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <input name="examCost" type="number" class="form-control" [(ngModel)]=exam.examCost
+                  placeholder="Enter Cost" #cost=ngModel>
+                <span *ngIf='!cost.valid && cost.touched'>
+                  <p class="errorText">Enter valid Cost Of Training Program.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label>Enter Exam Date</label>
+                <input name="examDate" type="date" class="form-control" [(ngModel)]=exam.examDate
+                  placeholder="Enter Exam Date" #edate=ngModel>
+                <span *ngIf='!edate.valid && edate.touched'>
+                  <p class="errorText">Enter valid Data.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label>Enter Exam Start Time</label>
+                <input name="startTime" type="time" class="form-control" [(ngModel)]=exam.startTime
+                  placeholder="Enter Exam Start Time" #stime=ngModel>
+                <span *ngIf='!stime.valid && stime.touched'>
+                  <p class="errorText">Enter valid Time.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label>Enter Exam End Time</label>
+                <input name="endTime" type="time" class="form-control" [(ngModel)]=exam.endTime
+                  placeholder="Enter Exam End Time" #etime=ngModel>
+                <span *ngIf='!etime.valid && etime.touched'>
+                  <p class="errorText">Enter valid End Time.</p>
+                </span>
+              </div>
+
+            </div>
+            <div class="card-footer">
+
+              <button class="btn btn-primary" type="submit" [disabled]="!addExamForm.valid"><i
+                  class="fa fa-plus"></i>Add Training</button>
+
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</div>
