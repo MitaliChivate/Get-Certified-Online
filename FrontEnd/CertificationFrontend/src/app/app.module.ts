@@ -19,7 +19,9 @@ import { ListUsersComponent } from './list-users/list-users.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { UserListExamsComponent } from './user-list-exams/user-list-exams.component';
 import { UserListTrainingComponent } from './user-list-training/user-list-training.component';
-import { PaymentComponent } from './payment/payment.component';
+import { PaymentTrainingComponent } from './payment-training/payment-training.component';
+import { PaymentExamComponent } from './payment-exam/payment-exam.component';
+
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { PaymentComponent } from './payment/payment.component';
     AdminProfileComponent,
     UserListExamsComponent,
     UserListTrainingComponent,
-    PaymentComponent
+    PaymentTrainingComponent,
+    PaymentExamComponent,
+ 
   ],
   imports: [
     BrowserModule,

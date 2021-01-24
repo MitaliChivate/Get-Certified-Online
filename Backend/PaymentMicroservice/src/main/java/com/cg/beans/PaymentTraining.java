@@ -41,9 +41,11 @@ public class PaymentTraining {
 	@JoinColumn(name = "TRAINING_ID")
 	private TrainingProgram training;
 
-	private Integer cardNumber;
+	private String cardNumber;
 
-	private String cardExpDate;
+	private String expMonth;
+	
+	private Integer expYear;
 
 	private Integer cvv;
 

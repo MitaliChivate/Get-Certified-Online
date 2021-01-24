@@ -38,14 +38,15 @@ public class PaymentExam {
 	private Long userId;
 
 	@ManyToOne
-	@JoinColumn(name="EXAM_ID")
+	@JoinColumn(name = "EXAM_ID")
 	private Exam exam;
 
-	private Integer cardNumber;
+	private String cardNumber;
 
-	private String cardExpDate;
+	private String expMonth;
+
+	private Integer expYear;
 
 	private Integer cvv;
 
 }
-
