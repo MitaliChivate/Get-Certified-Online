@@ -27,7 +27,7 @@ export class ExamserviceService {
   }
 
   fetchExamByExamId(index: number) {
-    return this.http.get<Exam>("http://localhost:9400/exam/findByExamId" + index);
+    return this.http.get<Exam>("http://localhost:9400/exam/findByExamId/" + index);
   }
 
 
