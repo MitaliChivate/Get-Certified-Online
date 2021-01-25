@@ -51,12 +51,12 @@
                 <td>{{training.trainingCourse}}</td>
                 <td>{{training.trainingCost}}</td>
                 <td>{{training.noOfDays}}</td>
-
+                
                 <td data-toggle="tooltip"><i (click)='getDetailsById(training.trainingProgramId)'
                     class="fas fa-book-medical" data-toggle="modal" data-target="#detailModal"></i>
                 </td>
 
-                <button type="submit" class="btn btn-success" (click)="routerPayment(training)" >&nbsp;Enroll</button>
+                <button type="submit" class="btn btn-success" (click)="routerPayment(training)">&nbsp;Enroll</button>
 
               </tr>
             </tbody>
@@ -99,4 +99,3 @@
     </div>
   </div>
 </div>
-

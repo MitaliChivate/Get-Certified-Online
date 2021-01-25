@@ -12,6 +12,7 @@ import { ListUsersComponent } from './list-users/list-users.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { UserListTrainingComponent } from './user-list-training/user-list-training.component';
 import { UserListExamsComponent } from './user-list-exams/user-list-exams.component';
+import { PaymentTrainingComponent } from './payment-training/payment-training.component';
 
 
 
@@ -37,7 +38,7 @@ const routes: Routes = [
       { path: 'training/add', component: UserListTrainingComponent },
       { path: 'exam/add', component: UserListExamsComponent },
       { path: 'user/profile', component:  AdminProfileComponent},
-      //{ path: 'payment/:trainingProgramId', component:  PaymentComponent},
+      { path: 'payment-training/:trainingProgramId', component:  PaymentTrainingComponent},
     ], //canActivate: [AuthGuard]
   },
   // { path: '**', component: ErrorComponent }

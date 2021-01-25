@@ -55,7 +55,7 @@ export class UserListTrainingComponent implements OnInit {
   }
 
   routerPayment(training){
-    this.route.navigate(['/user/dashboard/payment',training.trainingProgramId])
+    this.route.navigate(['/user/dashboard/payment-training',training.trainingProgramId])
   }
 
 

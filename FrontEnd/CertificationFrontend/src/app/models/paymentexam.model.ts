@@ -1,13 +1,13 @@
-import { Training } from "./training.model"
+import { Exam } from "./exam.model"
 
-export class PaymentTraining {
+export class PaymentExam {
     paymentMode: string
     paymentDate: Date
     amount: number
     userId: number
-    training: Training
+    exam:Exam
     expMonth: string
     expYear: number
-    cardNum: string
+    cardNumber: string
     cvv: number
 }

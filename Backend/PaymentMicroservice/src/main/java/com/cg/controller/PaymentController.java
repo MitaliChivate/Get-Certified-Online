@@ -1,5 +1,6 @@
 package com.cg.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,8 @@ public class PaymentController {
 		User user = restTemplate.getForObject(UserURL + userId, User.class);
 		if(user==null)
 			throw new NoValueFoundException("User Not Found");
-
+		System.out.println(payment);
+		payment.setPaymentDate(LocalDate.now());
 		return this.service.makePaymentForExam(payment, user);
 
 	}
@@ -64,7 +66,7 @@ public class PaymentController {
 		User user = restTemplate.getForObject(UserURL + userId, User.class);
 		if(user==null)
 			throw new NoValueFoundException("User Not Found");
-
+		payment.setPaymentDate(LocalDate.now());
 		return this.service.makePaymentForTraining(payment, user);
 
 	}
