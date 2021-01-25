@@ -1,6 +1,7 @@
 package com.cg.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,7 +32,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
 	private PaymentDaoForExam paymentDao;
-	
+
 	@Autowired
 	private PaymentDaoForTraining paymentDaoForTraining;
 
@@ -41,8 +42,15 @@ public class PaymentServiceImpl implements PaymentService {
 
 		PaymentExam pay = this.paymentDao.save(payment);
 
+		String firstName = user.getFirstName();
+
+		String examName = pay.getExam().getExamName();
+		
+		Long paymentId=pay.getPaymentId();
+		
+		LocalDate payDate=pay.getPaymentDate();
 		try {
-			sendmail(userEmail, payment.getAmount());
+			sendmail(userEmail, firstName, paymentId,payDate, examName, payment.getAmount());
 		} catch (MessagingException | IOException e) {
 
 		}
@@ -50,7 +58,8 @@ public class PaymentServiceImpl implements PaymentService {
 
 	}
 
-	private void sendmail(String email, Integer amount) throws AddressException, MessagingException, IOException {
+	private void sendmail(String email, String firstName,Long paymentId,LocalDate paymentDate, String examortrainingname, Integer amount)
+			throws AddressException, MessagingException, IOException {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -68,11 +77,26 @@ public class PaymentServiceImpl implements PaymentService {
 
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 		msg.setSubject("Get certified!!!");
-		msg.setContent("Your payment is successful!!\n Amount paid for get certified online is " + amount, "text/html");
+		msg.setContent("<html><head>\r\n" + "<style>\r\n" + "table, th, td {\r\n" + "  border: 1px solid black;\r\n"
+				+ "}\r\n" + "</style>\r\n"
+				+ "</head><body><p>Hi " + firstName + ",</p><p> Your payment is successful!!</p>\r\n"
+				+ "                <table style=\"border:1px solid balck;\" >\r\n" + "  <tr style=\"width:100%\">\r\n"
+				+ "    <th>ReceiptNo</th>\r\n" + "    <th>PaymentDate</th> \r\n" + "    <th>PaymentAmount</th>\r\n"
+				+ "    <th>Exam/Training Name</th>\r\n" + "  </tr>\r\n" + "  	<td>"+paymentId+"</td>\r\n"
+				+ "    <td>"+paymentDate+"</td>\r\n" + "    <td>"+amount+"</td>\r\n"
+				+ "    <td>"+examortrainingname+"</td>\r\n" + "  <tr>\r\n" + "</table><p>Thank You!</p><body><html>",
+				"text/html");
 		msg.setSentDate(new Date());
 
 		MimeBodyPart messageBodyPart = new MimeBodyPart();
-		messageBodyPart.setContent("Your payment is successful!!\\n Amount paid for get certified online is " + amount,
+		messageBodyPart.setContent("<html><head>\r\n" + "<style>\r\n" + "table, th, td {\r\n" + "  border: 1px solid black;\r\n"
+				+ "}\r\n" + "</style>\r\n"
+				+ "</head><body><p>Hi " + firstName + ",</p><p> Your payment is successful!!</p>\r\n"
+				+ "                <table style=\"border:1px solid balck;\" >\r\n" + "  <tr style=\"width:100%\">\r\n"
+				+ "    <th>ReceiptNo</th>\r\n" + "    <th>PaymentDate</th> \r\n" + "    <th>PaymentAmount</th>\r\n"
+				+ "    <th>Exam/Training Name</th>\r\n" + "  </tr>\r\n" + "  	<td>"+paymentId+"</td>\r\n"
+				+ "    <td>"+paymentDate+"</td>\r\n" + "    <td>"+amount+"</td>\r\n"
+				+ "    <td>"+examortrainingname+"</td>\r\n" + "  <tr>\r\n" + "</table><p>Thank You!</p><body><html>",
 				"text/html");
 		Transport.send(msg);
 	}
@@ -101,9 +125,16 @@ public class PaymentServiceImpl implements PaymentService {
 
 		PaymentTraining pay = this.paymentDaoForTraining.save(payment);
 
+		String firstName = user.getFirstName();
+
+		String courseName = pay.getTraining().getTrainingCourse();
+		
+Long paymentId=pay.getPaymentId();
+		
+		LocalDate payDate=pay.getPaymentDate();
 		try {
-			sendmail(userEmail, payment.getAmount());
-		} catch (MessagingException | IOException e) {
+			sendmail(userEmail, firstName, paymentId,payDate, courseName, payment.getAmount());
+		}catch (MessagingException | IOException e) {
 
 		}
 		return pay;
