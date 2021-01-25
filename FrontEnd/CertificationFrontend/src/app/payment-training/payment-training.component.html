@@ -1,85 +1,105 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <div class="container">
-  <div class="alert alert-success" *ngIf='isadded'>
-    <button href="#" class="close" (click)='isadded = false'>&times;</button>
-    <strong>SUCCESS !</strong> Payment is successful.
-  </div>
-  <div>
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-11">
-        <div class="card bg-transparent">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <p class="h1 text-center" style="font-family: 'Times New Roman', Times, serif;">
-                <i class='fab fa-cc-amazon-pay' style='font-size:30px'></i>
-                Payment Details
-              </p>
-            </div>
-
-            <div class="panel-body">
-              <form (ngSubmit)="savePayment()" #addPaymentForm=ngForm>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="cardNumber">
-                      PAYMENT MODE</label>
-                    <div class="input-group">
-                      <input type="radio" name="paymentMode" value="Debit Card" #debit="ngModel"
-                        [(ngModel)]="paymentTraining.paymentMode" required autofocus> Debit Card
-                      &nbsp;
-                      <input type="radio" name="paymentMode" value="Credit Card" #debit="ngModel"
-                        [(ngModel)]="paymentTraining.paymentMode" required autofocus> Credit Card
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="cardNumber">
-                      CARD NUMBER</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" name="cardNumber" id="cardNumber"
-                        placeholder="Valid Card Number" required autofocus #cardNum="ngModel"
-                        [(ngModel)]="paymentTraining.cardNumber" />
-                      <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-xs-7 col-md-7">
-                      <div class="form-group">
-                        <label for="expiryMonth">
-                          EXPIRY MONTH</label>
-                          <input type="text" class="form-control" name="expMonth" id="expMonth" placeholder="MM"
-                            required #expMonth="ngModel" [(ngModel)]="paymentTraining.expMonth" />
-                      </div>
-                    </div>
-                      <div class="col-xs-6 col-lg-6 pl-ziro">
-                        <div class="form-group">
-                          <label for="expiryYear">
-                            EXPIRY YEAR</label>
-                          <input type="text" class="form-control" name="expYear" id="expYear" placeholder="YY" required
-                            #expYear="ngModel" [(ngModel)]="paymentTraining.expYear" />
-                        </div>
-                      </div>
-                      <div class="col-xs-5 col-md-5 pull-right">
-                        <div class="form-group">
-                          <label for="cvCode">
-                            CVV CODE</label>
-                          <input type="password" class="form-control" name="cvv" id="cvv" placeholder="CVV" required
-                            #cvv="ngModel" [(ngModel)]="paymentTraining.cvv" />
-                        </div>
-                      </div>
-                    </div>
-                  <button class="btn btn-primary" type="submit"><i class="fa fa-plus"></i>Pay</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3"></div>
+    <div class="alert alert-success" *ngIf='isadded'>
+        <button href="#" class="close" (click)='isadded = false'>&times;</button>
+        <strong>SUCCESS !</strong> Test is added.
     </div>
-  </div>
+    <div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">
+                <div class="card bg-transparent">
+                    <div class="card-header">
+                        <p class="h1 text-center" style="font-family: 'Times New Roman', Times, serif;"><i
+                                class="fa fa-cc-visa"></i>&nbsp;Add Payment Details</p>
+                    </div>
+
+                    <form (ngSubmit)="savePayment(); addPaymentForm.reset()" #addPaymentForm=ngForm>
+
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label for="cardNumber">
+                                    PAYMENT MODE</label>
+                                <div>
+                                    <input type="radio" name="paymentMode" value="Debit Card" #debit="ngModel"
+                                        [(ngModel)]="paymentTraining.paymentMode" required autofocus> Debit Card
+                                    &nbsp;
+                                    <input type="radio" name="paymentMode" value="Credit Card" #debit="ngModel"
+                                        [(ngModel)]="paymentTraining.paymentMode" required autofocus> Credit
+                                    Card
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cardNumber">
+                                    CARD NUMBER</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="cardNumber" id="cardNumber"
+                                        placeholder="Valid Card Number" required autofocus #cardNum="ngModel"
+                                        [(ngModel)]="paymentTraining.cardNumber" />
+                                    <span class="input-group-addon"><span
+                                            class="glyphicon glyphicon-lock"></span></span>
+                                    <span *ngIf='!cardNum.valid && cardNum.touched'>
+                                        <p class="errorText">Enter valid Card Number.</p>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-5 col-md-5">
+                                    <div class="form-group">
+                                        <label for="expiryMonth">
+                                            EXPIRY MONTH</label>
+                                        <input type="text" class="form-control" name="expMonth" id="expMonth"
+                                            placeholder="MM" required #expMonth="ngModel"
+                                            [(ngModel)]="paymentTraining.expMonth" />
+                                        <span *ngIf='!expMonth.valid && expMonth.touched'>
+                                            <p class="errorText">Enter valid Expiry Month.</p>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-lg-6 ">
+                                    <div class="form-group">
+                                        <label for="expiryYear">
+                                            EXPIRY YEAR</label>
+                                        <input type="text" class="form-control" name="expYear" id="expYear"
+                                            placeholder="YY" required #expYear="ngModel"
+                                            [(ngModel)]="paymentTraining.expYear" />
+                                        <span *ngIf='!expYear.valid && expYear.touched'>
+                                            <p class="errorText">Enter valid Expiry Year.</p>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-5 col-md-5">
+                                    <div class="form-group">
+                                        <label for="cvCode">
+                                            CVV CODE</label>
+                                        <input type="password" class="form-control" name="cvv" id="cvv"
+                                            placeholder="CVV" required #cvv="ngModel" pattern="[0-9]{3}"
+                                            [(ngModel)]="paymentTraining.cvv" />
+                                        <span *ngIf='!cvv.valid && cvv.touched'>
+                                            <p class="errorText">Enter valid CVV.</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="card-footer">
+
+                            <button class="btn btn-primary" type="submit" [disabled]="!addPaymentForm.valid"><i
+                                    class="fas fa-hand-holding-usd"></i>&nbsp;Pay</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
 </div>

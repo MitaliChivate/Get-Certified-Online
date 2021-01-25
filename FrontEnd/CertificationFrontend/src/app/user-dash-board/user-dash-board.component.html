@@ -7,13 +7,12 @@
                     <a class="h2" (click)=userRefresh()>
                         <i class="fas fa-user"></i> User
                     </a>
-                    <hr>
                 </li>
                 <li [ngStyle]='{"background": router.url == "/user/dashboard/training/add" ? "rgba(86, 101, 115 )" : "rgb(46, 64, 83 )"}'
                     title="Book Training">
                     <a routerLink='/user/dashboard/training/add'><i class="fa fa-plus"></i> Book Training Program</a>
                 </li>
-                <hr>
+
                 <li [ngStyle]='{"background": router.url == "/user/dashboard/exam/add" ? "rgba(86, 101, 115)" : "rgb(46, 64, 83 )"}'
                     title="Book Exam">
                     <a routerLink='/user/dashboard/exam/add'><i class="fa fa-plus"></i> Book Exam</a>

@@ -21,6 +21,8 @@ import { UserListExamsComponent } from './user-list-exams/user-list-exams.compon
 import { UserListTrainingComponent } from './user-list-training/user-list-training.component';
 import { PaymentTrainingComponent } from './payment-training/payment-training.component';
 import { PaymentExamComponent } from './payment-exam/payment-exam.component';
+import { PaymentHistoryExamComponent } from './payment-history-exam/payment-history-exam.component';
+import { PaymentHistoryTrainingComponent } from './payment-history-training/payment-history-training.component';
 
 
 
@@ -40,6 +42,8 @@ import { PaymentExamComponent } from './payment-exam/payment-exam.component';
     UserListTrainingComponent,
     PaymentTrainingComponent,
     PaymentExamComponent,
+    PaymentHistoryExamComponent,
+    PaymentHistoryTrainingComponent,
  
   ],
   imports: [
