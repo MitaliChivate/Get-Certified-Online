@@ -17,6 +17,14 @@
                     title="Book Exam">
                     <a routerLink='/user/dashboard/exam/add'><i class="fa fa-plus"></i> Book Exam</a>
                 </li>
+                <li [ngStyle]='{"background": router.url == "/user/dashboard/exam/add" ? "rgba(86, 101, 115)" : "rgb(46, 64, 83 )"}'
+                    title="Book Exam">
+                    <a routerLink='/user/dashboard/payment-training'><i class="fa fa-plus"></i> Training Payment Details</a>
+                </li>
+                <li [ngStyle]='{"background": router.url == "/user/dashboard/exam/add" ? "rgba(86, 101, 115)" : "rgb(46, 64, 83 )"}'
+                    title="Book Exam">
+                    <a routerLink='/user/dashboard/payment-exam'><i class="fa fa-plus"></i> Exam Payment Details</a>
+                </li>
                 <hr>
                 <li [ngStyle]='{"background": router.url == "/user/dashboard/user/profile" ? "rgba(86, 101, 115)" : "rgb(46, 64, 83 )"}'
                     title="View Profile">

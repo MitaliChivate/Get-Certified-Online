@@ -80,11 +80,18 @@ public class PaymentController {
 		return service.showPaymentHistory(paymentId);
 	}
 
-	// http://localhost:9500/Payment/searchByUserId/11
-	@GetMapping(value = "/searchByUserId/{userId}")
-	public List<PaymentExam> showPaymentHistoryByUserId(@PathVariable long userId) {
-		logger.info("Inside showPaymentHistoryByUserId() method of PaymentController");
-		return service.showPaymentHistoryByUserId(userId);
+	// http://localhost:9500/Payment/searchPaymentExamHistoryByUserId/11
+	@GetMapping(value = "/searchPaymentExamHistoryByUserId/{userId}")
+	public List<PaymentExam> showPaymentExamHistoryByUserId(@PathVariable long userId) {
+		logger.info("Inside showPaymentExamHistoryByUserId() method of PaymentController");
+		return service.showPaymentExamHistoryByUserId(userId);
 	}
+	
+	// http://localhost:9500/Payment/searchTrainingPaymentByUserId/11
+		@GetMapping(value = "/searchTrainingPaymentByUserId/{userId}")
+		public List<PaymentTraining> showPaymentTrainingHistoryByUserId(@PathVariable long userId) {
+			//logger.info("Inside showPaymentTrainingHistoryByUserId() method of PaymentController");
+			return service.showPaymentTrainingHistoryByUserId(userId);
+		}
 
 }

@@ -13,6 +13,9 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { UserListTrainingComponent } from './user-list-training/user-list-training.component';
 import { UserListExamsComponent } from './user-list-exams/user-list-exams.component';
 import { PaymentTrainingComponent } from './payment-training/payment-training.component';
+import { PaymentExamComponent } from './payment-exam/payment-exam.component';
+import { PaymentHistoryTrainingComponent } from './payment-history-training/payment-history-training.component';
+import { PaymentHistoryExamComponent } from './payment-history-exam/payment-history-exam.component';
 
 
 
@@ -39,6 +42,9 @@ const routes: Routes = [
       { path: 'exam/add', component: UserListExamsComponent },
       { path: 'user/profile', component:  AdminProfileComponent},
       { path: 'payment-training/:trainingProgramId', component:  PaymentTrainingComponent},
+      { path: 'payment-exam/:examId', component:  PaymentExamComponent},
+      { path: 'payment-training', component:  PaymentHistoryTrainingComponent},
+      { path: 'payment-exam', component:  PaymentHistoryExamComponent},
     ], //canActivate: [AuthGuard]
   },
   // { path: '**', component: ErrorComponent }

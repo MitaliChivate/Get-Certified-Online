@@ -109,17 +109,6 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public List<PaymentExam> showPaymentHistoryByUserId(Long userId) {
-		List<PaymentExam> paymentList = new ArrayList<>();
-		paymentList = paymentDao.findAll().stream().filter(x -> x.getUserId().equals(userId))
-				.collect(Collectors.toList());
-		if (paymentList.isEmpty())
-			throw new NoValueFoundException("Payment with userId:" + userId + " does not exist");
-		else
-			return paymentList;
-	}
-
-	@Override
 	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user) {
 		String userEmail = user.getEmail();
 
@@ -138,6 +127,28 @@ Long paymentId=pay.getPaymentId();
 
 		}
 		return pay;
+	}
+
+	@Override
+	public List<PaymentExam> showPaymentExamHistoryByUserId(Long userId) {
+		List<PaymentExam> paymentList = new ArrayList<>();
+		paymentList = paymentDao.findAll().stream().filter(x -> x.getUserId().equals(userId))
+				.collect(Collectors.toList());
+		if (paymentList.isEmpty())
+			throw new NoValueFoundException("Payment with userId:" + userId + " does not exist");
+		else
+			return paymentList;
+	}
+
+	@Override
+	public List<PaymentTraining> showPaymentTrainingHistoryByUserId(Long userId) {
+		List<PaymentTraining> paymentTList = new ArrayList<>();
+		paymentTList = paymentDaoForTraining.findAll().stream().filter(x -> x.getUserId().equals(userId))
+				.collect(Collectors.toList());
+		if (paymentTList.isEmpty())
+			throw new NoValueFoundException("Payment with userId:" + userId + " does not exist");
+		else
+			return paymentTList;
 	}
 
 }

@@ -12,7 +12,9 @@ public interface PaymentService {
 	
 	public PaymentExam showPaymentHistory(Long paymentId);
 
-	public List<PaymentExam> showPaymentHistoryByUserId(Long userId);
+	public List<PaymentExam> showPaymentExamHistoryByUserId(Long userId);
+	
+	public List<PaymentTraining> showPaymentTrainingHistoryByUserId(Long userId);
 
 	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user);
 
