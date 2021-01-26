@@ -49,4 +49,22 @@ public class LoginServiceImpl implements LoginService {
 
 	}
 
+
+	@Override
+	public User addUser(User user) {
+		user.setRole("user");	
+		String tempUsername;
+		tempUsername=user.getUserName();
+		User user1=this.getUserByUserName(tempUsername);
+		if(tempUsername!=null) {
+			if(user1 != null)
+			throw new NotFoundException("Username", "already exist !");
+			return userDao.save(user);
+		}	
+		else 
+			return null;
+		
+	
+	}
+
 }

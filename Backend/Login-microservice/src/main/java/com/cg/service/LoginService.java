@@ -10,5 +10,7 @@ public interface LoginService {
 	public User getUserByUserNameAndPassword(String tempUsername, String tempPassword);
 
 	public User loginUser(Login user);
+	
+	public User addUser(User user);
 
 }

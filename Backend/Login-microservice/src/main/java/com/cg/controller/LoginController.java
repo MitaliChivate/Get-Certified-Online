@@ -30,4 +30,10 @@ public class LoginController {
 
 	}
 
+	@PostMapping("/register")
+	public User registerUser(@RequestBody User user) {
+		
+		return service.addUser(user);
+		
+	}
 }
