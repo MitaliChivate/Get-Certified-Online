@@ -43,7 +43,7 @@
               <td>NO. Of Days</td>
 
               <td>Description</td>
-              <td>Action</td>
+              <td>Enroll</td>
             </thead>
             <tbody>
               <tr *ngFor='let training of training1| paginate: { itemsPerPage: bucketSize, currentPage: p}'>
@@ -56,8 +56,8 @@
                     class="fas fa-book-medical" data-toggle="modal" data-target="#detailModal"></i>
                 </td>
 
-                <button type="submit" class="btn btn-success" (click)="routerPayment(training)">&nbsp;Enroll</button>
-
+                <td data-toggle="tooltip"><i class="far fa-id-badge fa-lg" (click)="routerPayment(training)"></i>
+                   </td>
               </tr>
             </tbody>
           </table>

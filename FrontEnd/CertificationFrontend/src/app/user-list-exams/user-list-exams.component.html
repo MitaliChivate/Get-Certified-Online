@@ -45,7 +45,7 @@
               <td>End Cost</td>
 
               <td>Description</td>
-              <td>Action</td>
+              <td>Enroll</td>
             </thead>
             <tbody>
               <tr *ngFor='let exam of exam1| paginate: { itemsPerPage: bucketSize, currentPage: p}'>
@@ -60,8 +60,9 @@
                     data-toggle="modal" data-target="#detailModal"></i>
                 </td>
 
-
-                <button type="submit" class="btn btn-success" (click)="routerPayment(exam)">&nbsp;Enroll</button>
+ <td data-toggle="tooltip"><i class="far fa-id-badge fa-lg" (click)="routerPayment(exam)"></i>
+                   </td>
+              
 
               </tr>
             </tbody>
