@@ -13,8 +13,17 @@ import { PaymentserviceService } from '../service/paymentservice.service';
 export class PaymentHistoryTrainingComponent implements OnInit {
 
   payments: PaymentTraining[] = [];
-  training:Training;
+  payments1: PaymentTraining[] = [];
+  payment : PaymentTraining
+
+ 
+
   //Flags required for interactive UI
+  isAdded: boolean = null
+  isUpdated: boolean = false
+  isLoading: boolean = true
+  isErrorUpdating: boolean = false
+
   userId: number;
   paymentMode: string;
   paymentDate: Date;
@@ -25,7 +34,7 @@ export class PaymentHistoryTrainingComponent implements OnInit {
 
   ngOnInit(): void {
     this.payments = []
-
+    this.payments1 = []
 
     setTimeout(() => { this.reloadData() }, 100);
   }
@@ -34,10 +43,19 @@ export class PaymentHistoryTrainingComponent implements OnInit {
     this.pService.getTrainingPaymentByUserId(this.userId).subscribe(
       (data => {
         this.payments = data;
+        this.payments1=data;
+        this.isLoading = false
       }
 
       )
     )
+  }
+
+  onKey(event: any) {
+
+    this.payments1 = this.payments.filter(payment => payment.training.trainingCourse.includes(event.target.value))
+    if (event.target.value == '' || event.target.value == undefined)
+      this.payments1 = this.payments
   }
 
   getCoursePaymentDetailsById(userId: number) {
