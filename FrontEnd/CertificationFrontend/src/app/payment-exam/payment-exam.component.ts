@@ -38,10 +38,12 @@ export class PaymentExamComponent implements OnInit {
     this.paymentExam.exam=this.exam;
     this.paymentExam.amount=this.exam.examCost;
     console.log(this.paymentExam.paymentMode);
-    this.pService.makePaymentForExam(this.paymentExam).subscribe(response => {
-      this.isadded = true
-    });
+    this.pService.makePaymentForExam(this.paymentExam).subscribe(response => this.redirectPaymentdetail() 
+    );
   }
-
+ redirectPaymentdetail()
+  {
+    this.router.navigate(['user/dashboard/payment-confirmation']);
+  }
 
 }

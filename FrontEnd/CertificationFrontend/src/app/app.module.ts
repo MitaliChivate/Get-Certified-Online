@@ -23,6 +23,7 @@ import { PaymentTrainingComponent } from './payment-training/payment-training.co
 import { PaymentExamComponent } from './payment-exam/payment-exam.component';
 import { PaymentHistoryExamComponent } from './payment-history-exam/payment-history-exam.component';
 import { PaymentHistoryTrainingComponent } from './payment-history-training/payment-history-training.component';
+import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
 
 
 
@@ -44,6 +45,7 @@ import { PaymentHistoryTrainingComponent } from './payment-history-training/paym
     PaymentExamComponent,
     PaymentHistoryExamComponent,
     PaymentHistoryTrainingComponent,
+    PaymentConfirmationComponent,
  
   ],
   imports: [

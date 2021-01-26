@@ -39,9 +39,14 @@ export class PaymentTrainingComponent implements OnInit {
     this.paymentTraining.training=this.training;
     this.paymentTraining.amount=this.training.trainingCost;
     console.log(this.paymentTraining.paymentMode);
-    this.pService.makePaymentForTraining(this.paymentTraining).subscribe(response => {
-      this.isadded = true
-    });
+    this.pService.makePaymentForTraining(this.paymentTraining).subscribe(response => this.redirectPaymentdetail() 
+     
+    );
+  }
+
+  redirectPaymentdetail()
+  {
+    this.router.navigate(['user/dashboard/payment-confirmation']);
   }
 
 }

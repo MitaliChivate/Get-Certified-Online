@@ -16,7 +16,7 @@ import { PaymentTrainingComponent } from './payment-training/payment-training.co
 import { PaymentExamComponent } from './payment-exam/payment-exam.component';
 import { PaymentHistoryTrainingComponent } from './payment-history-training/payment-history-training.component';
 import { PaymentHistoryExamComponent } from './payment-history-exam/payment-history-exam.component';
-
+import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
 
 
 const routes: Routes = [
@@ -45,6 +45,7 @@ const routes: Routes = [
       { path: 'payment-exam/:examId', component:  PaymentExamComponent},
       { path: 'payment-training', component:  PaymentHistoryTrainingComponent},
       { path: 'payment-exam', component:  PaymentHistoryExamComponent},
+       { path: 'payment-confirmation', component:  PaymentConfirmationComponent},
     ], //canActivate: [AuthGuard]
   },
   // { path: '**', component: ErrorComponent }
