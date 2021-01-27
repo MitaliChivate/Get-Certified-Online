@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { ExamserviceService } from '../service/examservice.service';
+import { PaymentserviceService } from '../service/paymentservice.service';
 import { TrainingserviceService } from '../service/trainingservice.service';
 import { UserserviceService } from '../service/userservice.service';
 
@@ -17,13 +18,15 @@ export class UserDashBoardComponent implements OnInit {
   trainingCount: object = null
   examCount: object = null
   userCount: object = null
+  paymentCount: object = null
 
   isLoadingExam: boolean = true
   isLoadingTraining: boolean = true
   isLoadingUser: boolean = true
+  isLoadingPayment: boolean;
 
   constructor(private router: Router, private examService: ExamserviceService, private trainingService: TrainingserviceService,
-    private userService: UserserviceService, private authService: AuthService) { }
+    private userService: UserserviceService, private authService: AuthService, private payService : PaymentserviceService) { }
 
   ngOnInit(): void {
 
@@ -39,6 +42,13 @@ export class UserDashBoardComponent implements OnInit {
       res => {
         this.trainingCount = res
         this.isLoadingTraining = false
+      }
+    )
+
+    this.payService.countPayments().subscribe(
+      res =>{
+        this.paymentCount = res
+        this.isLoadingPayment = false
       }
     )
   }

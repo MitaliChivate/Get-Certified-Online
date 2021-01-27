@@ -39,13 +39,17 @@ export class PaymentHistoryExamComponent implements OnInit {
 
   reloadData() {
     this.pService.getExamPaymentByUserId(this.userId).subscribe(
-      (data => {
+      data => {
         this.payments = data;
         this.payments1 = data;
         this.isLoading = false;
+      },
+      err=>{
+        alert("There are no payments done for any exam")
+        this.route.navigate(['user/dashboard']);
       }
 
-      )
+      
     )
   }
 

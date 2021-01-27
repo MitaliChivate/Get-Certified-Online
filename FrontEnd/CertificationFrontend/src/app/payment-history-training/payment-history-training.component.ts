@@ -41,13 +41,17 @@ export class PaymentHistoryTrainingComponent implements OnInit {
 
   reloadData() {
     this.pService.getTrainingPaymentByUserId(this.userId).subscribe(
-      (data => {
+      data => {
         this.payments = data;
         this.payments1=data;
         this.isLoading = false
+      },
+      err=>{
+        alert("There are no payments done for Training")
+        this.route.navigate(['user/dashboard']);
       }
 
-      )
+      
     )
   }
 

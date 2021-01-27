@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.cg.beans.Exam;
 import com.cg.beans.PaymentExam;
 import com.cg.beans.PaymentTraining;
-import com.cg.beans.TrainingProgram;
 import com.cg.beans.User;
 import com.cg.exception.NoValueFoundException;
 import com.cg.service.PaymentService;
@@ -86,18 +84,18 @@ public class PaymentController {
 		return service.showPaymentExamHistoryByUserId(userId);
 	}
 	
-	// http://localhost:9500/Payment/checkExamEnrolled
-	@GetMapping(value = "/checkExamEnrolled")
-	public int checkExam(@RequestBody Exam exam) {
+	// http://localhost:9500/Payment/checkExamEnrolled/{examId}
+	@GetMapping(value = "/checkExamEnrolled/{examId}")
+	public int checkExam(@PathVariable Long examId) {
 
-		return this.service.checkAlreadyEnrolledExam(exam);
+		return this.service.checkAlreadyEnrolledExam(examId);
 	}
 	
-	// http://localhost:9500/Payment/checkTrainingEnrolled
-	@GetMapping(value = "/checkTrainingEnrolled")
-	public int checkTraining(@RequestBody TrainingProgram training) {
+	// http://localhost:9500/Payment/checkTrainingEnrolled/{trainingId}
+	@GetMapping(value = "/checkTrainingEnrolled/{trainingId}")
+	public int checkTraining(@PathVariable Long trainingId) {
 
-		return this.service.checkAlreadyEnrolledTraining(training);
+		return this.service.checkAlreadyEnrolledTraining(trainingId);
 	}
 
 	// http://localhost:9500/Payment/searchTrainingPaymentByUserId/11
@@ -107,5 +105,13 @@ public class PaymentController {
 		// PaymentController");
 		return service.showPaymentTrainingHistoryByUserId(userId);
 	}
+	
+	//http://localhost:9500/Payment/count
+	@GetMapping(value = "/count")
+	public long count() {
+		return this.service.countPayments();
+		
+	}
+	
 
 }

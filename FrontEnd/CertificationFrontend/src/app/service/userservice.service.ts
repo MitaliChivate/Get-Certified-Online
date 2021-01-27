@@ -22,4 +22,6 @@ export class UserserviceService {
     return this.http.get("http://localhost:9200/user/count");
   }
 
+
+
 }

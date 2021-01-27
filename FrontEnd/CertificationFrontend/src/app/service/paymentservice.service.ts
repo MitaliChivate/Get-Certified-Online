@@ -32,6 +32,8 @@ export class PaymentserviceService {
     return this.http.get<PaymentTraining[]>("http://localhost:9500/Payment/searchTrainingPaymentByUserId/"+userId);
   }
 
-  
+  countPayments(){
+    return this.http.get("http://localhost:9500/Payment/count");;
+  }
 
 }

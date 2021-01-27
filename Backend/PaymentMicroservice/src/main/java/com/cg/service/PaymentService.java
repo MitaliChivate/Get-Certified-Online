@@ -2,10 +2,8 @@ package com.cg.service;
 
 import java.util.List;
 
-import com.cg.beans.Exam;
 import com.cg.beans.PaymentExam;
 import com.cg.beans.PaymentTraining;
-import com.cg.beans.TrainingProgram;
 import com.cg.beans.User;
 
 public interface PaymentService {
@@ -20,7 +18,9 @@ public interface PaymentService {
 
 	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user);
 
-	public int checkAlreadyEnrolledExam(Exam exam);
+	public int checkAlreadyEnrolledExam(Long examId);
 	
-	public int checkAlreadyEnrolledTraining(TrainingProgram training);
+	public int checkAlreadyEnrolledTraining(Long trainingId);
+
+	public long countPayments();
 }

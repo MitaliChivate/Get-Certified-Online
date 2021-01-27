@@ -29,6 +29,7 @@ export class UserListTrainingComponent implements OnInit {
   courseName: String;
   descriptions: string;
 
+  
 
   constructor(private route: Router, private service: TrainingserviceService,private router:ActivatedRoute) { }
 

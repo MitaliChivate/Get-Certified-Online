@@ -20,10 +20,8 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.beans.Exam;
 import com.cg.beans.PaymentExam;
 import com.cg.beans.PaymentTraining;
-import com.cg.beans.TrainingProgram;
 import com.cg.beans.User;
 import com.cg.dao.PaymentDaoForExam;
 import com.cg.dao.PaymentDaoForTraining;
@@ -43,8 +41,8 @@ public class PaymentServiceImpl implements PaymentService {
 	public PaymentExam makePaymentForExam(PaymentExam payment, User user) {
 		String userEmail = user.getEmail();
 
-		if (paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == payment.getExam().getExamId())
-				.collect(Collectors.toList()) != null)
+		if (!(paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == payment.getExam().getExamId())
+				.collect(Collectors.toList()).isEmpty()))
 			throw new NotPossibleException("Payment Is already Done for this Exam");
 
 		PaymentExam pay = this.paymentDao.save(payment);
@@ -119,11 +117,12 @@ public class PaymentServiceImpl implements PaymentService {
 	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user) {
 		String userEmail = user.getEmail();
 
-		if (paymentDaoForTraining.findAll().stream()
-				.filter(x -> x.getTraining().getTrainingProgramId() == payment.getTraining().getTrainingProgramId())
-				.collect(Collectors.toList()) != null)
-			throw new NotPossibleException("Payment Is already Done for this Training");
-
+		if (!paymentDaoForTraining.findAll().isEmpty()) {
+			if (!(paymentDaoForTraining.findAll().stream()
+					.filter(x -> x.getTraining().getTrainingProgramId() == payment.getTraining().getTrainingProgramId())
+					.collect(Collectors.toList()).isEmpty()))
+				throw new NotPossibleException("Payment Is already Done for this Training");
+		}
 		PaymentTraining pay = this.paymentDaoForTraining.save(payment);
 
 		String firstName = user.getFirstName();
@@ -164,20 +163,26 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public int checkAlreadyEnrolledExam(Exam exam) {
-		if (paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == exam.getExamId())
-				.collect(Collectors.toList()) == null)
+	public int checkAlreadyEnrolledExam(Long examId) {
+		if (!(paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == examId)
+				.collect(Collectors.toList()).isEmpty()))
 			return 1;
 		return 0;
 	}
 
 	@Override
-	public int checkAlreadyEnrolledTraining(TrainingProgram training) {
-		if (paymentDaoForTraining.findAll().stream()
-				.filter(x -> x.getTraining().getTrainingProgramId() == training.getTrainingProgramId())
-				.collect(Collectors.toList()) == null)
+	public int checkAlreadyEnrolledTraining(Long trainingId) {
+		if (!(paymentDaoForTraining.findAll().stream()
+				.filter(x -> x.getTraining().getTrainingProgramId() == trainingId)
+				.collect(Collectors.toList()).isEmpty()))
 			return 1;
 		return 0;
+	}
+
+	@Override
+	public long countPayments() {
+		
+		return paymentDao.count()+paymentDaoForTraining.count();
 	}
 
 }
