@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Exam } from '../models/exam.model';
 import { PaymentExam } from '../models/paymentexam.model';
 import { PaymentTraining } from '../models/paymenttraining.model';
 
@@ -30,5 +31,7 @@ export class PaymentserviceService {
     console.log(userId)
     return this.http.get<PaymentTraining[]>("http://localhost:9500/Payment/searchTrainingPaymentByUserId/"+userId);
   }
+
+  
 
 }

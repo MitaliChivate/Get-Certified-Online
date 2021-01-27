@@ -12,13 +12,16 @@ import { PaymentserviceService } from '../service/paymentservice.service';
 })
 export class PaymentHistoryExamComponent implements OnInit {
 
-  payment: PaymentExam[] = [];
-  payments: PaymentExam;
-  exams: Exam[] = [];
-  exam: Exam;
-  exam1: Exam[] = [];
+  payments: PaymentExam[] = [];
+  payments1: PaymentExam[]=[];
+  payment : PaymentExam;
 
   //Flags required for interactive UI
+  isAdded: boolean = null
+  isUpdated: boolean = false
+  isLoading: boolean = true
+  isErrorUpdating: boolean = false
+
   userId: number;
   paymentMode: string;
   paymentDate: Date;
@@ -28,8 +31,8 @@ export class PaymentHistoryExamComponent implements OnInit {
   constructor(private route: Router, private pService: PaymentserviceService) { }
 
   ngOnInit(): void {
-    this.payment = []
-
+    this.payments = []
+    this.payments1 = []
 
     setTimeout(() => { this.reloadData() }, 100);
   }
@@ -37,7 +40,9 @@ export class PaymentHistoryExamComponent implements OnInit {
   reloadData() {
     this.pService.getExamPaymentByUserId(this.userId).subscribe(
       (data => {
-        this.payment = data;
+        this.payments = data;
+        this.payments1 = data;
+        this.isLoading = false;
       }
 
       )
@@ -45,12 +50,18 @@ export class PaymentHistoryExamComponent implements OnInit {
   }
 
   getPaymentDetailsById(userId: number) {
-   // console.log(userId)
-
     this.pService.getExamPaymentByUserId(userId).subscribe((res) => {
-      this.payment = res;
+      this.payments = res
+      this.payments1 = res;
     })
 
+  }
+
+  onKey(event: any) {
+
+    this.payments1 = this.payments.filter(payment => payment.exam.examName.includes(event.target.value))
+    if (event.target.value == '' || event.target.value == undefined)
+      this.payments1 = this.payments
   }
 
   logout() {

@@ -3,14 +3,18 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <h1 class="text-center"><i class="fas fa-laptop"></i>Exam Payment Details</h1>
+          <h1 class="text-center"><i class="fas fa-receipt"></i> Exam Payment Details</h1>
         </div>
         <div style="overflow-x: auto;">
           <div class="container">
             <div class="form-group float-left">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">
+                    <i class="fa fa-search"></i>
+                  </span>
                 </div>
+                <input (keyup)="onKey($event)" class="form-control" placeholder="Search By Course Name..." />
               </div>
             </div>
           </div>
@@ -19,7 +23,7 @@
               <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
             </caption>
             <caption *ngIf='!isLoading'>
-              List of Exam Payment.
+              List of all Exams.
               <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize'>
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -40,7 +44,7 @@
               <td>Exam Name</td>
             </thead>
             <tbody>
-              <tr *ngFor='let pay of payment| paginate: { itemsPerPage: bucketSize, currentPage: p}'>
+              <tr *ngFor='let pay of payments1| paginate: { itemsPerPage: bucketSize, currentPage: p}'>
                 <td>{{pay.paymentId}}</td>
                 <td>{{pay.paymentMode}}</td>
                 <td>{{pay.paymentDate}}</td>

@@ -20,12 +20,15 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.beans.Exam;
 import com.cg.beans.PaymentExam;
 import com.cg.beans.PaymentTraining;
+import com.cg.beans.TrainingProgram;
 import com.cg.beans.User;
 import com.cg.dao.PaymentDaoForExam;
 import com.cg.dao.PaymentDaoForTraining;
 import com.cg.exception.NoValueFoundException;
+import com.cg.exception.NotPossibleException;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -40,17 +43,21 @@ public class PaymentServiceImpl implements PaymentService {
 	public PaymentExam makePaymentForExam(PaymentExam payment, User user) {
 		String userEmail = user.getEmail();
 
+		if (paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == payment.getExam().getExamId())
+				.collect(Collectors.toList()) != null)
+			throw new NotPossibleException("Payment Is already Done for this Exam");
+
 		PaymentExam pay = this.paymentDao.save(payment);
 
 		String firstName = user.getFirstName();
 
 		String examName = pay.getExam().getExamName();
-		
-		Long paymentId=pay.getPaymentId();
-		
-		LocalDate payDate=pay.getPaymentDate();
+
+		Long paymentId = pay.getPaymentId();
+
+		LocalDate payDate = pay.getPaymentDate();
 		try {
-			sendmail(userEmail, firstName, paymentId,payDate, examName, payment.getAmount());
+			sendmail(userEmail, firstName, paymentId, payDate, examName, payment.getAmount());
 		} catch (MessagingException | IOException e) {
 
 		}
@@ -58,8 +65,8 @@ public class PaymentServiceImpl implements PaymentService {
 
 	}
 
-	private void sendmail(String email, String firstName,Long paymentId,LocalDate paymentDate, String examortrainingname, Integer amount)
-			throws AddressException, MessagingException, IOException {
+	private void sendmail(String email, String firstName, Long paymentId, LocalDate paymentDate,
+			String examortrainingname, Integer amount) throws AddressException, MessagingException, IOException {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -78,25 +85,25 @@ public class PaymentServiceImpl implements PaymentService {
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 		msg.setSubject("Get certified!!!");
 		msg.setContent("<html><head>\r\n" + "<style>\r\n" + "table, th, td {\r\n" + "  border: 1px solid black;\r\n"
-				+ "}\r\n" + "</style>\r\n"
-				+ "</head><body><p>Hi " + firstName + ",</p><p> Your payment is successful!!</p>\r\n"
+				+ "}\r\n" + "</style>\r\n" + "</head><body><p>Hi " + firstName
+				+ ",</p><p> Your payment is successful!!</p>\r\n"
 				+ "                <table style=\"border:1px solid balck;\" >\r\n" + "  <tr style=\"width:100%\">\r\n"
 				+ "    <th>ReceiptNo</th>\r\n" + "    <th>PaymentDate</th> \r\n" + "    <th>PaymentAmount</th>\r\n"
-				+ "    <th>Exam/Training Name</th>\r\n" + "  </tr>\r\n" + "  	<td>"+paymentId+"</td>\r\n"
-				+ "    <td>"+paymentDate+"</td>\r\n" + "    <td>"+amount+"</td>\r\n"
-				+ "    <td>"+examortrainingname+"</td>\r\n" + "  <tr>\r\n" + "</table><p>Thank You!</p><body><html>",
+				+ "    <th>Exam/Training Name</th>\r\n" + "  </tr>\r\n" + "  	<td>" + paymentId + "</td>\r\n"
+				+ "    <td>" + paymentDate + "</td>\r\n" + "    <td>" + amount + "</td>\r\n" + "    <td>"
+				+ examortrainingname + "</td>\r\n" + "  <tr>\r\n" + "</table><p>Thank You!</p><body><html>",
 				"text/html");
 		msg.setSentDate(new Date());
 
 		MimeBodyPart messageBodyPart = new MimeBodyPart();
-		messageBodyPart.setContent("<html><head>\r\n" + "<style>\r\n" + "table, th, td {\r\n" + "  border: 1px solid black;\r\n"
-				+ "}\r\n" + "</style>\r\n"
-				+ "</head><body><p>Hi " + firstName + ",</p><p> Your payment is successful!!</p>\r\n"
+		messageBodyPart.setContent("<html><head>\r\n" + "<style>\r\n" + "table, th, td {\r\n"
+				+ "  border: 1px solid black;\r\n" + "}\r\n" + "</style>\r\n" + "</head><body><p>Hi " + firstName
+				+ ",</p><p> Your payment is successful!!</p>\r\n"
 				+ "                <table style=\"border:1px solid balck;\" >\r\n" + "  <tr style=\"width:100%\">\r\n"
 				+ "    <th>ReceiptNo</th>\r\n" + "    <th>PaymentDate</th> \r\n" + "    <th>PaymentAmount</th>\r\n"
-				+ "    <th>Exam/Training Name</th>\r\n" + "  </tr>\r\n" + "  	<td>"+paymentId+"</td>\r\n"
-				+ "    <td>"+paymentDate+"</td>\r\n" + "    <td>"+amount+"</td>\r\n"
-				+ "    <td>"+examortrainingname+"</td>\r\n" + "  <tr>\r\n" + "</table><p>Thank You!</p><body><html>",
+				+ "    <th>Exam/Training Name</th>\r\n" + "  </tr>\r\n" + "  	<td>" + paymentId + "</td>\r\n"
+				+ "    <td>" + paymentDate + "</td>\r\n" + "    <td>" + amount + "</td>\r\n" + "    <td>"
+				+ examortrainingname + "</td>\r\n" + "  <tr>\r\n" + "</table><p>Thank You!</p><body><html>",
 				"text/html");
 		Transport.send(msg);
 	}
@@ -112,18 +119,23 @@ public class PaymentServiceImpl implements PaymentService {
 	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user) {
 		String userEmail = user.getEmail();
 
+		if (paymentDaoForTraining.findAll().stream()
+				.filter(x -> x.getTraining().getTrainingProgramId() == payment.getTraining().getTrainingProgramId())
+				.collect(Collectors.toList()) != null)
+			throw new NotPossibleException("Payment Is already Done for this Training");
+
 		PaymentTraining pay = this.paymentDaoForTraining.save(payment);
 
 		String firstName = user.getFirstName();
 
 		String courseName = pay.getTraining().getTrainingCourse();
-		
-Long paymentId=pay.getPaymentId();
-		
-		LocalDate payDate=pay.getPaymentDate();
+
+		Long paymentId = pay.getPaymentId();
+
+		LocalDate payDate = pay.getPaymentDate();
 		try {
-			sendmail(userEmail, firstName, paymentId,payDate, courseName, payment.getAmount());
-		}catch (MessagingException | IOException e) {
+			sendmail(userEmail, firstName, paymentId, payDate, courseName, payment.getAmount());
+		} catch (MessagingException | IOException e) {
 
 		}
 		return pay;
@@ -149,6 +161,23 @@ Long paymentId=pay.getPaymentId();
 			throw new NoValueFoundException("Payment with userId:" + userId + " does not exist");
 		else
 			return paymentTList;
+	}
+
+	@Override
+	public int checkAlreadyEnrolledExam(Exam exam) {
+		if (paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == exam.getExamId())
+				.collect(Collectors.toList()) == null)
+			return 1;
+		return 0;
+	}
+
+	@Override
+	public int checkAlreadyEnrolledTraining(TrainingProgram training) {
+		if (paymentDaoForTraining.findAll().stream()
+				.filter(x -> x.getTraining().getTrainingProgramId() == training.getTrainingProgramId())
+				.collect(Collectors.toList()) == null)
+			return 1;
+		return 0;
 	}
 
 }

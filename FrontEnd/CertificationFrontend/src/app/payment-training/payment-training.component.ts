@@ -18,6 +18,7 @@ export class PaymentTrainingComponent implements OnInit {
   trainingProgramId:number;
   paymentDate:Date;
   isadded: boolean = false
+  cost : number
   constructor(private router:Router,private service:TrainingserviceService,private pService:PaymentserviceService,private route:ActivatedRoute) {
     this.paymentTraining=new PaymentTraining();
    }
@@ -28,6 +29,7 @@ export class PaymentTrainingComponent implements OnInit {
     if(this.trainingProgramId){
       this.service.fetchTrainingByTrainingId(this.trainingProgramId).subscribe(data=>{
         this.training=data;
+        this.cost=this.training.trainingCost
         console.log(data);
       })
     }
@@ -39,7 +41,14 @@ export class PaymentTrainingComponent implements OnInit {
     this.paymentTraining.training=this.training;
     this.paymentTraining.amount=this.training.trainingCost;
     console.log(this.paymentTraining.paymentMode);
-    this.pService.makePaymentForTraining(this.paymentTraining).subscribe(response => this.redirectPaymentdetail() 
+    this.pService.makePaymentForTraining(this.paymentTraining).subscribe(
+      response => {
+        this.redirectPaymentdetail()
+      },
+      err=>{
+        alert("Payment is already Done for this Training . Please Select another Training Program...")
+        this.router.navigate(['user/dashboard/training/add']);
+      } 
      
     );
   }

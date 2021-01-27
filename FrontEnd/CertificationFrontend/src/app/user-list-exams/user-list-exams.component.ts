@@ -52,15 +52,6 @@ export class UserListExamsComponent implements OnInit {
     )
   }
 
-  remove(examId: number) {
-    var ans = confirm("Are you sure you want to delete?");
-    if (ans) {
-      this.service.deleteExam(examId).subscribe((res) => {
-        this.exams = []
-        this.ngOnInit()
-      })
-    }
-  }
 
   routerPayment(exam) {
     this.route.navigate(['/user/dashboard/payment-exam', exam.examId])

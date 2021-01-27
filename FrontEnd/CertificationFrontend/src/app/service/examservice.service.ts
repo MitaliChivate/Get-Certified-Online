@@ -30,6 +30,8 @@ export class ExamserviceService {
     return this.http.get<Exam>("http://localhost:9400/exam/findByExamId/" + index);
   }
 
-
+  checkEnrollExam(examId :number) : Observable<Object>{
+    return this.http.get<any>("http://localhost:9500/Payment/checkExamEnrolled/" +examId);
+  }
 
 }
