@@ -1,6 +1,7 @@
 package com.cg.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.cg.beans.Exam;
-
+import com.cg.beans.User;
+import com.cg.exception.NotFoundException;
 import com.cg.service.ExamService;
 import io.swagger.annotations.Api;
 
@@ -22,6 +25,11 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping(value = "/exam")
 public class ExamController {
+
+	@Autowired
+	RestTemplate restTemplate;
+
+	final String UserURL = "http://localhost:9200/user/searchUser/";
 
 	@Autowired
 	private ExamService service;
@@ -80,6 +88,19 @@ public class ExamController {
 	@GetMapping("/count")
 	public long countExams() {
 		return this.service.countExam();
+
+	}
+	
+	// http://localhost:9400/exam/sendReminder/100000
+	@PostMapping(value = "/sendReminder/{userId}")
+	public void sendReminder(@RequestBody Exam exam, @PathVariable Long userId) {
+		
+		User user = restTemplate.getForObject(UserURL + userId, User.class);
+		/*
+		 * if (userId == null) throw new NotFoundException("User", " Not Found");
+		 */
+		
+		this.service.sendReminder(exam, user);
 
 	}
 
