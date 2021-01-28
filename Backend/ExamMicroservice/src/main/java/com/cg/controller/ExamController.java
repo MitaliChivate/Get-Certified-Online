@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.cg.beans.Exam;
 import com.cg.beans.User;
-import com.cg.exception.NotFoundException;
 import com.cg.service.ExamService;
 import io.swagger.annotations.Api;
 

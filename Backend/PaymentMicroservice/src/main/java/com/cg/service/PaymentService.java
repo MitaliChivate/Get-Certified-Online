@@ -7,19 +7,19 @@ import com.cg.beans.PaymentTraining;
 import com.cg.beans.User;
 
 public interface PaymentService {
-	
-	public PaymentExam makePaymentForExam(PaymentExam payment , User user);
-	
+
+	public PaymentExam makePaymentForExam(PaymentExam payment, User user, long frontOtp);
+
 	public PaymentExam showPaymentHistory(Long paymentId);
 
 	public List<PaymentExam> showPaymentExamHistoryByUserId(Long userId);
-	
+
 	public List<PaymentTraining> showPaymentTrainingHistoryByUserId(Long userId);
 
-	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user);
+	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user , long frontOtp);
 
 	public int checkAlreadyEnrolledExam(Long examId);
-	 
+
 	public int checkAlreadyEnrolledTraining(Long trainingId);
 
 	public long countPayments();
@@ -32,5 +32,7 @@ public interface PaymentService {
 
 	public int amountCollectedTraining();
 
-	public List<PaymentTraining>  findByTraningId(Long traningId);
+	public List<PaymentTraining> findByTraningId(Long traningId);
+
+	public long generateOtpForExam(String email);
 }

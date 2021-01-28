@@ -42,8 +42,8 @@ public class PaymentController {
 	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
 	// http://localhost:9500/Payment/makePaymentForExam
-	@PostMapping(value = "/makePaymentForExam")
-	public PaymentExam makePaymentForExam(@RequestBody PaymentExam payment) {
+	@PostMapping(value = "/makePaymentForExam/{frontOtp}")
+	public PaymentExam makePaymentForExam(@RequestBody PaymentExam payment , @PathVariable long frontOtp) {
 
 		long userId = payment.getUserId();
 
@@ -52,13 +52,13 @@ public class PaymentController {
 			throw new NoValueFoundException("User Not Found");
 		System.out.println(payment);
 		payment.setPaymentDate(LocalDate.now());
-		return this.service.makePaymentForExam(payment, user);
+		return this.service.makePaymentForExam(payment, user , frontOtp);
 
 	}
 
 	// http://localhost:9500/Payment/makePaymentForTraining
-	@PostMapping(value = "/makePaymentForTraining")
-	public PaymentTraining makePaymentForTaining(@RequestBody PaymentTraining payment) {
+	@PostMapping(value = "/makePaymentForTraining/{frontOtp}")
+	public PaymentTraining makePaymentForTaining(@RequestBody PaymentTraining payment , @PathVariable long frontOtp) {
 
 		long userId = payment.getUserId();
 
@@ -66,7 +66,7 @@ public class PaymentController {
 		if (user == null)
 			throw new NoValueFoundException("User Not Found");
 		payment.setPaymentDate(LocalDate.now());
-		return this.service.makePaymentForTraining(payment, user);
+		return this.service.makePaymentForTraining(payment, user ,frontOtp);
 
 	}
 
@@ -138,16 +138,27 @@ public class PaymentController {
 	@GetMapping(value = "/getAmountTraining")
 	public int getTotalAmountCollectedOfTraining() {
 		return this.service.amountCollectedTraining();
- 
-	}
-	
-	// http://localhost:9500/Payment/findByTrainingId
-		@GetMapping(value = "/findByTrainingId/{trainingId}")
-		public List<PaymentTraining>  findByTrainingId(@PathVariable Long traningId) {
-			
-			return this.service.findByTraningId(traningId);
 
-		}
-	
+	}
+
+	// http://localhost:9500/Payment/findByTrainingId
+	@GetMapping(value = "/findByTrainingId/{trainingId}")
+	public List<PaymentTraining> findByTrainingId(@PathVariable Long trainingId) {
+
+		return this.service.findByTraningId(trainingId);
+
+	}
+
+	// http://localhost:9500/Payment/generateOtp
+	@GetMapping(value = "/generateOtp/{userId}")
+	public long generateOtp(@PathVariable Long userId) {
+
+		User user = restTemplate.getForObject(UserURL + userId, User.class);
+		if (user == null)
+			throw new NoValueFoundException("User Not Found");
+		
+		return this.service.generateOtpForExam(user.getEmail());
+
+	}
 
 }

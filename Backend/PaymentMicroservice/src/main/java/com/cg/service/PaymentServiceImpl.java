@@ -38,16 +38,19 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentDaoForTraining paymentDaoForTraining;
 
+	private long otp;
+
 	@Override
-	public PaymentExam makePaymentForExam(PaymentExam payment, User user) {
+	public PaymentExam makePaymentForExam(PaymentExam payment, User user, long frontOtp) {
 		String userEmail = user.getEmail();
 
-		if (!(paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == payment.getExam().getExamId())
-				.collect(Collectors.toList()).isEmpty()))
-			throw new NotPossibleException("Payment Is already Done for this Exam");
+		PaymentExam pay = null;
 
-		PaymentExam pay = this.paymentDao.save(payment);
-
+		if (otp == frontOtp) {
+			pay = this.paymentDao.save(payment);
+		} else {
+			throw new NotPossibleException("Otp didnt matched");
+		}
 		String firstName = user.getFirstName();
 
 		String examName = pay.getExam().getExamName();
@@ -115,16 +118,15 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user) {
+	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user, long frontOtp) {
 		String userEmail = user.getEmail();
 
-		if (!paymentDaoForTraining.findAll().isEmpty()) {
-			if (!(paymentDaoForTraining.findAll().stream()
-					.filter(x -> x.getTraining().getTrainingProgramId() == payment.getTraining().getTrainingProgramId())
-					.collect(Collectors.toList()).isEmpty()))
-				throw new NotPossibleException("Payment Is already Done for this Training");
-		}
-		PaymentTraining pay = this.paymentDaoForTraining.save(payment);
+		PaymentTraining pay = null;
+
+		if (otp == frontOtp)
+			pay = this.paymentDaoForTraining.save(payment);
+		else
+			throw new NotPossibleException("Otp didnt matched");
 
 		String firstName = user.getFirstName();
 
@@ -165,16 +167,15 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public int checkAlreadyEnrolledExam(Long examId) {
-		if (!(paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == examId)
-				.collect(Collectors.toList()).isEmpty()))
+		if (!(paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == examId).collect(Collectors.toList())
+				.isEmpty()))
 			return 1;
 		return 0;
 	}
 
 	@Override
 	public int checkAlreadyEnrolledTraining(Long trainingId) {
-		if (!(paymentDaoForTraining.findAll().stream()
-				.filter(x -> x.getTraining().getTrainingProgramId() == trainingId)
+		if (!(paymentDaoForTraining.findAll().stream().filter(x -> x.getTraining().getTrainingProgramId() == trainingId)
 				.collect(Collectors.toList()).isEmpty()))
 			return 1;
 		return 0;
@@ -182,14 +183,14 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public long countPayments() {
-		
-		return paymentDao.count()+paymentDaoForTraining.count();
+
+		return paymentDao.count() + paymentDaoForTraining.count();
 	}
 
 	@Override
 	public List<PaymentTraining> getAllTrainingPayments() {
 		List<PaymentTraining> pay = paymentDaoForTraining.findAll();
-		if(pay.isEmpty())
+		if (pay.isEmpty())
 			throw new NotPossibleException("No Payments are done");
 		return pay;
 	}
@@ -197,32 +198,76 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public List<PaymentExam> getAllExamPayments() {
 		List<PaymentExam> pay = paymentDao.findAll();
-		if(pay.isEmpty())
+		if (pay.isEmpty())
 			throw new NotPossibleException("No Payments are done");
 		return pay;
 	}
 
 	@Override
 	public int amountCollectedExam() {
-		if(paymentDao.findAll().isEmpty())
+		if (paymentDao.findAll().isEmpty())
 			return 0;
 		return paymentDao.findAll().stream().mapToInt(o -> o.getAmount()).sum();
 	}
 
-	@Override 
+	@Override
 	public int amountCollectedTraining() {
-		if(paymentDaoForTraining.findAll().isEmpty())
+		if (paymentDaoForTraining.findAll().isEmpty())
 			return 0;
 		return paymentDaoForTraining.findAll().stream().mapToInt(o -> o.getAmount()).sum();
 	}
 
 	@Override
 	public List<PaymentTraining> findByTraningId(Long trainingId) {
-		
+
 		return paymentDaoForTraining.findAll().stream()
-		.filter(x -> x.getTraining().getTrainingProgramId() == trainingId)
-		.collect(Collectors.toList());
-		
+				.filter(x -> x.getTraining().getTrainingProgramId() == trainingId).collect(Collectors.toList());
+
+	}
+
+	@Override
+	public long generateOtpForExam(String email) {
+
+		long min = 100000;
+		long max = 999999;
+		// Generate random double value from 50 to 100
+		System.out.println("Random value in double from " + min + " to " + max + ":");
+		otp = (long) (Math.random() * (max - min + 1) + min);
+		System.out.println(otp);
+
+		try {
+			sendOtpEmail(otp, email);
+		} catch (MessagingException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return otp;
+	}
+
+	private void sendOtpEmail(long otp, String email) throws AddressException, MessagingException, IOException {
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.googlemail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("bankofmahrashtra@gmail.com", "Shekhar1998");
+			}
+		});
+
+		Message msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress("bankofmahrashtra@gmail.com", false));
+
+		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+		msg.setSubject("OTP for your transaction");
+		msg.setContent("Your OTP is : " + otp, "text/html");
+		msg.setSentDate(new Date());
+
+		MimeBodyPart messageBodyPart = new MimeBodyPart();
+		messageBodyPart.setContent("Your OTP is : " + otp, "text/html");
+		Transport.send(msg);
 	}
 
 }
