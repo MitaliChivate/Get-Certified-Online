@@ -7,4 +7,5 @@ import com.cg.beans.PaymentTraining;
 @Repository
 public interface PaymentDaoForTraining extends JpaRepository<PaymentTraining, Long> {
 
+	
 }

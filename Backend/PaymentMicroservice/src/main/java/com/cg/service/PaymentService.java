@@ -19,8 +19,18 @@ public interface PaymentService {
 	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user);
 
 	public int checkAlreadyEnrolledExam(Long examId);
-	
+	 
 	public int checkAlreadyEnrolledTraining(Long trainingId);
 
 	public long countPayments();
+
+	public List<PaymentTraining> getAllTrainingPayments();
+
+	public List<PaymentExam> getAllExamPayments();
+
+	public int amountCollectedExam();
+
+	public int amountCollectedTraining();
+
+	public List<PaymentTraining>  findByTraningId(Long traningId);
 }
