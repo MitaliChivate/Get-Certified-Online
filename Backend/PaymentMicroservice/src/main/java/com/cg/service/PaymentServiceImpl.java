@@ -185,4 +185,34 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentDao.count()+paymentDaoForTraining.count();
 	}
 
+	@Override
+	public List<PaymentTraining> getAllTrainingPayments() {
+		List<PaymentTraining> pay = paymentDaoForTraining.findAll();
+		if(pay.isEmpty())
+			throw new NotPossibleException("No Payments are done");
+		return pay;
+	}
+
+	@Override
+	public List<PaymentExam> getAllExamPayments() {
+		List<PaymentExam> pay = paymentDao.findAll();
+		if(pay.isEmpty())
+			throw new NotPossibleException("No Payments are done");
+		return pay;
+	}
+
+	@Override
+	public int amountCollectedExam() {
+		if(paymentDao.findAll().isEmpty())
+			return 0;
+		return paymentDao.findAll().stream().mapToInt(o -> o.getAmount()).sum();
+	}
+
+	@Override
+	public int amountCollectedTraining() {
+		if(paymentDaoForTraining.findAll().isEmpty())
+			return 0;
+		return paymentDaoForTraining.findAll().stream().mapToInt(o -> o.getAmount()).sum();
+	}
+
 }

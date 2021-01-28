@@ -83,14 +83,14 @@ public class PaymentController {
 		logger.info("Inside showPaymentExamHistoryByUserId() method of PaymentController");
 		return service.showPaymentExamHistoryByUserId(userId);
 	}
-	
+
 	// http://localhost:9500/Payment/checkExamEnrolled/{examId}
 	@GetMapping(value = "/checkExamEnrolled/{examId}")
 	public int checkExam(@PathVariable Long examId) {
 
 		return this.service.checkAlreadyEnrolledExam(examId);
 	}
-	
+
 	// http://localhost:9500/Payment/checkTrainingEnrolled/{trainingId}
 	@GetMapping(value = "/checkTrainingEnrolled/{trainingId}")
 	public int checkTraining(@PathVariable Long trainingId) {
@@ -105,13 +105,40 @@ public class PaymentController {
 		// PaymentController");
 		return service.showPaymentTrainingHistoryByUserId(userId);
 	}
-	
-	//http://localhost:9500/Payment/count
+
+	// http://localhost:9500/Payment/count
 	@GetMapping(value = "/count")
 	public long count() {
 		return this.service.countPayments();
-		
+
 	}
-	
+
+	// http://localhost:9500/Payment/getAllTrainingPayments
+	@GetMapping(value = "/getAllTrainingPayments")
+	public List<PaymentTraining> getAllTrainingsPayment() {
+		return this.service.getAllTrainingPayments();
+
+	}
+
+	// http://localhost:9500/Payment/getAllExamPayments
+	@GetMapping(value = "/getAllExamPayments")
+	public List<PaymentExam> getAllExamsPayment() {
+		return this.service.getAllExamPayments();
+
+	}
+
+	// http://localhost:9500/Payment/getAmountExam
+	@GetMapping(value = "/getAmountExam")
+	public int getTotalAmountCollectedOfExam() {
+		return this.service.amountCollectedExam();
+
+	}
+
+	// http://localhost:9500/Payment/getAmountTraining
+	@GetMapping(value = "/getAmountTraining")
+	public int getTotalAmountCollectedOfTraining() {
+		return this.service.amountCollectedTraining();
+
+	}
 
 }
