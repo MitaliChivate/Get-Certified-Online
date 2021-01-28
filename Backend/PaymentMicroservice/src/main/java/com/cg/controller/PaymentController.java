@@ -138,7 +138,16 @@ public class PaymentController {
 	@GetMapping(value = "/getAmountTraining")
 	public int getTotalAmountCollectedOfTraining() {
 		return this.service.amountCollectedTraining();
-
+ 
 	}
+	
+	// http://localhost:9500/Payment/findByTrainingId
+		@GetMapping(value = "/findByTrainingId/{trainingId}")
+		public List<PaymentTraining>  findByTrainingId(@PathVariable Long traningId) {
+			
+			return this.service.findByTraningId(traningId);
+
+		}
+	
 
 }

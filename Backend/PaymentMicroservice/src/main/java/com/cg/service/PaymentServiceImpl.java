@@ -208,11 +208,20 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentDao.findAll().stream().mapToInt(o -> o.getAmount()).sum();
 	}
 
-	@Override
+	@Override 
 	public int amountCollectedTraining() {
 		if(paymentDaoForTraining.findAll().isEmpty())
 			return 0;
 		return paymentDaoForTraining.findAll().stream().mapToInt(o -> o.getAmount()).sum();
+	}
+
+	@Override
+	public List<PaymentTraining> findByTraningId(Long trainingId) {
+		
+		return paymentDaoForTraining.findAll().stream()
+		.filter(x -> x.getTraining().getTrainingProgramId() == trainingId)
+		.collect(Collectors.toList());
+		
 	}
 
 }
