@@ -48,6 +48,8 @@ public class PaymentServiceImpl implements PaymentService {
 
 		if (otp == frontOtp) {
 			pay = this.paymentDao.save(payment);
+			
+			otp=0;
 		} else {
 			throw new NotPossibleException("Otp didnt matched");
 		}
