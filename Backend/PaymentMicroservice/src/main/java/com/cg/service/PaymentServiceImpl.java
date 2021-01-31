@@ -169,19 +169,34 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public int checkAlreadyEnrolledExam(Long examId, Long userId) {
-		if (!(paymentDao.findAll().stream()
-				.filter(x -> (x.getExam().getExamId() == examId) && (x.getUserId() == userId))
-				.collect(Collectors.toList()).isEmpty()))
-			return 1;
+//		if (!(paymentDao.findAll().stream()
+//				.filter(x -> (x.getExam().getExamId() == examId) && (x.getUserId() == userId))
+//				.collect(Collectors.toList()).isEmpty()))
+//			return 1;
+//		return 0;
+
+		List<PaymentExam> payment = paymentDao.findAll();
+
+		for (int i = 0; i < payment.size(); i++) {
+			if (userId == payment.get(i).getUserId() && examId == payment.get(i).getExam().getExamId())
+				return 1;
+		}
 		return 0;
 	}
 
 	@Override
 	public int checkAlreadyEnrolledTraining(Long trainingId, Long userId) {
-		if (!(paymentDaoForTraining.findAll().stream()
-				.filter(x -> (x.getTraining().getTrainingProgramId() == trainingId) && (x.getUserId() == userId))
-				.collect(Collectors.toList()).isEmpty()))
-			return 1;
+//		if (!(paymentDaoForTraining.findAll().stream()
+//				.filter(x -> (x.getTraining().getTrainingProgramId() == trainingId) && (x.getUserId() == userId))
+//				.collect(Collectors.toList()).isEmpty()))
+//			return 1;
+//		return 0;
+		
+		List<PaymentTraining> payment= paymentDaoForTraining.findAll();
+		for (int i = 0; i < payment.size(); i++) {
+			if (userId == payment.get(i).getUserId() && trainingId == payment.get(i).getTraining().getTrainingProgramId())
+				return 1;
+		}
 		return 0;
 	}
 
