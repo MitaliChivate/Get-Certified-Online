@@ -79,6 +79,7 @@ public class ExamServiceImpl implements ExamService {
 
 	}
 
+
 	@Override
 	public long countExam() {
 		return dao.count();
