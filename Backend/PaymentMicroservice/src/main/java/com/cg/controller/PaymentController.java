@@ -43,7 +43,7 @@ public class PaymentController {
 
 	// http://localhost:9500/Payment/makePaymentForExam
 	@PostMapping(value = "/makePaymentForExam/{frontOtp}")
-	public PaymentExam makePaymentForExam(@RequestBody PaymentExam payment , @PathVariable long frontOtp) {
+	public PaymentExam makePaymentForExam(@RequestBody PaymentExam payment, @PathVariable long frontOtp) {
 
 		long userId = payment.getUserId();
 
@@ -52,13 +52,13 @@ public class PaymentController {
 			throw new NoValueFoundException("User Not Found");
 		System.out.println(payment);
 		payment.setPaymentDate(LocalDate.now());
-		return this.service.makePaymentForExam(payment, user , frontOtp);
+		return this.service.makePaymentForExam(payment, user, frontOtp);
 
 	}
 
 	// http://localhost:9500/Payment/makePaymentForTraining
 	@PostMapping(value = "/makePaymentForTraining/{frontOtp}")
-	public PaymentTraining makePaymentForTaining(@RequestBody PaymentTraining payment , @PathVariable long frontOtp) {
+	public PaymentTraining makePaymentForTaining(@RequestBody PaymentTraining payment, @PathVariable long frontOtp) {
 
 		long userId = payment.getUserId();
 
@@ -66,7 +66,7 @@ public class PaymentController {
 		if (user == null)
 			throw new NoValueFoundException("User Not Found");
 		payment.setPaymentDate(LocalDate.now());
-		return this.service.makePaymentForTraining(payment, user ,frontOtp);
+		return this.service.makePaymentForTraining(payment, user, frontOtp);
 
 	}
 
@@ -84,18 +84,18 @@ public class PaymentController {
 		return service.showPaymentExamHistoryByUserId(userId);
 	}
 
-	// http://localhost:9500/Payment/checkExamEnrolled/{examId}
-	@GetMapping(value = "/checkExamEnrolled/{examId}")
-	public int checkExam(@PathVariable Long examId) {
+	// http://localhost:9500/Payment/checkExamEnrolled/{examId}/{userId}
+	@GetMapping(value = "/checkExamEnrolled/{examId}/{userId}")
+	public int checkExam(@PathVariable Long examId, @PathVariable Long userId) {
 
-		return this.service.checkAlreadyEnrolledExam(examId);
+		return this.service.checkAlreadyEnrolledExam(examId , userId);
 	}
 
-	// http://localhost:9500/Payment/checkTrainingEnrolled/{trainingId}
-	@GetMapping(value = "/checkTrainingEnrolled/{trainingId}")
-	public int checkTraining(@PathVariable Long trainingId) {
+	// http://localhost:9500/Payment/checkTrainingEnrolled/{trainingId}/{userId}
+	@GetMapping(value = "/checkTrainingEnrolled/{trainingId}/{userId}")
+	public int checkTraining(@PathVariable Long trainingId, @PathVariable Long userId) {
 
-		return this.service.checkAlreadyEnrolledTraining(trainingId);
+		return this.service.checkAlreadyEnrolledTraining(trainingId , userId);
 	}
 
 	// http://localhost:9500/Payment/searchTrainingPaymentByUserId/11
@@ -156,7 +156,7 @@ public class PaymentController {
 		User user = restTemplate.getForObject(UserURL + userId, User.class);
 		if (user == null)
 			throw new NoValueFoundException("User Not Found");
-		
+
 		return this.service.generateOtpForExam(user.getEmail());
 
 	}

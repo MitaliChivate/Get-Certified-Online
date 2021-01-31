@@ -48,8 +48,8 @@ public class PaymentServiceImpl implements PaymentService {
 
 		if (otp == frontOtp) {
 			pay = this.paymentDao.save(payment);
-			
-			otp=0;
+
+			otp = 0;
 		} else {
 			throw new NotPossibleException("Otp didnt matched");
 		}
@@ -168,16 +168,18 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public int checkAlreadyEnrolledExam(Long examId) {
-		if (!(paymentDao.findAll().stream().filter(x -> x.getExam().getExamId() == examId).collect(Collectors.toList())
-				.isEmpty()))
+	public int checkAlreadyEnrolledExam(Long examId, Long userId) {
+		if (!(paymentDao.findAll().stream()
+				.filter(x -> (x.getExam().getExamId() == examId) && (x.getUserId() == userId))
+				.collect(Collectors.toList()).isEmpty()))
 			return 1;
 		return 0;
 	}
 
 	@Override
-	public int checkAlreadyEnrolledTraining(Long trainingId) {
-		if (!(paymentDaoForTraining.findAll().stream().filter(x -> x.getTraining().getTrainingProgramId() == trainingId)
+	public int checkAlreadyEnrolledTraining(Long trainingId, Long userId) {
+		if (!(paymentDaoForTraining.findAll().stream()
+				.filter(x -> (x.getTraining().getTrainingProgramId() == trainingId) && (x.getUserId() == userId))
 				.collect(Collectors.toList()).isEmpty()))
 			return 1;
 		return 0;

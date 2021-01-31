@@ -18,9 +18,9 @@ public interface PaymentService {
 
 	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user , long frontOtp);
 
-	public int checkAlreadyEnrolledExam(Long examId);
+	public int checkAlreadyEnrolledExam(Long examId , Long userId);
 
-	public int checkAlreadyEnrolledTraining(Long trainingId);
+	public int checkAlreadyEnrolledTraining(Long trainingId , Long userId);
 
 	public long countPayments();
 
