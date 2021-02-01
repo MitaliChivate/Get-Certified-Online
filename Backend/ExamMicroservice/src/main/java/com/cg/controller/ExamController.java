@@ -102,5 +102,12 @@ public class ExamController {
 		this.service.sendReminder(exam, user);
 
 	}
+	
+	// http://localhost:9400/exam/manageSeats
+	@GetMapping("/manageSeats/{examId}")
+	public Exam manageSeats(@PathVariable Long examId) {
+		
+		return this.service.manageSeatsForExam(examId);
+	}
 
 }

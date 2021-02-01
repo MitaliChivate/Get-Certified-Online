@@ -2,6 +2,7 @@ package com.cg.service;
 
 import java.util.List;
 
+import com.cg.beans.Exam;
 import com.cg.beans.PaymentExam;
 import com.cg.beans.PaymentTraining;
 import com.cg.beans.User;
@@ -35,4 +36,6 @@ public interface PaymentService {
 	public List<PaymentTraining> findByTraningId(Long traningId);
 
 	public long generateOtpForExam(String email);
+
+	public int checkSeatsForExam(Exam exam);
 }

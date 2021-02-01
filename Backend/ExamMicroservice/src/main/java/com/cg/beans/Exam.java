@@ -39,4 +39,6 @@ public class Exam {
 	private Integer examCost;
 
 	private String description;
+	
+	private int  availableSeats;
 }

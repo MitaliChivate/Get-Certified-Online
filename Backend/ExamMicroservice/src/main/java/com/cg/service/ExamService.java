@@ -23,4 +23,6 @@ public interface ExamService {
 
 	long countExam();
 
+	Exam manageSeatsForExam(Long examId);
+
 }

@@ -20,7 +20,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.cg.beans.Exam;
 import com.cg.beans.PaymentExam;
 import com.cg.beans.PaymentTraining;
 import com.cg.beans.User;
@@ -38,6 +40,9 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentDaoForTraining paymentDaoForTraining;
 
+	@Autowired
+	RestTemplate restTemplate;
+	
 	private long otp;
 
 	@Override
@@ -48,7 +53,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 		if (otp == frontOtp) {
 			pay = this.paymentDao.save(payment);
-
+			restTemplate.getForObject(" http://localhost:9400/exam/manageSeats/"+payment.getExam().getExamId(),Exam.class);
 			otp = 0;
 		} else {
 			throw new NotPossibleException("Otp didnt matched");
@@ -129,7 +134,7 @@ public class PaymentServiceImpl implements PaymentService {
 			pay = this.paymentDaoForTraining.save(payment);
 
 			otp = 0;
-		}else
+		} else
 			throw new NotPossibleException("Otp didnt matched");
 
 		String firstName = user.getFirstName();
@@ -281,6 +286,13 @@ public class PaymentServiceImpl implements PaymentService {
 		MimeBodyPart messageBodyPart = new MimeBodyPart();
 		messageBodyPart.setContent("Your OTP is : " + otp, "text/html");
 		Transport.send(msg);
+	}
+
+	@Override
+	public int checkSeatsForExam(Exam exam) {
+		if (exam.getAvailableSeats() == 0)
+			return 0;
+		return 1;
 	}
 
 }

@@ -29,7 +29,7 @@ public class PaymentTest {
 	public void makepaymentExamTest() {
 
 		Exam exam1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(), "C++ Exam", 300,
-				"C++ Certifcation Exam");
+				"C++ Certifcation Exam",200);
 
 		User user = new User(4l, "Tejaswi", "Midgule", "Admin1", "root", "9874563210", "abc@gmail.com", "Female",
 				"User", LocalDate.now());
@@ -54,7 +54,7 @@ public class PaymentTest {
 		List<PaymentExam> pay1 = new ArrayList<>();
 
 		Exam exam1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(), "C++ Exam", 300,
-				"C++ Certifcation Exam");
+				"C++ Certifcation Exam",200);
 
 		PaymentExam payment = new PaymentExam(11L, "Debit", LocalDate.now(), 5000, 111L, exam1, "1233456", "9", 25,
 				435);
@@ -82,7 +82,7 @@ public class PaymentTest {
 		List<PaymentExam> pay1 = new ArrayList<>();
 
 		Exam exam1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(), "C++ Exam", 300,
-				"C++ Certifcation Exam");
+				"C++ Certifcation Exam",200);
 
 		PaymentExam payment = new PaymentExam(11L, "Debit", LocalDate.now(), 5000, 111L, exam1, "1233456", "9", 25,
 				435);

@@ -149,4 +149,14 @@ public class ExamServiceImpl implements ExamService {
 		}
 	}
 
+	@Override
+	public Exam manageSeatsForExam(Long examId) {
+		
+		Exam exam = findById(examId);
+		
+		exam.setAvailableSeats(exam.getAvailableSeats()-1);
+		
+		return this.updateInfo(exam);
+	}
+
 }

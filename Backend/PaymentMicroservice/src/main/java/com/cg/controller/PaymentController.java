@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.cg.beans.Exam;
 import com.cg.beans.PaymentExam;
 import com.cg.beans.PaymentTraining;
 import com.cg.beans.User;
@@ -154,11 +155,21 @@ public class PaymentController {
 	public long generateOtp(@PathVariable Long userId) {
 
 		User user = restTemplate.getForObject(UserURL + userId, User.class);
-		if (user == null)
+		if (user.equals(null))
 			throw new NoValueFoundException("User Not Found");
 
 		return this.service.generateOtpForExam(user.getEmail());
 
+	}
+	
+	// http://localhost:9500/Payment/checkAvailableSeats/{examId}
+	@GetMapping(value = "/checkAvailableSeats/{examId}")
+	public int checkAvailableSeatsForExam(@PathVariable Long examId) {
+		
+		Exam exam = restTemplate.getForObject("http://localhost:9400/exam/findByExamId/"+examId, Exam.class);
+		
+		return this.service.checkSeatsForExam(exam);
+		
 	}
 
 }

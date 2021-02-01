@@ -23,7 +23,7 @@ public class ExamTests {
 	@Test
 	public void addExamTest() {
 		
-		Exam exam1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"C++ Exam", 300, "C++ Certifcation Exam");
+		Exam exam1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"C++ Exam", 300, "C++ Certifcation Exam" ,200);
 
 		ExamServiceImpl examService = mock(ExamServiceImpl.class);
 
@@ -38,13 +38,13 @@ public class ExamTests {
 	@Test
 	public void updateExamInfoTest() {
 		
-		Exam exam1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"C++ Exam", 300, "C++ Certifcation Exam");
+		Exam exam1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"C++ Exam", 300, "C++ Certifcation Exam",200);
 
 		ExamServiceImpl examService = mock(ExamServiceImpl.class);
 		
 		examService.addExam(exam1);
 
-		Exam exam2 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"Java Exam", 300, "Java Certifcation Exam");
+		Exam exam2 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"Java Exam", 300, "Java Certifcation Exam",200);
 
 		when(examService.updateInfo(exam2)).thenReturn(exam2);
 		Exam exam3 = examService.updateInfo(exam2);
@@ -58,8 +58,8 @@ public class ExamTests {
 		
 
 		List<Exam> exam1 = new ArrayList<>(); 
-		Exam e1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"C++ Exam", 300, "C++ Certifcation Exam");
-		Exam e2 = new Exam(300001L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"Java Exam", 1500, "Java Certifcation Exam");
+		Exam e1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"C++ Exam", 300, "C++ Certifcation Exam",200);
+		Exam e2 = new Exam(300001L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"Java Exam", 1500, "Java Certifcation Exam",200);
 		
 		exam1.add(e1);
 		exam1.add(e2);
@@ -77,8 +77,8 @@ public class ExamTests {
 	@Test
 	public void deleteExamTest() {
 
-		Exam e1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"C++ Exam", 300, "C++ Certifcation Exam");
-		Exam e2 = new Exam(300001L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"Angular Exam", 300, "Angular Certifcation Exam");
+		Exam e1 = new Exam(300000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"C++ Exam", 300, "C++ Certifcation Exam",200);
+		Exam e2 = new Exam(300001L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"Angular Exam", 300, "Angular Certifcation Exam",200);
 		ExamServiceImpl examService = mock(ExamServiceImpl.class);
 		
 		examService.addExam(e1);
