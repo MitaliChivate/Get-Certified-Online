@@ -125,9 +125,11 @@ public class PaymentServiceImpl implements PaymentService {
 
 		PaymentTraining pay = null;
 
-		if (otp == frontOtp)
+		if (otp == frontOtp) {
 			pay = this.paymentDaoForTraining.save(payment);
-		else
+
+			otp = 0;
+		}else
 			throw new NotPossibleException("Otp didnt matched");
 
 		String firstName = user.getFirstName();
