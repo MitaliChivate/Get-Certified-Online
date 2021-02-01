@@ -1,64 +1,80 @@
 package com.cg;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.cg.beans.User;
-import com.cg.dao.UserDao;
 import com.cg.service.UserServiceImpl;
 
 @SpringBootTest
 class UserMicroserviceApplicationTests {
 
+	@Test
+	public void addUserTest() {
 
+		User user = new User(4l, "Tejaswi", "Midgule", "Admin1", "root", "9874563210", "abc@gmail.com", "Female",
+				"User", LocalDate.now());
 
-	@Autowired
-	private UserServiceImpl service;
+		UserServiceImpl userService = mock(UserServiceImpl.class);
 
-	@MockBean
-	private UserDao repository;
+		when(userService.addUser(user)).thenReturn(user);
 
-//	@Test
-//	public void SearchUserTest() {
-//		when(repository.findAll()).thenReturn(Stream.of(new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20),new User(40, "Admin10", "root","9874563210","abc@gmail.com","Male","User1",22)).collect(Collectors.toList()));
-//		Assertions.assertEquals(2, service.getAllUser().size());
-//	}
+		User user1 = userService.addUser(user);
 
-	//private void assertEquals(int i, int size) {
-		// TODO Auto-generated method stub
+		assertEquals(user, user1);
+
+	}
+
+	@Test
+	void findAllUsers()
+	{
 		
-   //}
 
-//	@Test
-//	public void addUserTest() {
-//		User user = new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20);
-//		User user1 = new User(40, "Admin10", "root","9874563210","abc@gmail.com","Male","User1",22);
-//		when(repository.save(user)).thenReturn(user);
-//		assertEquals(user, service.addUser(user));
-//	}
-
-	//private void assertEquals(User user,User addUser) {
-		// TODO Auto-generated method stub
+		List<User> u1 = new ArrayList<>(); 
+		User user = new User(4l, "Tejaswi", "Midgule", "Admin1", "root", "9874563210", "abc@gmail.com", "Female",
+				"User", LocalDate.now());
+		User user1 = new User(5l, "Teju", "Midgule", "Admin12", "root12", "9874563280", "abc1@gmail.com", "Female",
+				"User", LocalDate.now());
 		
-	//}
+		u1.add(user);
+		u1.add(user1);
+		
+		
+		UserServiceImpl service = mock(UserServiceImpl.class);
+		
+		when(service.getAllUser()).thenReturn(u1);
+		List<User> u2 = service.getAllUser();
+		assertNotNull(u2);
+		assertFalse(u2.isEmpty());
+	}
+	
+	@Test
+	public void updateUser() {
+		
+		User user = new User(4l, "Tejaswi", "Midgule", "Admin1", "root", "9874563210", "abc@gmail.com", "Female",
+				"User", LocalDate.now());
 
-//	@Test
-//	public void  deleteUserById() {
-//         User user = new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20);
-//		service.deleteUser(user.getUserId());
-//		verify(repository, times(1)).deleteById(user.getUserId());
-//	}
+		UserServiceImpl userService = mock(UserServiceImpl.class);
 
+		userService.addUser(user);
+
+		User user1 = new User(4l, "Teju", "Midgule", "Admin1", "root", "9874563210", "abc@gmail.com", "Female",
+				"User", LocalDate.now());
+
+		when(userService.updateUser(user1)).thenReturn(user1);
+		User user2 = userService.updateUser(user1);
+		assertEquals(user1, user2);
+
+	}
 
 }
