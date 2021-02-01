@@ -44,7 +44,11 @@ public class ExamServiceImpl implements ExamService {
 	@Override
 	public List<Exam> viewAllExams() {
 
-		return dao.findAll();
+		List<Exam> exams=dao.findAll();
+		if(exams.isEmpty())
+			throw new NotFoundException("List ","Not Found");
+		else
+		return exams;
 	}
 
 	@Override

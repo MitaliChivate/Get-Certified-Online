@@ -53,7 +53,8 @@ public class PaymentServiceImpl implements PaymentService {
 
 		if (otp == frontOtp) {
 			pay = this.paymentDao.save(payment);
-			restTemplate.getForObject(" http://localhost:9400/exam/manageSeats/"+payment.getExam().getExamId(),Exam.class);
+			
+			Exam exam =restTemplate.getForObject("http://localhost:9400/exam/manageSeats/"+payment.getExam().getExamId(),Exam.class);
 			otp = 0;
 		} else {
 			throw new NotPossibleException("Otp didnt matched");
@@ -292,7 +293,8 @@ public class PaymentServiceImpl implements PaymentService {
 	public int checkSeatsForExam(Exam exam) {
 		if (exam.getAvailableSeats() == 0)
 			return 0;
-		return 1;
+		else
+		return exam.getAvailableSeats();
 	}
 
 }
