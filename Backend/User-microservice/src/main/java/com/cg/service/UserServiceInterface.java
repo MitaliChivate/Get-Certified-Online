@@ -18,4 +18,9 @@ public interface UserServiceInterface {
 	
 	long countUser();
 
+	public int checkEmail(User user);
+
+	public int checkMobileNo(User user);
+
+	
 }

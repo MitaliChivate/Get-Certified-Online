@@ -9,5 +9,10 @@ import com.cg.beans.User;
 public interface UserDao extends JpaRepository<User, Long> {
 	
 	User findByUserName(String userName);
+	
+	User findByEmail(String email);
+	
+	User findByMobileNo(String mobleNo);
+
 
 }

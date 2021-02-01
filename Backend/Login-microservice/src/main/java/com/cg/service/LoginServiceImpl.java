@@ -67,4 +67,27 @@ public class LoginServiceImpl implements LoginService {
 	
 	}
 
+	@Override
+	public int checkEmail(User user) {
+		// TODO Auto-generated method stub
+		String tempEmail=user.getEmail();
+		User user1=userDao.findByEmail(tempEmail);
+		if(user1!=null)
+			throw new NotFoundException("EmailId", " Found");
+		else
+			return 0;
+	}
+	
+
+	@Override
+	public int checkMobileNo(User user) {
+		// TODO Auto-generated method stub
+		String tempNo=user.getMobileNo();
+		User user1=userDao.findByMobileNo(tempNo);
+		if(user1!=null)
+			throw new NotFoundException("MobileNo", " Found");
+		else
+			return 0;
+	}
+
 }

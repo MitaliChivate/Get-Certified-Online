@@ -13,4 +13,10 @@ public interface LoginService {
 	
 	public User addUser(User user);
 
+	public int checkEmail(User user);
+
+	public int checkMobileNo(User user);
+
+
+
 }

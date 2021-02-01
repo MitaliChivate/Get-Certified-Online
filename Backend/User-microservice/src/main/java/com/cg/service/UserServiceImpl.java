@@ -90,5 +90,28 @@ public class UserServiceImpl implements UserServiceInterface {
 
 		return this.userDao.count();
 	}
+	
+	@Override
+	public int checkEmail(User user) {
+		// TODO Auto-generated method stub
+		String tempEmail=user.getEmail();
+		User user1=userDao.findByEmail(tempEmail);
+		if(user1!=null)
+			throw new NotPossibleException("EmailId already registered");
+		else
+			return 0;
+	}
+	
+
+	@Override
+	public int checkMobileNo(User user) {
+		// TODO Auto-generated method stub
+		String tempNo=user.getMobileNo();
+		User user1=userDao.findByMobileNo(tempNo);
+		if(user1!=null)
+			throw new NotPossibleException("MobileNo already registered");
+		else
+			return 0;
+	}
 
 }
