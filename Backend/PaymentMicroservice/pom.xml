@@ -63,6 +63,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -79,7 +85,42 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.6</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>report</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                </execution>
+	
+            </executions>
+        </plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.5</version>
+				<configuration>
+					<xmlOutput>true</xmlOutput>
+					<!-- Optional directory to put findbugs xdoc xml report -->
+					<xmlOutputDirectory>target/site</xmlOutputDirectory>
+					<!-- <includeFilterFile>findbugs-include.xml</includeFilterFile> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>
