@@ -43,5 +43,9 @@ public class User {
 	private String role;
 
 	private LocalDate dateOfBirth;
+	
+	private String securityQuestion;
+	
+	private String securityAnswer;
 
 }

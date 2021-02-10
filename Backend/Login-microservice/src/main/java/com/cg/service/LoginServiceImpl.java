@@ -1,5 +1,7 @@
 package com.cg.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,5 +91,46 @@ public class LoginServiceImpl implements LoginService {
 		else
 			return 0;
 	}
+
+	@Override
+	public long checkUserName(String userName) {
+		// TODO Auto-generated method stub
+		User user=this.getUserByUserName(userName);
+		if(user!=null)
+			return user.getUserId();
+		else
+			throw new NotFoundException("Username", " Found");
+			
+		
+	}
+
+	@Override
+	public long checkSecurityAnswer(long id, String answer) {
+		User user=userDao.findByUserId(id);
+		if(user.getSecurityAnswer().equals(answer))
+			return user.getUserId();
+		else
+			throw new NotFoundException("Answer", " Invalid");
+			
+		
+	}
+
+	@Override
+	public long resetPassword(long id, String newPassword) {
+		// TODO Auto-generated method stub
+		User user=userDao.findById(id).orElseThrow(() -> new NotFoundException("User ID", "Not Found"));
+		user.setPassword(newPassword);
+		userDao.save(user);
+		
+		return user.getUserId();
+	}
+
+	@Override
+	public User findUserById(long id) {
+		// TODO Auto-generated method stub
+		return userDao.findById(id).orElseThrow(() -> new NotFoundException("User ID", "Not Found"));
+		 
+	}
+
 
 }
