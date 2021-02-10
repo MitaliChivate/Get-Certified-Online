@@ -3,6 +3,7 @@ package com.cg.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,4 +52,31 @@ public class LoginController {
 		
 		return service.checkMobileNo(user);
 	}
+	
+	@GetMapping("/checkUserName/{username}")
+	public long checkUserName(@PathVariable String username) {
+		
+		
+		return service.checkUserName(username);
+	}
+	
+	@PostMapping("/checkSecurityAnswer/{id}/{answer}")
+	public long checkSecurityAnswer(@PathVariable long id ,@PathVariable String answer) {
+		
+		
+		return service.checkSecurityAnswer(id,answer);
+	}
+	
+	@GetMapping("/resetPassword/{id}/{newPassword}")
+	public long resetPassword(@PathVariable long id ,@PathVariable String newPassword) {
+		
+		return service.resetPassword(id,newPassword);
+	}
+	
+	@GetMapping("/findById/{id}")
+	public User findByUserId(@PathVariable long id){
+		return service.findUserById(id);
+	}
+	
+	
 }

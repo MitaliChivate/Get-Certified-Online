@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserServiceInterface {
 	 */
 	@Override
 	public User addUser(User user) {
-		user.setRole("user");
 		String tempUsername;
 		tempUsername = user.getUserName();
 		User user1 = userDao.findByUserName(tempUsername);

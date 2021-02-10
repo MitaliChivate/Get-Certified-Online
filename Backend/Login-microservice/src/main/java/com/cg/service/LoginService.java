@@ -17,6 +17,14 @@ public interface LoginService {
 
 	public int checkMobileNo(User user);
 
+	public long checkUserName(String userName);
+
+	public long checkSecurityAnswer(long id, String answer);
+
+	public long resetPassword(long id, String newPassword);
+
+	public User findUserById(long id);
+
 
 
 }

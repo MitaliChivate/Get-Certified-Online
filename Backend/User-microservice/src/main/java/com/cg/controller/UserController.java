@@ -39,7 +39,7 @@ public class UserController {
 	// http://localhost:9200/user/addUser
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public User addUser(@Valid @RequestBody User user) {
-		user.setRole("user");
+		
 		return this.userService.addUser(user);
 	}
 
