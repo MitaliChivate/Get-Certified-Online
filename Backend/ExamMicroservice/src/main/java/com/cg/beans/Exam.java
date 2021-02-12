@@ -2,7 +2,6 @@ package com.cg.beans;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,12 +12,9 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-
 import javax.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +24,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-
 @NoArgsConstructor
 @AllArgsConstructor
 public class Exam {

@@ -1,7 +1,5 @@
 package com.cg.service;
-
 import java.util.List;
-
 import com.cg.beans.Exam;
 import com.cg.beans.User;
 

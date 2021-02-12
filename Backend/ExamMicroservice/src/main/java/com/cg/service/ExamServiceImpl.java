@@ -1,7 +1,5 @@
 package com.cg.service;
-
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -9,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -19,10 +16,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cg.beans.Exam;
 import com.cg.beans.User;
 import com.cg.dao.ExamDao;
@@ -135,32 +130,21 @@ public class ExamServiceImpl implements ExamService {
 	@Override
 	public void sendReminder(Exam exam, User user) {
 		String userEmail = user.getEmail();
-
 		String firstName = user.getFirstName();
-
 		String examName = exam.getExamName();
-
 		LocalDate examDate = exam.getExamDate();
-
 		LocalTime startTime = exam.getStartTime();
-
 		LocalTime endTime = exam.getEndTime();
-
 		try {
 			sendmail(userEmail, firstName, examName, examDate, startTime, endTime);
 		} catch (MessagingException | IOException e) {
-
 		}
 	}
 
 	@Override
 	public Exam manageSeatsForExam(Long examId) {
-		
-		Exam exam = findById(examId);
-		
-		exam.setAvailableSeats(exam.getAvailableSeats()-1);
-		
-		return this.updateInfo(exam);
+			Exam exam = findById(examId);
+			exam.setAvailableSeats(exam.getAvailableSeats()-1);
+			return this.updateInfo(exam);
 	}
-
 }

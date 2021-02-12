@@ -1,6 +1,4 @@
-
 package com.cg.exception;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

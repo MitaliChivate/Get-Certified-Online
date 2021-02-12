@@ -85,14 +85,14 @@ public class ExamTests {
 
 	}
 	
-//	@Test
-//	void deleteByValidId() throws Exception {
-//
-//		mockMvc.perform(MockMvcRequestBuilders.delete("/exam/deleteExam/300029").contentType(MediaType.APPLICATION_JSON))
-//				.andExpect(status().isOk());
-//
-//	}
-//	
+	@Test
+	void deleteByValidId() throws Exception {
+
+		mockMvc.perform(MockMvcRequestBuilders.delete("/exam/deleteExam/300061").contentType(MediaType.APPLICATION_JSON))
+					.andExpect(content().contentType(MediaType.APPLICATION_JSON));
+
+	}
+	
 	@Test
 	void deleteByInvalidId() throws Exception {
 

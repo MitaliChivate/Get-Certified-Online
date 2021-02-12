@@ -14,23 +14,14 @@ import lombok.Setter;
 public class User {
 
 	private Long userId;
-
 	private String firstName;
-
 	private String lastName;
-
 	private String userName;
-
 	private String password;
-
 	private String mobileNo;
-
 	private String email;
-
 	private String gender;
-
 	private String role;
-
 	private LocalDate dateOfBirth;
 
 }

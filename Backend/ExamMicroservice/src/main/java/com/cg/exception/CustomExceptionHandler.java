@@ -1,7 +1,4 @@
-
-
 package com.cg.exception;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,8 +49,6 @@ public class CustomExceptionHandler {
                     .build())).build());
     }
 
-  
-
     @ExceptionHandler
     public ResponseEntity<ErrorResponse> catchAllException(Exception exception) {
         return ResponseEntity
@@ -63,5 +58,4 @@ public class CustomExceptionHandler {
                 .message(exception.getMessage())
                 .timeStamp(System.currentTimeMillis()).build());
     }
-
 }
