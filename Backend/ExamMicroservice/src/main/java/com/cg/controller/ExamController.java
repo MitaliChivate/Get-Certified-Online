@@ -2,6 +2,8 @@ package com.cg.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +40,7 @@ public class ExamController {
 	// http://localhost:9400/exam/addExams
 
 	@PostMapping("/addExams")
-	public Exam addExam(@RequestBody Exam exam) {
+	public Exam addExam(@Valid @RequestBody Exam exam) {
 
 		return service.addExam(exam);
 
@@ -79,7 +81,7 @@ public class ExamController {
 	// "endTime": "15:00:00", "examName": "C++ Exam","examCost": 300,
 	// "description":"C++ Certifcation Exam"}
 	@PutMapping("/updateExamInfo")
-	public Exam updateExamInfo(@RequestBody Exam exam) {
+	public Exam updateExamInfo(@Valid @RequestBody Exam exam) {
 		return service.updateInfo(exam);
 	}
 
@@ -92,7 +94,7 @@ public class ExamController {
 	
 	// http://localhost:9400/exam/sendReminder/100000
 	@PostMapping(value = "/sendReminder/{userId}")
-	public void sendReminder(@RequestBody Exam exam, @PathVariable Long userId) {
+	public void sendReminder(@Valid @RequestBody Exam exam, @PathVariable Long userId) {
 		
 		User user = restTemplate.getForObject(UserURL + userId, User.class);
 		/*

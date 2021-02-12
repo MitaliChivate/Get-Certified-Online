@@ -9,6 +9,8 @@ import com.cg.beans.Exam;
 
 import com.cg.service.ExamServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -54,6 +56,20 @@ public class ExamTests {
 	void fetchByIdInvalidRequest() throws Exception {
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/exam/findByExamId/300024").contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isInternalServerError());
+
+	}
+	@Test
+	void fetchByIdInvalidRequest1() throws Exception {
+
+		mockMvc.perform(MockMvcRequestBuilders.put("/exam/findByExamId/300024").contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isInternalServerError());
+
+	}
+	@Test
+	void fetchByIdInvalidRequest2() throws Exception {
+
+		mockMvc.perform(MockMvcRequestBuilders.delete("/exam/findByExamId/300024").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isInternalServerError());
 
 	}
@@ -132,25 +148,91 @@ public class ExamTests {
 
 	}
 	
+	public static String asJsonString(final Object obj) {
+		try {
+			return new ObjectMapper().writeValueAsString(obj);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 	  @Test
-	  public void insertInvalidData() throws Exception {
+	  public void insertValidData() throws Exception {
 	    ObjectMapper mapper = new ObjectMapper();
-	    Exam exam1 = new Exam(00, LocalDate.now(), LocalTime.now(), LocalTime.now(),"", 300, "C++ Certifcation Exam" ,200);
-
+	    mapper.registerModule(new JavaTimeModule());
+	    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+	   
+	  //  Exam exam1 = new Exam(00, LocalDate.of(1999, 5, 14), LocalTime.now(), LocalTime.now(),"", 300, "C++ Certifcation Exam" ,200);
+	    Exam exam=Exam.builder()
+	    		.examId(300100L)
+	    		.examDate(LocalDate.of(2021,7,7))
+	    		.startTime(LocalTime.now())
+	    		.endTime(LocalTime.now())
+	    		.examName("C++ Exam")
+	    		.examCost(300)
+	    		.description("C++ Certifcation Exam")
+	    		.availableSeats(20)
+	    		.build();
 		
 	    mockMvc.perform(MockMvcRequestBuilders.post("/exam/addExams")
 	    .contentType(MediaType.APPLICATION_JSON)
-	    .content(mapper.writeValueAsString(exam1)))
-	    .andExpect(status().isInternalServerError());
+	    .content(mapper.writeValueAsString(exam)))
+	    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+	    .andExpect(status().is2xxSuccessful())
+        .andExpect(jsonPath("$.examId").exists());
+      
 		}
+	  
+	  @Test
+	  public void insertInvalidData() throws Exception {
+	    ObjectMapper mapper = new ObjectMapper();
+	    mapper.registerModule(new JavaTimeModule());
+	    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+	   
+		    Exam exam=Exam.builder()
+	    		.examId(300100)
+	    		.examDate(LocalDate.of(2020,7,7))
+	    		.startTime(LocalTime.now())
+	    		.endTime(LocalTime.now())
+	    		.examName("")
+	    		.examCost(300)
+	    		.description("C++ Certifcation Exam")
+	    		.availableSeats(200)
+	    		.build();
+		
+	    mockMvc.perform(MockMvcRequestBuilders.post("/exam/addExams")
+	    .contentType(MediaType.APPLICATION_JSON)
+	    .content(mapper.writeValueAsString(exam)))
+	    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+	    .andExpect(status().is4xxClientError());
+       
+      
+		}
+
 	
 
 	  @Test
-		void sendReminderToWrongUser() throws Exception {
-
-			mockMvc.perform(MockMvcRequestBuilders.get("/exam/sendReminder/1000").contentType(MediaType.APPLICATION_JSON))
-					.andExpect(status().isInternalServerError());
+		void sendReminder() throws Exception {
+		  ObjectMapper mapper = new ObjectMapper();
+		  
+		  mapper.registerModule(new JavaTimeModule());
+		    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		   
+		    Exam exam=Exam.builder()
+		    		.examId(300034L)
+		    		.examDate(LocalDate.of(2021,7,7))
+		    		.startTime(LocalTime.now())
+		    		.endTime(LocalTime.now())
+		    		.examName("C++ Exam")
+		    		.examCost(300)
+		    		.description("C++ Certifcation Exam")
+		    		.availableSeats(20)
+		    		.build();
+		  
+		    mockMvc.perform(MockMvcRequestBuilders.post("/exam/sendReminder/100011")
+		    	    .contentType(MediaType.APPLICATION_JSON)
+		    	    .content(mapper.writeValueAsString(exam)))
+		    	    .andExpect(status().is2xxSuccessful());
 
 		}
 	  
@@ -175,19 +257,89 @@ public class ExamTests {
 
 		}
 	  
-	  @Test
-		void updateInfoForInvalidId() throws Exception {
-		  
-		  ObjectMapper mapper = new ObjectMapper();
-		    Exam exam1 = new Exam(100000L, LocalDate.now(), LocalTime.now(), LocalTime.now(),"C++ Exam", 300, "C++ Certifcation Exam" ,200);
-
-
-			mockMvc.perform(MockMvcRequestBuilders.put("/exam/updateExamInfo").contentType(MediaType.APPLICATION_JSON)
-			    .content(mapper.writeValueAsString(exam1)))
-			.andExpect(status().isInternalServerError());
-
-		}
 	
+	  @Test
+	  public void updateValidExamData() throws Exception {
+	    ObjectMapper mapper = new ObjectMapper();
+	    mapper.registerModule(new JavaTimeModule());
+	    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+	   
+	  //  Exam exam1 = new Exam(00, LocalDate.of(1999, 5, 14), LocalTime.now(), LocalTime.now(),"", 300, "C++ Certifcation Exam" ,200);
+	    Exam exam=Exam.builder()
+	    		.examId(300027)
+	    		.examDate(LocalDate.of(2021,7,7))
+	    		.startTime(LocalTime.now())
+	    		.endTime(LocalTime.now())
+	    		.examName(".Net Exam")
+	    		.examCost(1000)
+	    		.description(".Net Certifcation Exam")
+	    		.availableSeats(70)
+	    		.build();
+		
+	    mockMvc.perform(MockMvcRequestBuilders.put("/exam/updateExamInfo")
+	    .contentType(MediaType.APPLICATION_JSON)
+	    .content(mapper.writeValueAsString(exam)))
+	    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+	    .andExpect(status().is2xxSuccessful())
+        .andExpect(jsonPath("$.examId").exists());
+      
+		}
+	  
+	  
+	  @Test
+	  public void updateInvalidExamData() throws Exception {
+	    ObjectMapper mapper = new ObjectMapper();
+	    mapper.registerModule(new JavaTimeModule());
+	    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+	   
+	  //  Exam exam1 = new Exam(00, LocalDate.of(1999, 5, 14), LocalTime.now(), LocalTime.now(),"", 300, "C++ Certifcation Exam" ,200);
+	    Exam exam=Exam.builder()
+	    		.examId(300027)
+	    		.examDate(LocalDate.of(2020,7,7))
+	    		.startTime(LocalTime.now())
+	    		.endTime(LocalTime.now())
+	    		.examName("")
+	    		.examCost(-100)
+	    		.description(".Net Certifcation Exam")
+	    		.availableSeats(70)
+	    		.build();
+		
+	    mockMvc.perform(MockMvcRequestBuilders.put("/exam/updateExamInfo")
+	    .contentType(MediaType.APPLICATION_JSON)
+	    .content(mapper.writeValueAsString(exam)))
+	    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+	    .andExpect(status().is4xxClientError());
+       
+		}
+	  
+	  @Test
+	  public void updateInvalidExamDataForWrongId() throws Exception {
+	    ObjectMapper mapper = new ObjectMapper();
+	    mapper.registerModule(new JavaTimeModule());
+	    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+	   
+	  //  Exam exam1 = new Exam(00, LocalDate.of(1999, 5, 14), LocalTime.now(), LocalTime.now(),"", 300, "C++ Certifcation Exam" ,200);
+	    Exam exam=Exam.builder()
+	    		.examId(100000)
+	    		.examDate(LocalDate.of(2021,7,7))
+	    		.startTime(LocalTime.now())
+	    		.endTime(LocalTime.now())
+	    		.examName("C++ Exam")
+	    		.examCost(300)
+	    		.description("C++ Certifcation Exam")
+	    		.availableSeats(20)
+	    		.build();
+		
+		
+	    mockMvc.perform(MockMvcRequestBuilders.put("/exam/updateExamInfo")
+	    .contentType(MediaType.APPLICATION_JSON)
+	    .content(mapper.writeValueAsString(exam)))
+	    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+	    .andExpect(status().is4xxClientError());
+       
+		}
+	  
+	  
 	 
 	@Test
 	public void addExamTest() {
