@@ -47,6 +47,7 @@ public class PaymentTraining {
 	
 	private Integer expYear;
 
-	private Integer cvv; 
+	private Integer cvv;
+	
 
 }

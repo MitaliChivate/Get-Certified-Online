@@ -11,8 +11,6 @@ public interface PaymentService {
 
 	public PaymentExam makePaymentForExam(PaymentExam payment, User user, long frontOtp);
 
-	public PaymentExam showPaymentHistory(Long paymentId);
-
 	public List<PaymentExam> showPaymentExamHistoryByUserId(Long userId);
 
 	public List<PaymentTraining> showPaymentTrainingHistoryByUserId(Long userId);

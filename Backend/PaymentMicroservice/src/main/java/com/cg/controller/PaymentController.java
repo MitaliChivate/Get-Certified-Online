@@ -1,8 +1,10 @@
 package com.cg.controller;
 
 import java.time.LocalDate;
+
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -71,13 +74,6 @@ public class PaymentController {
 
 	}
 
-	// http://localhost:9500/Payment/search/1000
-	@GetMapping(value = "/search/{paymentId}")
-	public PaymentExam showPaymentHistory(@PathVariable long paymentId) {// method to fetch
-		logger.info("Inside showPaymentHistory() method of PaymentController");
-		return service.showPaymentHistory(paymentId);
-	}
-
 	// http://localhost:9500/Payment/searchPaymentExamHistoryByUserId/11
 	@GetMapping(value = "/searchPaymentExamHistoryByUserId/{userId}")
 	public List<PaymentExam> showPaymentExamHistoryByUserId(@PathVariable long userId) {
@@ -85,25 +81,23 @@ public class PaymentController {
 		return service.showPaymentExamHistoryByUserId(userId);
 	}
 
-	// http://localhost:9500/Payment/checkExamEnrolled/{examId}/{userId}
+	// http://localhost:9500/Payment/checkExamEnrolled/200000/100000
 	@GetMapping(value = "/checkExamEnrolled/{examId}/{userId}")
 	public int checkExam(@PathVariable Long examId, @PathVariable Long userId) {
-
-		return this.service.checkAlreadyEnrolledExam(examId , userId);
+		logger.info("Inside checkEnrollExam() method of PaymentController");
+		return this.service.checkAlreadyEnrolledExam(examId, userId);
 	}
 
-	// http://localhost:9500/Payment/checkTrainingEnrolled/{trainingId}/{userId}
+	// http://localhost:9500/Payment/checkTrainingEnrolled/300000/100000
 	@GetMapping(value = "/checkTrainingEnrolled/{trainingId}/{userId}")
 	public int checkTraining(@PathVariable Long trainingId, @PathVariable Long userId) {
-
-		return this.service.checkAlreadyEnrolledTraining(trainingId , userId);
+		logger.info("Inside checkTrainingEnrolled() method of PaymentController");
+		return this.service.checkAlreadyEnrolledTraining(trainingId, userId);
 	}
 
 	// http://localhost:9500/Payment/searchTrainingPaymentByUserId/11
 	@GetMapping(value = "/searchTrainingPaymentByUserId/{userId}")
 	public List<PaymentTraining> showPaymentTrainingHistoryByUserId(@PathVariable long userId) {
-		// logger.info("Inside showPaymentTrainingHistoryByUserId() method of
-		// PaymentController");
 		return service.showPaymentTrainingHistoryByUserId(userId);
 	}
 
@@ -153,7 +147,7 @@ public class PaymentController {
 	// http://localhost:9500/Payment/generateOtp
 	@GetMapping(value = "/generateOtp/{userId}")
 	public long generateOtp(@PathVariable Long userId) {
-
+		logger.info("Inside generateOtp() method of PaymentController");
 		User user = restTemplate.getForObject(UserURL + userId, User.class);
 		if (user.equals(null))
 			throw new NoValueFoundException("User Not Found");
@@ -161,15 +155,15 @@ public class PaymentController {
 		return this.service.generateOtpForExam(user.getEmail());
 
 	}
-	
-	// http://localhost:9500/Payment/checkAvailableSeats/{examId}
+
+	// http://localhost:9500/Payment/checkAvailableSeats/100000
 	@GetMapping(value = "/checkAvailableSeats/{examId}")
 	public int checkAvailableSeatsForExam(@PathVariable Long examId) {
-		
-		Exam exam = restTemplate.getForObject("http://localhost:9400/exam/findByExamId/"+examId, Exam.class);
-		
+
+		Exam exam = restTemplate.getForObject("http://localhost:9400/exam/findByExamId/" + examId, Exam.class);
+
 		return this.service.checkSeatsForExam(exam);
-		
+
 	}
 
 }

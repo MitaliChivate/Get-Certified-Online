@@ -42,7 +42,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
 	RestTemplate restTemplate;
-	
+
 	private long otp;
 
 	@Override
@@ -53,8 +53,9 @@ public class PaymentServiceImpl implements PaymentService {
 
 		if (otp == frontOtp) {
 			pay = this.paymentDao.save(payment);
-			
-			Exam exam =restTemplate.getForObject("http://localhost:9400/exam/manageSeats/"+payment.getExam().getExamId(),Exam.class);
+
+			Exam exam = restTemplate.getForObject(
+					"http://localhost:9400/exam/manageSeats/" + payment.getExam().getExamId(), Exam.class);
 			otp = 0;
 		} else {
 			throw new NotPossibleException("Otp didnt matched");
@@ -69,7 +70,7 @@ public class PaymentServiceImpl implements PaymentService {
 		try {
 			sendmail(userEmail, firstName, paymentId, payDate, examName, payment.getAmount());
 		} catch (MessagingException | IOException e) {
-
+			 e.printStackTrace();
 		}
 		return pay;
 
@@ -119,13 +120,6 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public PaymentExam showPaymentHistory(Long paymentId) {
-
-		return paymentDao.findById(paymentId).orElseThrow(() -> new NoValueFoundException("Payment ID Not Found"));
-
-	}
-
-	@Override
 	public PaymentTraining makePaymentForTraining(PaymentTraining payment, User user, long frontOtp) {
 		String userEmail = user.getEmail();
 
@@ -148,7 +142,7 @@ public class PaymentServiceImpl implements PaymentService {
 		try {
 			sendmail(userEmail, firstName, paymentId, payDate, courseName, payment.getAmount());
 		} catch (MessagingException | IOException e) {
-
+			 e.printStackTrace();
 		}
 		return pay;
 	}
@@ -257,20 +251,19 @@ public class PaymentServiceImpl implements PaymentService {
 		try {
 			sendOtpEmail(otp, email);
 		} catch (MessagingException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return otp;
 	}
 
 	private void sendOtpEmail(long otp, String email) throws AddressException, MessagingException, IOException {
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.googlemail.com");
-		props.put("mail.smtp.port", "587");
+		Properties props1 = new Properties();
+		props1.put("mail.smtp.auth", "true");
+		props1.put("mail.smtp.starttls.enable", "true");
+		props1.put("mail.smtp.host", "smtp.googlemail.com");
+		props1.put("mail.smtp.port", "587");
 
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+		Session session = Session.getInstance(props1, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication("bankofmahrashtra@gmail.com", "Shekhar1998");
 			}
@@ -294,7 +287,7 @@ public class PaymentServiceImpl implements PaymentService {
 		if (exam.getAvailableSeats() == 0)
 			return 0;
 		else
-		return exam.getAvailableSeats();
+			return exam.getAvailableSeats();
 	}
 
 }
