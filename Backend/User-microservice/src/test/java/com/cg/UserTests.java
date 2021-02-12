@@ -74,10 +74,10 @@ class UserTests {
 		}
 		
 	
-	  @Test void testDeleteUser1Success() throws Exception {
-	  mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/100001").
-	  contentType(MediaType.APPLICATION_JSON)) .andExpect(status().isOk()); }
-	 
+//	  @Test void testDeleteUser1Success() throws Exception {
+//	  mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/100001").
+//	  contentType(MediaType.APPLICATION_JSON)) .andExpect(status().isOk()); }
+//	 
 		/*
 		public static String asJsonString(final Object obj) {
 		    try {
