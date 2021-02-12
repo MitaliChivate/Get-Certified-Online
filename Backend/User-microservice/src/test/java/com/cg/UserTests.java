@@ -49,7 +49,7 @@ class UserTests {
 	 @Test 
 	 void testFetchUserByIdFailure() throws Exception {
 	 
-	  mockMvc.perform(MockMvcRequestBuilders.get("/user/searchUser/100010").contentType(
+	  mockMvc.perform(MockMvcRequestBuilders.get("/user/searchUser/1010").contentType(
 	  MediaType.APPLICATION_JSON))
 	 .andExpect(status().isNotFound());
 	  
@@ -75,7 +75,7 @@ class UserTests {
 		
 	
 	  @Test void testDeleteUser1Success() throws Exception {
-	  mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/100002").
+	  mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/100001").
 	  contentType(MediaType.APPLICATION_JSON)) .andExpect(status().isOk()); }
 	 
 		/*
