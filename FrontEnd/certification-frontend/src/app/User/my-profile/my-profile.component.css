@@ -1,0 +1,12 @@
+.panel-heading.row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#b{
+
+    font-size: 40px
+}
+

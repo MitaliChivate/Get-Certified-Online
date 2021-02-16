@@ -1,0 +1,185 @@
+<div>
+  <div class="d-flex flex-column" id="content-wrapper" >
+    <div id="content">
+      <div class="container-fluid" style="width: 80%" style="width: 80%" ><br>
+        <h1 ></h1>
+        
+        <form  #registerform="ngForm" (ngSubmit)="onSubmit()">
+          <div class="card shadow mb-5">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold">Details</p>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+               
+                  <div class="col">
+                 
+                    <div class="form-group">
+                      <label for="firstName">First Name:</label>
+                      <input type="firstName" class="form-control" placeholder="Enter firstName" name="firstName" [(ngModel)]="user.firstName" required pattern="[A-Z][A-Za-z]{2,}" #firstName="ngModel"
+                      [class.is-invalid]="firstName.invalid && firstName.touched"
+                      >
+                     <!-- <small class="text-danger" [class.d.none]="email.invalid || email.touched">Email Id is required field</small>-->
+                    <div *ngIf="firstName.errors && (firstName.invalid && firstName.touched)">
+                      <small class="text-danger" *ngIf="firstName.errors.required">firstName is required field</small>
+                      <small class="text-danger"  *ngIf="firstName.errors.pattern">First letter must be capital! Firstname must me minimum 3 characters long</small>
+                    
+                    </div>
+                    </div>
+                  </div>
+
+                 <div class="col">
+                  <div class="form-group">
+                      <label for="lastName">Last Name:</label>
+                      <input type="lastName" class="form-control" placeholder="Enter lastName" name="lastName" [(ngModel)]="user.lastName" required pattern="[A-Z][A-Za-z]{2,}" #lastName="ngModel"
+                      [class.is-invalid]="lastName.invalid && lastName.touched"
+                      >
+                     <!-- <small class="text-danger" [class.d.none]="email.invalid || email.touched">Email Id is required field</small>-->
+                    <div *ngIf="lastName.errors && (lastName.invalid && lastName.touched)">
+                      <small class="text-danger" *ngIf="lastName.errors.required">lastName is required field</small>
+                      <small class="text-danger"  *ngIf="lastName.errors.pattern">First letter must be capital! Firstname must me minimum 3 characters long</small>
+                    
+                    </div>
+                    </div>
+                </div>
+
+                </div>
+
+
+              <div class="form-row">
+                <div class="col">
+                 
+                  <div class="form-group">
+                      <label for="mobileNo">Mobile No:</label>
+                      <input type="mobileNo" class="form-control" placeholder="Enter mobileNo" name="mobileNo" [(ngModel)]="user.mobileNo" required pattern="[7-9][0-9]{9}" #mobileNo="ngModel"
+                      [class.is-invalid]="mobileNo.invalid && mobileNo.touched"
+                      >
+                     <!-- <small class="text-danger" [class.d.none]="email.invalid || email.touched">Email Id is required field</small>-->
+                    <div *ngIf="mobileNo.errors && (mobileNo.invalid && mobileNo.touched)">
+                      <small class="text-danger" *ngIf="mobileNo.errors.required">Mobile Number is required field</small>
+                      <small class="text-danger"  *ngIf="mobileNo.errors.pattern">Enter valid mobile number</small>
+                    
+                    </div>
+                    </div>
+                
+              </div>
+               
+               
+                <div class="col">
+                  <div class="form-group">
+                      <label for="email">Email:</label>
+                      <input type="email" class="form-control" placeholder="Enter email" name="email" [(ngModel)]="user.email" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" #email="ngModel"
+                      [class.is-invalid]="email.invalid && email.touched"
+                      >
+                     <!-- <small class="text-danger" [class.d.none]="email.invalid || email.touched">Email Id is required field</small>-->
+                    <div *ngIf="email.errors && (email.invalid && email.touched)">
+                      <small class="text-danger" *ngIf="email.errors.required">Email Id is required field</small>
+                      <small class="text-danger"  *ngIf="email.errors.pattern">Enter the valid email Id</small>
+                    
+                    </div>
+                    </div>
+                </div>
+
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <div class="form-group">
+                    <label>Gender : </label><br>
+                     <label for="male">
+                      <input type="radio" id="male" name="gender" [(ngModel)]="user.gender" #gender=ngModel value="Male" required>
+                      Male</label><br>
+                      <label for="female">
+                        <input type="radio" id="female" name="gender" [(ngModel)]="user.gender" #gender=ngModel value="Female">
+                      Female</label><br>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-group">
+                    <label>Date Of Birth : </label>
+                    <input class="form-control" type="date" [(ngModel)]="user.dateOfBirth" name="dateOfBirth" required placeholder="Enter Date Of birth" 
+                      #dateOfBirth=ngModel min="1990-01-01" max="2005-12-31">
+                  </div>
+                </div>
+              </div>
+
+             
+
+            
+           
+           
+            </div>
+          </div>
+
+
+        
+          <!-- Credentials -->
+          <div class="card shadow mb-5" >
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold">Credentials</p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="userName">Username</label>
+                    <input type="userName" class="form-control" placeholder="Enter Username" name="userName" required pattern="^[a-zA-Z][a-za-z0-9_-]{3,19}$" [(ngModel)]="user.userName"  #userName="ngModel"
+                    [class.is-invalid]="userName.invalid && userName.touched"
+                    >
+                   <!-- <small class="text-danger" [class.d.none]="username.invalid || username.touched">username Id is required field</small>-->
+                  <div *ngIf="userName.errors && (userName.invalid && userName.touched)">
+                    <small class="text-danger" *ngIf="userName.errors.required">Username  is required field</small>
+                    <small class="text-danger"  *ngIf="userName.errors.pattern">Enter the valid username (Do not use special symbols) </small>
+                  
+                  </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control"  placeholder="Enter password" name="password"  [(ngModel)]="user.password" required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"  #password="ngModel"
+                    [class.is-invalid]="password.invalid && password.touched"
+                    >
+                    <div *ngIf="password.errors && (password.invalid && password.touched)">
+                      <small class="text-danger" *ngIf="password.errors.required">Password is required field</small>
+                      <small class="text-danger"  *ngIf="password.errors.pattern">Password should be atleast 8 characters long
+                        and should contain one number,one character and one special
+                        character </small>
+                    
+                    </div>
+                  </div>
+
+            
+                </div>
+              </div>
+         
+              
+            
+            </div>
+          </div>
+          
+          <div class="card shadow mb-5">
+         
+            <div class="card-body">
+             
+              <div class="row">
+               
+                <div class="col">
+                  <div class="form-group">
+                    <br />
+                    <button [disabled]="registerform.form.invalid"    class="btn btn-primary btn-block text-white btn-user" type="submit">
+                     
+                      Update Info
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        
+         </form>
+      </div>
+    </div>
+  </div>
+</div>

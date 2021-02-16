@@ -1,0 +1,85 @@
+<br><br><br><br>
+<div class="container" style="margin-top: -60px;
+max-width: 75%;
+">
+  <div class="row justify-content-center">
+    <div class="col-md-9 col-lg-12 col-xl-10">
+      <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+    <div ><br><br></div>
+    <div class="panel panel-info" style="text-align: center; font-family: roboto; margin-left: 15px;
+    font-weight: 800;background: white;" >
+      <div class="panel-heading row" style="margin-left: 36px;">
+        <mat-icon id="b"style="margin-top: 25px;">  account_box  </mat-icon> <h2 class="col panel-title display-4" style="text-align: left; color: black; "><br>
+           <b style="    margin-left: -15px;font-size: 24px;"> &nbsp;&nbsp; {{ user?.firstName }}   {{ user?.lastName }} </b>
+        </h2>
+  
+        <div class="edit" style="    margin-right: 62px;
+        margin-top: 25px;
+    ">
+          <button
+          mat-fab
+          
+            color="primary"
+           
+            (click)="updateUser(user.userId)"
+          >
+            <mat-icon  style="color: white;">edit</mat-icon>
+          </button>
+        </div>
+        <hr />
+      </div>
+      <div class="row panel-body">
+        <hr style="width: 80%;"/>
+        <table class="table table-user-information table-hover table-borderless" style="    font-size: 18px; ">
+          <tbody>
+            <tr>
+              <td id="a"class="title">User ID</td>
+              <td class="userdata">{{ user?.userId }}</td>
+            </tr>
+            <tr>
+                <td id="a"class="title">First Name</td>
+                <td class="userdata">{{ user?.firstName }}</td>
+              </tr>
+              <tr>
+                <td id="a" class="title">Last Name</td>
+                <td class="userdata">{{ user?.lastName }}</td>
+              </tr>
+            <tr>
+              <td id="a" class="title">Username</td>
+              <td class="userdata">{{ user?.userName }}</td>
+            </tr>
+            <tr>
+              <td id="a"class="title">Date of birth</td>
+              <td class="userdata">{{ user?.dateOfBirth }}</td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td id="a"class="title">Gender</td>
+              <td class="userdata">{{ user?.gender }}</td>
+            </tr>
+        
+            <tr>
+              <td id="a" class="title">Phone Number</td>
+              <td class="userdata">{{ user?.mobileNo }}</td>
+            </tr>
+            <tr>
+                <td id="a" class="title">Email</td>
+                <td class="userdata">{{ user?.email }}</td>
+              </tr>
+              <tr>
+                <td id="a" class="title">Role</td>
+                <td class="userdata">{{ user?.role}}</td>
+              </tr>
+     
+          </tbody>
+        </table>
+      </div>
+      <hr style="width: 100%;"/>
+    </div>
+  
+  
+        </div></div></div></div>
+
+  </div>
+  

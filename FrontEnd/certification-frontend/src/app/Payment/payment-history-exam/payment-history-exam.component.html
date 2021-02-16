@@ -1,0 +1,96 @@
+
+<br><br>
+
+<div>
+  
+    <div class="d-flex flex-column" id="content-wrapper">
+      
+      <div id="content">
+        <div class="container-fluid" style="max-width: 80%;" >
+          <!-- <h3 class="text-dark mb-4">exams</h3> -->
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold  font-size: larger;"     style="font-size: large;" >
+                Exam Payment Details
+              </p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 text-nowrap">
+                  <div
+                    id="dataTable_length"
+                    class="dataTables_length"
+                    aria-controls="dataTable"
+                  ></div>
+                </div>
+                <div class="col-md-6">
+                  <div
+                    class="text-md-right dataTables_filter"
+                    id="dataTable_filter"
+                  ></div>
+                </div>
+              </div>
+              <div
+                class="table-responsive table mt-2"
+                id="dataTable"
+                role="grid"
+                aria-describedby="dataTable_info"
+              >
+                <table class="table my-0" id="dataTable" class="table table-hover ">
+                  
+                  <caption *ngIf='isLoading'>
+                    <div style="margin-left: 598px;
+                    margin-top: 151px;
+                    margin-bottom: -6px;" class="spinner-border"></div>&nbsp;&nbsp;Loading...
+                  </caption>
+                  <caption *ngIf='!isLoading'>
+                    List of Exams Payment.
+                    <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize'>
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    <label class="float-right" style="padding-top: 0.5rem;">Items per
+                      page:&nbsp;&nbsp;</label>
+                  </caption>
+                  
+                  <thead class="colour" class="thead-dark">
+                    <tr >
+                      <!-- <th scope="col">Id</th> -->
+                  
+                      <th scope="col">Transaction Id</th>
+                      <th scope="col">Payment Mode</th>
+                      <th scope="col">Payment Date</th>
+                      <th scope="col">Payment Amount</th>
+                      <th scope="col">Exam Name</th>
+                       
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr *ngFor='let pay of payment | paginate: { itemsPerPage: bucketSize, currentPage: p}'>
+                      <!-- <th scope="row">{{exam.examId}}</th> -->
+                      <td>TX{{pay.paymentId}}</td>
+                      <td>{{pay.paymentMode}}</td>
+                      <td>
+                        {{pay.paymentDate}}
+                      </td>
+                      <td>{{pay.amount}} Rs.</td>
+                      <td>{{pay.exam.examName}}</td>
+                     
+                  
+                    
+                    
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+       
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+
+<mat-toolbar   color="primary"  class="mat-elevation-z1000" class="navbar" >
+<a class ="navbar-brand" >
+    <div class="logo-image">
+        <img src="assets/img/logo3.png" class="img-fluid">
+    </div>
+    
+</a>
+
+<div class="spacer"  ></div>
+<div class="example-button-row" >
+
+<button mat-button  routerLink="home" >Home </button>
+<button mat-button routerLink="myprofile">Profile </button>
+<button mat-button routerLink="viewuser">Users </button>
+<button mat-button routerLink="viewtraining">Courses </button>
+<button mat-button routerLink="viewexam">Exams </button>
+<button
+mat-icon-button
+ [matMenuTriggerFor]="menu"
+>
+<mat-icon>dehaze</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item  routerLink="myprofile"><mat-icon>account_box</mat-icon>My Profile</button> 
+    <button mat-menu-item  [matMenuTriggerFor]="menu2" ><mat-icon>monetization_on</mat-icon>Payments</button> 
+    <button mat-menu-item (click)="logoutUser()" ><mat-icon>exit_to_app</mat-icon>Log Out</button> 
+
+</mat-menu>
+
+<mat-menu #menu2="matMenu">
+    
+    <button mat-menu-item  routerLink="exampaymentreceived"><mat-icon>post_add</mat-icon> Exam Payments</button> 
+    <button mat-menu-item  routerLink="coursepaymentreceived"><mat-icon>calendar_today</mat-icon>Course Payments</button> 
+   
+    
+</mat-menu>
+
+<br><br>
+</div>
+</mat-toolbar>
+
+<div>
+<router-outlet></router-outlet>
+
+</div>
+<div></div>
+<br>
+<app-footer></app-footer>

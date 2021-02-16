@@ -1,0 +1,316 @@
+
+
+  <div class="container">
+    <br>  <p class="text-center">More Courses available on <a href="http://www.google.com/"> GetCertifiedOnline.com</a></p>
+    <hr>
+    
+    <div class="row">
+        <aside class="col-sm-6">
+    
+    
+    <div class="card-header py-3" style="background-color: white;">
+        <p class="text-primary m-0 font-weight-bold">Exam Details</p>
+      </div>
+    <article class="card">
+    <div class="card-body p-5">
+   
+        
+    
+    <form
+                (ngSubmit)="savePayment()"
+                #addForm="ngForm"
+                class="needs-validation"
+              >
+              
+             
+                  
+                    <div class="form-group">
+                      <label for="exam"
+                        ><strong>Exam Name</strong><br
+                      /></label>
+                      <input disabled
+                        class="form-control"
+                        [(ngModel)]="exam.examName"  name="examName"
+                      />
+                     
+                    </div>
+
+                
+                  
+                    <div class="form-group">
+                      <label for="examCost"
+                        ><strong>Exam Cost</strong><br
+                      /></label>
+                      <input disabled
+                        class="form-control"
+                        [(ngModel)]="exam.examCost"
+                       
+                        name="examCost"
+                       
+                      /> 
+                    </div>
+                  
+              
+                
+                 
+                  <div class="col">
+                    <div class="form-group">
+                        <label for="examDate"
+                          ><strong>Exam Date </strong><br
+                        /></label>
+                        <input disabled
+                          [(ngModel)]="exam.examDate"
+                          name="examDate"
+                         
+                          class="form-control"
+                         
+                         
+                          
+                        />
+                     
+                      </div>
+                  </div>
+                
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                        <label for="startTime"><strong>Exam Start Time</strong><br /></label
+                        ><input disabled
+                          class="form-control"
+                         
+                          [(ngModel)]="exam.startTime"
+                          name="startTime"
+                          
+                        />
+                      
+                      </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                        <label for="endTime"><strong>Exam End Time</strong><br /></label
+                        ><input disabled
+                          class="form-control"
+                         
+                          [(ngModel)]="exam.endTime"
+                          name="endTime"
+                         
+                        />
+                        
+                      </div>
+                  </div>
+                </div>
+                  <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="description"
+                              ><strong>Description</strong><br
+                            /></label>
+                            <input disabled
+                              class="form-control"
+                              [(ngModel)]="exam.description"
+                            
+                              name="description"
+                             
+                            />
+                           
+                          </div>
+                      </div>
+                    </div>
+
+
+                    
+                  
+                  
+                 
+              
+                  
+                
+              </form>
+    </div> <!-- card-body.// -->
+    </article> <!-- card.// -->
+    
+    
+        </aside> <!-- col.// -->
+        <aside class="col-sm-6">
+    
+    
+
+    <div class="card-header py-3" style="background-color: white;">
+        <p class="text-primary m-0 font-weight-bold">Payment Details</p>
+      </div>
+    <article class="card">
+    <div class="card-body p-5">
+    
+    <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#nav-tab-card">
+            <i class="fa fa-credit-card"></i> Card</a></li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
+            <i class="fab fa-paypal"></i>  Paypal</a></li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">
+            <i class="fa fa-university"></i>  Bank Transfer</a></li>
+    </ul>
+    
+    <div class="tab-content">
+    <div class="tab-pane fade show active" id="nav-tab-card">
+         <form (ngSubmit)="savePayment(); addPaymentForm.reset()" #addPaymentForm=ngForm>
+           
+            
+            <div class="form-group">
+              
+                <label for="paymentMode">
+                 <input type="radio" id="paymentMode" name="paymentMode" [(ngModel)]="paymentExam.paymentMode" #paymentMode=ngModel value="Debit Card" required>
+                Debit Card  &nbsp; &nbsp;</label>
+                 <label for="female">
+                   <input type="radio" id="paymentMode" name="paymentMode" [(ngModel)]="paymentExam.paymentMode" #paymentMode=ngModel value="Credit Card">
+                 Credit Card</label><br>
+             </div>
+           
+           
+            <div class="form-group">
+            <label for="name">Full name (on the card)</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" name="paymentExam.name" placeholder="Name on card" required  [(ngModel)]="paymentExam.name" pattern="" #name="ngModel"
+                [class.is-invalid]="name.invalid && name.touched"
+                >
+               
+            </div> <!-- input-group.// -->
+            <div *ngIf="name.errors && (name.invalid && name.touched)">
+                <small class="text-danger" *ngIf="name.errors.required">*required </small>
+                <small class="text-danger"  *ngIf="name.errors.pattern">First letter must be capital!</small>
+              
+              </div>
+            </div> <!-- form-group.// -->
+
+
+           
+            
+            <div class="form-group">
+            <label for="cardNumber">Card number</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                </div>
+                <input type="number" class="form-control" name="paymentExam.cardNumber" placeholder="16 digit card number" required  [(ngModel)]="paymentExam.cardNumber" pattern="[0-9]{16}" #cardNumber="ngModel"
+                [class.is-invalid]="cardNumber.invalid && cardNumber.touched"
+                >
+            </div> <!-- input-group.// -->
+            <div *ngIf="cardNumber.errors && (cardNumber.invalid && cardNumber.touched)">
+                <small class="text-danger" *ngIf="cardNumber.errors.required">*required </small>
+                <small class="text-danger"  *ngIf="cardNumber.errors.pattern">Must be of 16 digits</small>
+              
+              </div>
+            </div> <!-- form-group.// -->
+            
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="expMonth"><span class="hidden-xs">Expiration</span> </label>
+                        <div class="form-inline">
+                            <select name="expMonth" id="expMonth" [(ngModel)]="paymentExam.expMonth" required #expMonth=ngModel class="form-control" style="width:45%">
+                              
+                              <option value="01">01 - January</option>
+                              <option value="02">02 - February</option>
+                              <option value="03">03 - March</option>
+                              <option value="04">04 - April</option>
+                              <option value="05">05 - May</option>
+                              <option value="06">06 - June</option>
+                              <option value="07">07 - July</option>
+                              <option value="08">08 - August</option>
+                              <option value="09">09 - September</option>
+                              <option value="10">10 - October</option>
+                              <option value="11">11 - November</option>
+                              <option value="12">12 - December</option>
+                            </select>
+                            <span style="width:10%; text-align: center"> / </span>
+                            <select  name="expYear" id="expYear" [(ngModel)]="paymentExam.expYear"  required #expYear=ngModel class="form-control" style="width:45%">
+                              <option value="22">2022</option>
+                              <option value="23">2023</option>
+                              <option value="24">2024</option>
+                              <option value="25">2025</option>
+                              <option value="26">2026</option>
+                              <option value="27">2027</option>
+                              <option value="28">2028</option>
+                              <option value="29">2029</option>
+                              <option value="30">2030</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="cvv"data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label>
+                        <input class="form-control" required  type="password" placeholder="cvv" name="cvv" [(ngModel)]="paymentExam.cvv" pattern="[0-9]{3}" #cvv="ngModel"  [class.is-invalid]="cvv.invalid && cvv.touched"
+                        >
+
+                        <div *ngIf="cvv.errors && (cvv.invalid && cvv.touched)">
+                            <small class="text-danger" *ngIf="cvv.errors.required"> *required </small>
+                            <small class="text-danger"  *ngIf="cvv.errors.pattern">Enter valid cvv</small>
+                          
+                          </div>
+                    </div> <!-- form-group.// -->
+                </div>
+            </div> <!-- row.// -->
+            <button class="subscribe btn btn-primary btn-block" type="submit"  [disabled]="!addPaymentForm.valid"> Confirm  </button>
+            </form>
+    </div> <!-- tab-pane.// -->
+    <div class="tab-pane fade" id="nav-tab-paypal">
+    <p>Paypal is easiest way to pay online</p>
+    <p>
+        <a href="https://www.paypal.in" class="btn btn-primary"> <i class="fab fa-paypal"  ></i> Log in my Paypal</a>
+    </p>
+    <p><strong>Note:</strong> Please prefer credit/ debit card payments.</p>
+    </div>
+    <div class="tab-pane fade" id="nav-tab-bank">
+    <p>Bank accaunt details</p>
+    <dl class="param">
+      <dt>BANK: </dt>
+      <dd> THE SBI BANK</dd>
+    </dl>
+    <dl class="param">
+        <dt>Account Name: </dt>
+        <dd> GET CERTIFIED ONLINE</dd>
+      </dl>
+    <dl class="param">
+      <dt>Account number: </dt>
+      <dd> 12345678912345</dd>
+    </dl>
+    <dl class="param">
+      <dt>IBAN: </dt>
+      <dd> 123456789</dd>
+    </dl>
+    <p><strong>Note:</strong> Please prefer debit/credit card payments </p>
+    </div> <!-- tab-pane.// -->
+    </div> <!-- tab-content .// -->
+    
+    </div> <!-- card-body.// -->
+    </article> <!-- card.// -->
+    
+    
+        </aside> <!-- col.// -->
+    </div> <!-- row.// -->
+    
+    
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

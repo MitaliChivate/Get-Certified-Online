@@ -1,0 +1,140 @@
+
+<br><br>
+
+<div>
+  
+    <div class="d-flex flex-column" id="content-wrapper">
+      <div class="container" style="    margin-left: 173px;">
+        <div class="form-group float-left">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+            <input (keyup)="onKey($event)" class="form-control" placeholder="Search by exam name" />
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div class="container-fluid"  >
+          <!-- <h3 class="text-dark mb-4">exams</h3> -->
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold  font-size: larger;"     style="font-size: large;" >
+                Available Exams<button
+                  class="btn btn-primary align-content-end float-right"
+                  type="button"
+                  (click)="navigate()"
+                >
+                + Add New Exam
+                </button>
+              </p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 text-nowrap">
+                  <div
+                    id="dataTable_length"
+                    class="dataTables_length"
+                    aria-controls="dataTable"
+                  ></div>
+                </div>
+                <div class="col-md-6">
+                  <div
+                    class="text-md-right dataTables_filter"
+                    id="dataTable_filter"
+                  ></div>
+                </div>
+              </div>
+              <div
+                class="table-responsive table mt-2"
+                id="dataTable"
+                role="grid"
+                aria-describedby="dataTable_info"
+              >
+                <table class="table my-0" id="dataTable" class="table table-hover ">
+                  
+                  <caption *ngIf='isLoading'>
+                    <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
+                  </caption>
+                  <caption *ngIf='!isLoading'>
+                    List of all Exams.
+                    <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize'>
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    <label class="float-right" style="padding-top: 0.5rem;">Items per
+                      page:&nbsp;&nbsp;</label>
+                  </caption>
+                  
+                  <thead class="colour" class="thead-dark">
+                    <tr >
+                      <!-- <th scope="col">Id</th> -->
+                  
+                      <th scope="col">Exam Id</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Exam Cost</th>
+                      <th scope="col">Exam Date</th>
+                      <th scope="col">Start Time</th>
+                      <th scope="col">End Time</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Available Seats</th>
+                     
+                      <th scope="col">Action</th>
+                      <th scope="col"></th>
+                      
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr *ngFor='let exam of exam1 | paginate: { itemsPerPage: bucketSize, currentPage: p}'>
+                      <!-- <th scope="row">{{exam.examId}}</th> -->
+                      <td>{{ exam.examId }}</td>
+                      <td>{{ exam.examName }}</td>
+                      <td>
+                        {{ exam.examCost }} Rs
+                      </td>
+                      <td>{{ exam.examDate }}</td>
+                     <td>{{ exam.startTime }}</td>
+                      <td>{{ exam.endTime }}</td>
+                      <td>{{ exam.description }}</td>
+                      <td>{{ exam.availableSeats }}</td>
+                    
+                      <td> 
+                        
+                        <button 
+                          mat-icon-button
+                          color="primary"
+                          (click)="updateExam(exam.examId)"
+                        >
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        <button
+                        mat-icon-button
+                        color="warn"
+                        (click)="deleteExam(exam.examId)"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+   
+                      
+                      
+                      
+                     </td>
+                    
+                    
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+       
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

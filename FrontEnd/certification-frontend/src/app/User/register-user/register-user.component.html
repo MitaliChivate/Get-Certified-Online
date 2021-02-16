@@ -1,0 +1,315 @@
+<mat-toolbar   color="primary"  class="mat-elevation-z20" class="navbar">
+  <span > <mat-icon id="aa" style="font-size: 36px;
+    margin-top: -7px;">account_circle</mat-icon > &nbsp; &nbsp;Create Account</span>
+<div class="spacer"  ></div>
+<div class="example-button-row">
+<span >Already Registered?&nbsp;&nbsp;</span>
+
+<button mat-raised-button   routerLink="" >Log in</button>
+<br><br>
+</div>
+</mat-toolbar>
+<div>
+  <div class="d-flex flex-column" id="content-wrapper" >
+    <div id="content">
+      <div class="container-fluid" style="width: 75%;"><br>
+        <h1 ></h1>
+        
+        <form  #registerform="ngForm" (ngSubmit)="submitForm()">
+          <div class="card shadow mb-5">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold">Personal Details</p>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+               
+                  <div class="col">
+                 
+                    <div class="form-group">
+                      <label for="firstName">First Name:</label>
+                      <input type="firstName" class="form-control" placeholder="Enter firstName" name="firstName" [(ngModel)]="user.firstName" required pattern="[A-Z][A-Za-z]{2,}" #firstName="ngModel"
+                      [class.is-invalid]="firstName.invalid && firstName.touched"
+                      >
+                     <!-- <small class="text-danger" [class.d.none]="email.invalid || email.touched">Email Id is required field</small>-->
+                    <div *ngIf="firstName.errors && (firstName.invalid && firstName.touched)">
+                      <small class="text-danger" *ngIf="firstName.errors.required">firstName is required field</small>
+                      <small class="text-danger"  *ngIf="firstName.errors.pattern">First letter must be capital! Firstname must me minimum 3 characters long</small>
+                    
+                    </div>
+                    </div>
+                  </div>
+
+                 <div class="col">
+                  <div class="form-group">
+                      <label for="lastName">Last Name:</label>
+                      <input type="lastName" class="form-control" placeholder="Enter lastName" name="lastName" [(ngModel)]="user.lastName" required pattern="[A-Z][A-Za-z]{2,}" #lastName="ngModel"
+                      [class.is-invalid]="lastName.invalid && lastName.touched"
+                      >
+                     <!-- <small class="text-danger" [class.d.none]="email.invalid || email.touched">Email Id is required field</small>-->
+                    <div *ngIf="lastName.errors && (lastName.invalid && lastName.touched)">
+                      <small class="text-danger" *ngIf="lastName.errors.required">lastName is required field</small>
+                      <small class="text-danger"  *ngIf="lastName.errors.pattern">First letter must be capital! Firstname must me minimum 3 characters long</small>
+                    
+                    </div>
+                    </div>
+                </div>
+
+                </div>
+
+
+              <div class="form-row">
+                <div class="col">
+                 
+                  <div class="form-group">
+                      <label for="mobileNo">Mobile No:</label>
+                      <input type="mobileNo" class="form-control" placeholder="Enter mobileNo" name="mobileNo" [(ngModel)]="user.mobileNo" required pattern="[7-9][0-9]{9}" #mobileNo="ngModel"
+                      [class.is-invalid]="mobileNo.invalid && mobileNo.touched"
+                      >
+                     <!-- <small class="text-danger" [class.d.none]="email.invalid || email.touched">Email Id is required field</small>-->
+                    <div *ngIf="mobileNo.errors && (mobileNo.invalid && mobileNo.touched)">
+                      <small class="text-danger" *ngIf="mobileNo.errors.required">Mobile Number is required field</small>
+                      <small class="text-danger"  *ngIf="mobileNo.errors.pattern">Enter valid mobile number</small>
+                    
+                    </div>
+                    </div>
+                
+              </div>
+               
+               
+                <div class="col">
+                  <div class="form-group">
+                      <label for="email">Email:</label>
+                      <input type="email" class="form-control" placeholder="Enter email" name="email" [(ngModel)]="user.email" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" #email="ngModel"
+                      [class.is-invalid]="email.invalid && email.touched"
+                      >
+                     <!-- <small class="text-danger" [class.d.none]="email.invalid || email.touched">Email Id is required field</small>-->
+                    <div *ngIf="email.errors && (email.invalid && email.touched)">
+                      <small class="text-danger" *ngIf="email.errors.required">Email Id is required field</small>
+                      <small class="text-danger"  *ngIf="email.errors.pattern">Enter the valid email Id</small>
+                    
+                    </div>
+                    </div>
+                </div>
+
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <div class="form-group">
+                    <label>Gender : </label><br>
+                     <label for="male">
+                      <input type="radio" id="male" name="gender" [(ngModel)]="user.gender" #gender=ngModel value="Male" required>
+                      Male</label><br>
+                      <label for="female">
+                        <input type="radio" id="female" name="gender" [(ngModel)]="user.gender" #gender=ngModel value="Female">
+                      Female</label><br>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-group">
+                    <label>Date Of Birth : </label>
+                    <input class="form-control" type="date" [(ngModel)]="user.dateOfBirth" name="dateOfBirth" required placeholder="Enter Date Of birth" 
+                      #dateOfBirth=ngModel min="1990-01-01" max="2005-12-31">
+                  </div>
+                </div>
+              </div>
+
+             
+
+            
+           
+           
+            </div>
+          </div>
+
+
+          <div class="card shadow mb-5" >
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold">Address</p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="address">Address Line</label>
+                    <input type="address" class="form-control" placeholder="Enter address " name="address" required [(ngModel)]="user.address"  #address="ngModel"
+                    [class.is-invalid]="address.invalid && address.touched"
+                    >
+                                <div *ngIf="address.errors && (address.invalid && address.touched)">
+                    <small class="text-danger" *ngIf="address.errors.required">Address is required field</small>
+                  
+                  </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="city" class="form-control" placeholder="Enter city " name="city" required [(ngModel)]="user.city"  #city="ngModel"
+                    [class.is-invalid]="city.invalid && city.touched"
+                    >
+                                <div *ngIf="city.errors && (city.invalid && city.touched)">
+                    <small class="text-danger" *ngIf="city.errors.required">city is required field</small>
+                  
+                  </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="district">District</label>
+                        <input type="district" class="form-control" placeholder="Enter district " name="district" required [(ngModel)]="user.district"  #district="ngModel"
+                        [class.is-invalid]="district.invalid && district.touched"
+                        >
+                                    <div *ngIf="district.errors && (district.invalid && district.touched)">
+                        <small class="text-danger" *ngIf="district.errors.required">district is required field</small>
+                      
+                      </div>
+                      </div>
+
+                      </div>
+                      <div class="col">
+
+                        <div class="form-group">
+                          <label for="state">State</label>
+                          <input type="state" class="form-control" placeholder="Enter state " name="state" required [(ngModel)]="user.state"  #state="ngModel"
+                          [class.is-invalid]="state.invalid && state.touched"
+                          >
+                                      <div *ngIf="state.errors && (state.invalid && state.touched)">
+                          <small class="text-danger" *ngIf="state.errors.required">state is required field</small>
+                        
+                        </div>
+                        </div>
+                      </div>
+
+                </div>
+              
+            
+            </div>
+          </div>
+          <!-- Credentials -->
+          <div class="card shadow mb-5" >
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold">Credentials</p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="userName">Username</label>
+                    <input type="userName" class="form-control" placeholder="Enter Username" name="userName" required pattern="^[a-zA-Z][a-za-z0-9_-]{3,19}$" [(ngModel)]="user.userName"  #userName="ngModel"
+                    [class.is-invalid]="userName.invalid && userName.touched"
+                    >
+                   <!-- <small class="text-danger" [class.d.none]="username.invalid || username.touched">username Id is required field</small>-->
+                  <div *ngIf="userName.errors && (userName.invalid && userName.touched)">
+                    <small class="text-danger" *ngIf="userName.errors.required">Username  is required field</small>
+                    <small class="text-danger"  *ngIf="userName.errors.pattern">Enter the valid username (Do not use special symbols and capital letters) </small>
+                  
+                  </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control"  placeholder="Enter password" name="password"  [(ngModel)]="user.password" required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"  #password="ngModel"
+                    [class.is-invalid]="password.invalid && password.touched"
+                    >
+                    <div *ngIf="password.errors && (password.invalid && password.touched)">
+                      <small class="text-danger" *ngIf="password.errors.required">Password is required field</small>
+                      <small class="text-danger"  *ngIf="password.errors.pattern">Password should be atleast 8 characters long
+                        and should contain one number,one character and one special
+                        character </small>
+                    
+                    </div>
+                  </div>
+                </div>
+
+
+                
+
+
+
+
+              </div>
+              <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="pwd"> Confirm Password:</label>
+                  <input type="password" class="form-control"  placeholder="Enter confirm password" name="cpassword"  (ngModel)="user.password" required   #cpassword="ngModel"
+                  [class.is-invalid]="cpassword.invalid && cpassword.touched"
+                  >
+                  
+                  
+                    <small class="text-danger" [class.d-none]="(cpassword.value==password.value)||cpassword.untouched">Password and Confirm password must be same</small>
+              
+                 
+                </div>
+              </div><div class="col"></div></div>
+              
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="securityQuestion"><span class="hidden-xs">Security Question</span> </label>
+                   
+                        <select name="securityQuestion" id="securityQuestion" [(ngModel)]="user.securityQuestion" required #securityQuestion=ngModel class="form-control" >
+                          
+                          <option  value="What is your name?" selected >What is your name?</option>
+                          <option value="What is your pet name?">What is your pet name?</option>
+                          <option value="What was your first bike?">What was your first bike?</option>
+                          <option value="Who was your childhood hero?">Who was your childhood hero?</option>
+                          <option value="What is your favorite food?">What is your favorite food?</option>
+                        
+                        </select>
+                      
+                   
+                </div>
+                
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="securityAnswer">Security Answer</label>
+                    <input type="securityAnswer" class="form-control" placeholder="Enter Security Answer" name="securityAnswer" required  [(ngModel)]="user.securityAnswer"  #securityAnswer="ngModel"
+                    [class.is-invalid]="securityAnswer.invalid && securityAnswer.touched"
+                    >
+                   <!-- <small class="text-danger" [class.d.none]="username.invalid || username.touched">username Id is required field</small>-->
+                  <div *ngIf="securityAnswer.errors && (securityAnswer.invalid && securityAnswer.touched)">
+                    <small class="text-danger" *ngIf="securityAnswer.errors.required">Security Answer is required field</small>
+                   
+                  </div>
+                  </div>
+                
+                </div>
+
+              </div>
+              
+            
+            </div>
+          </div>
+          
+          <div class="card shadow mb-5">
+         
+            <div class="card-body">
+             
+              <div class="row">
+               
+                <div class="col">
+                  <div class="form-group">
+                    <br />
+                    <button [disabled]="registerform.form.invalid"    class="btn btn-primary btn-block text-white btn-user" type="submit">
+                     
+                      Register
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        
+         </form>
+      </div>
+    </div>
+  </div>
+</div>

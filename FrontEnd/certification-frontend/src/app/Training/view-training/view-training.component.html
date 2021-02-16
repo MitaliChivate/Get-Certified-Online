@@ -1,0 +1,132 @@
+
+<br><br>
+<div>
+    <div class="d-flex flex-column" id="content-wrapper">
+
+      <div class="container" style="    margin-left: 173px;">
+        <div class="form-group float-left">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+            <input (keyup)="onKey($event)" class="form-control" placeholder="Search by course name" />
+          </div>
+        </div>
+      </div>
+
+      <div id="content">
+        <div class="container-fluid" style="width: 80%;" >
+          <!-- <h3 class="text-dark mb-4">trainings</h3> -->
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold  font-size: larger;"     style="font-size: large;" >
+                Available Courses<button
+                  class="btn btn-primary align-content-end float-right"
+                  type="button"
+                  (click)="navigate()"
+                >
+                + Add New Course
+                </button>
+              </p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 text-nowrap">
+                  <div
+                    id="dataTable_length"
+                    class="dataTables_length"
+                    aria-controls="dataTable"
+                  ></div>
+                </div>
+                <div class="col-md-6">
+                  <div
+                    class="text-md-right dataTables_filter"
+                    id="dataTable_filter"
+                  ></div>
+                </div>
+              </div>
+              <div
+                class="table-responsive table mt-2"
+                id="dataTable"
+                role="grid"
+                aria-describedby="dataTable_info"
+              >
+                <table class="table my-0" id="dataTable" class="table table-hover">
+                 
+                  <caption *ngIf='isLoading'>
+                    <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
+                  </caption>
+                  <caption *ngIf='!isLoading'>
+                    List of all Courses.
+                    <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize'>
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    <label class="float-right" style="padding-top: 0.5rem;">Items per
+                      page:&nbsp;&nbsp;</label>
+                  </caption>
+
+                  <thead class="colour" class="thead-dark">
+                    <tr >
+                      <!-- <th scope="col">Id</th> -->
+                  
+                      <th scope="col">Course Id</th>
+                      <th scope="col">Course Name</th>
+                      <th scope="col">Training Cost</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Duration</th>
+                      <th scope="col">Action</th>
+                      <th scope="col"></th>
+                      
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr *ngFor="let training of training1 |paginate: { itemsPerPage: bucketSize, currentPage: p}">
+                      <!-- <th scope="row">{{training.trainingId}}</th> -->
+                      <td>{{ training.trainingProgramId }}</td>
+                      <td>{{ training.trainingCourse }}</td>
+                      <td>
+                        {{ training.trainingCost }} Rs
+                      </td>
+                      <td>{{ training.description }}</td>
+                      <td>{{ training.noOfDays }} Days</td>
+                      
+                      <td> 
+                        <button
+                          mat-icon-button
+                          color="primary"
+                          (click)="updateTraining(training.trainingProgramId)"
+                        >
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        <button
+                        mat-icon-button
+                        color="warn"
+                        (click)="deleteTraining(training.trainingProgramId)"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                      
+                      
+                     </td>
+                    
+                    
+                    </tr>
+                  </tbody>
+                </table>
+
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+       
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

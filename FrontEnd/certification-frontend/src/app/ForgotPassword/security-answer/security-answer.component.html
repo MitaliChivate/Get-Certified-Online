@@ -1,0 +1,78 @@
+
+  <div>
+    <div class="d-flex flex-column" id="content-wrapper" style="margin-top: 7%;">
+      <div id="content">
+        <div class="container-fluid" style="width: 43%;margin-top: 66px;"><br>
+          <h1 ></h1>
+          
+          <form  #verifyanswer="ngForm" (ngSubmit)="submitAnswer()">
+            <div class="card shadow mb-5">
+              <div class="card-header py-3" style="    text-align: center;">
+                <p class="text-primary m-0 font-weight-bold">Security Answer</p>
+              </div>
+              <div class="card-body">
+           
+  
+  
+                <div class="form-row">
+                  <div class="col">
+                   
+
+                    <div class="form-group">
+                        <label for="securityQuestion"
+                          ><strong>Security Question</strong><br
+                        /></label>
+                        <input disabled
+                          class="form-control"
+                          [(ngModel)]="user.securityQuestion"
+                         name="securityQuestion"
+                         />
+                        
+                      </div>
+
+                    <p class=" font-weight-bold">Please Enter Your Security Answer.</p>
+             
+                    <div class="form-group">
+                   
+                        <input type="securityAnswer"  class="form-control" placeholder="Enter securityAnswer" name="user1.securityAnswer" required  [(ngModel)]="user1.securityAnswer"  #securityAnswer="ngModel"
+                        [class.is-invalid]="securityAnswer.invalid && securityAnswer.touched" 
+                        >
+                       <!-- <small class="text-danger" [class.d.none]="username.invalid || username.touched">username Id is required field</small>-->
+                      <div *ngIf="securityAnswer.errors && (securityAnswer.invalid && securityAnswer.touched)">
+                      
+                        <small class="text-danger" *ngIf="securityAnswer.errors.required">*Required</small>
+                        
+                      </div>
+                      </div>
+                  
+                </div>
+                 
+                 
+                  
+  
+                </div>
+               
+  
+                <button [disabled]="verifyanswer.form.invalid"    class="btn btn-primary btn-block text-white btn-user" type="submit">
+                       
+                  Submit Answer
+                </button>
+  
+              
+             
+             
+              </div>
+            </div>
+  
+  
+       
+            
+          
+  
+          
+           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

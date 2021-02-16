@@ -1,0 +1,143 @@
+<br>
+<br>
+<br>
+<div>
+    <div class="d-flex flex-column" id="content-wrapper">
+      <div id="content">
+        <div class="container-fluid" style="width: 60%;">
+            <br>
+          
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold">Edit Training Details</p>
+            </div>
+            <div class="card-body">
+              <form
+                (ngSubmit)="onSubmit()"
+                #addForm="ngForm"
+                class="needs-validation"
+              >
+             
+                  
+                    <div class="form-group">
+                      <label for="trainingCourse"
+                        ><strong>Course Name</strong><br
+                      /></label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="training.trainingCourse"
+                        type="text"
+                        placeholder="Course Name"
+                        name="trainingCourse"
+                        required
+                        #trainingCourse="ngModel"
+                        [class.is-invalid]="trainingCourse.invalid && trainingCourse.touched"
+                      />
+                      <div *ngIf="trainingCourse.errors && trainingCourse.invalid && trainingCourse.touched">
+                        <small class="text-danger" *ngIf="trainingCourse.errors.required">Training Name is required field</small>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description"
+                          ><strong>Description</strong><br
+                        /></label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="training.description"
+                          type="text"
+                          placeholder="training description"
+                          name="description"
+                          required
+                          #description="ngModel"
+                          [class.is-invalid]="description.invalid && description.touched"
+                        />
+                        <div *ngIf="description.errors && description.invalid && description.touched">
+                          <small class="text-danger" *ngIf="description.errors.required">Description is required field</small>
+                        </div>
+                      </div>
+                
+                  
+                    <div class="form-group">
+                      <label for="trainingCost"
+                        ><strong>Training Cost</strong><br
+                      /></label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="training.trainingCost"
+                        type="number"
+                        placeholder="training Cost"
+                        required
+                        name="trainingCost"
+                        #trainingCost="ngModel"
+                        [class.is-invalid]="trainingCost.invalid && trainingCost.touched"
+                      />
+                      
+                      <div *ngIf="trainingCost.errors && trainingCost.invalid && trainingCost.touched">
+                        <small class="text-danger" *ngIf="trainingCost.errors.required">Training Cost is required field</small>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="noOfDays"
+                        ><strong>Duration</strong><br
+                      /></label>
+                      <input
+                        class="form-control"
+                        [(ngModel)]="training.noOfDays"
+                        type="number"
+                        placeholder="No of days"
+                        required
+                        pattern="^(?:1|[1-9]|[0-9][0-9]|[1][0-1][0-9]|120)$"
+                        name="noOfDays"
+                        #noOfDays="ngModel"
+                        [class.is-invalid]="noOfDays.invalid && noOfDays.touched"
+                      />
+                      
+                      <div *ngIf="noOfDays.errors && noOfDays.invalid && noOfDays.touched">
+                        <small class="text-danger" *ngIf="noOfDays.errors.required">Duration is required field</small>
+                        <small class="text-danger" *ngIf="noOfDays.errors.pattern">Duration must be greater than 0 and less than or equal to 120 days</small>
+                  
+                      </div>
+                    </div>
+                  
+              
+                
+                 
+                
+                
+   
+                  <div class="form-row">
+                    <div class="col">
+                        
+
+                      </div>
+                    </div>
+
+                    <div>
+                        <button
+                            mat-icon-button
+                            color="primary"
+                          routerLink="/navbar/viewtraining"
+                          >
+                            <mat-icon>keyboard_backspace</mat-icon> Back
+                          </button>
+                      </div>
+                  
+                  <div class="form-group text-right">
+                    <label for="submit"></label><br />
+                    <button [disabled]=addForm.invalid  class="btn btn-success" type="submit" >
+                      Update Training
+                    </button>
+                  </div>
+              
+                  
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

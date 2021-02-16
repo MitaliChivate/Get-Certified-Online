@@ -1,0 +1,112 @@
+
+<br><br>
+
+<div>
+  
+    <div class="d-flex flex-column" id="content-wrapper">
+      
+      <div id="content">
+        <div class="container-fluid" style="max-width: 80%;" >
+          <!-- <h3 class="text-dark mb-4">exams</h3> -->
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold  font-size: larger;"     style="font-size: large;" >
+                Enrolled Courses
+              </p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 text-nowrap">
+                  <div
+                    id="dataTable_length"
+                    class="dataTables_length"
+                    aria-controls="dataTable"
+                  ></div>
+                </div>
+                <div class="col-md-6">
+                  <div
+                    class="text-md-right dataTables_filter"
+                    id="dataTable_filter"
+                  ></div>
+                </div>
+              </div>
+              <div
+                class="table-responsive table mt-2"
+                id="dataTable"
+                role="grid"
+                aria-describedby="dataTable_info"
+              >
+                <table class="table my-0" id="dataTable" class="table table-hover ">
+                  
+                  <caption *ngIf='isLoading'>
+                    <div style="margin-left: 598px;
+                    margin-top: 151px;
+                    margin-bottom: -6px;" class="spinner-border"></div>&nbsp;&nbsp;Loading...
+                  </caption>
+                  <caption *ngIf='!isLoading'>
+                    List of Course Payments.
+                    <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize'>
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                    </select>
+                    <label class="float-right" style="padding-top: 0.5rem;">Items per
+                      page:&nbsp;&nbsp;</label>
+                  </caption>
+                  
+                  <thead class="colour" class="thead-dark">
+                    <tr >
+                      <!-- <th scope="col">Id</th> -->
+                  
+                      <th scope="col">Course Id</th>
+                      <th scope="col">Course Name</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Duration</th>
+                      <th></th>
+                      <th></th>
+                      
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr *ngFor='let pay of payments| paginate: { itemsPerPage: bucketSize, currentPage: p}'>
+                      <!-- <th scope="row">{{exam.examId}}</th> -->
+                      <td>{{pay.training.trainingProgramId}}</td>
+                      <td>{{pay.training.trainingCourse}}</td>
+                      <td>
+                        {{pay.training.description}}
+                      </td>
+                      <td>{{pay.training.noOfDays}}  Days</td>
+                     <td></td>
+                    <td> <button mat-raised-button color="primary"  [matMenuTriggerFor]="menu" ><mat-icon>play_arrow</mat-icon>&nbsp;&nbsp;Start Course </button></td>
+                    <mat-menu #menu="matMenu">
+                         <button mat-menu-item   [matMenuTriggerFor]="menu2" ><mat-icon>video_library</mat-icon>Tutorials</button> 
+                       
+                    </mat-menu>
+                    <mat-menu #menu2="matMenu">
+                        <a href="https://youtu.be/8cm1x4bC610">   <button mat-menu-item  >Turorial 1 -Ja...</button></a><br>
+                        <a href="https://youtu.be/k5E2AVpwsko">   <button mat-menu-item  >Turorial 2 -An...</button></a><br>
+                        <a href="https://youtu.be/_uQrJ0TkZlc">   <button mat-menu-item  >Turorial 3 -Py...</button></a><br>
+                        <a href="https://youtu.be/-iNLNMTKoM0">   <button mat-menu-item  >Turorial 4 -Sp...</button></a><br>
+                        <a href="https://youtu.be/qz0aGYrrlhU">   <button mat-menu-item  >Turorial 5 -Ht...</button></a><br>
+                        <a href="https://youtu.be/SXtS4pccFfs">   <button mat-menu-item  >Turorial 6 -.N...</button></a><br>
+                      
+                      
+                       
+                        
+                    </mat-menu>
+
+            
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+       
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
