@@ -12,6 +12,7 @@
 	<artifactId>TrainingProgram</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>TrainingProgram</name>
+	<packaging>war</packaging>
 	<description>Traing Program microservice</description>
 
 	<properties>
