@@ -4,7 +4,8 @@ import { PaymentTraining } from '../models/paymenttraining.model';
 import { Observable} from 'rxjs';
 import { PaymentExam } from '../models/paymentexam.model';
 import { DummyPayment } from '../models/dummyexampayment.model';
-import { AuthenticateService } from 'certification-frontend/src/app/services/authenticate.service';
+import { AuthenticateService } from './authenticate.service';
+
 
 
 

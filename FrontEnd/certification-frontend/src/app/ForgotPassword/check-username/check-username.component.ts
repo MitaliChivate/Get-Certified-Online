@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'certification-frontend/src/app/models/user.model';
+
 import { RegisterService } from 'src/app/services/register.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-check-username',
