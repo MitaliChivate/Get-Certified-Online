@@ -115,7 +115,7 @@ public class PaymentControllerTest {
 				435);
 
 		long frontOtp = 423123l;
-		;
+		
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/Payment/makePaymentForExam/423254")
 				.contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(payment)))
